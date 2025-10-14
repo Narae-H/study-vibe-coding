@@ -3,14 +3,123 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Blue Colors */
+  --blue-5: #f0f7ff;
+  --blue-10: #dbeeff;
+  --blue-20: #bddbff;
+  --blue-30: #93beff;
+  --blue-40: #6da5fa;
+  --blue-50: #497cff;
+  --blue-60: #3a5cf3;
+  --blue-70: #274ae1;
+  --blue-80: #1530a6;
+  --blue-90: #0b2184;
+
+  /* Gray Colors */
+  --gray-white: #ffffff;
+  --gray-5: #f2f2f2;
+  --gray-10: #e4e4e4;
+  --gray-20: #d4d3d3;
+  --gray-30: #c7c7c7;
+  --gray-40: #ababab;
+  --gray-50: #919191;
+  --gray-60: #777777;
+  --gray-70: #5f5f5f;
+  --gray-80: #333333;
+  --gray-90: #1c1c1c;
+  --gray-black: #000000;
+
+  /* Red Colors (Error) */
+  --red-5: #fdd7dc;
+  --red-10: #f797a4;
+  --red-20: #f4677a;
+  --red-30: #f03851;
+  --red-40: #e4112e;
+  --red-50: #b40e24;
+  --red-60: #850a1b;
+
+  /* Green Colors (Success) */
+  --green-5: #d3f3e0;
+  --green-10: #92e6b9;
+  --green-20: #15d66f;
+  --green-30: #12b75f;
+  --green-40: #109c51;
+  --green-50: #0e723c;
+  --green-60: #084424;
+
+  /* Yellow Colors (Warning) */
+  --yellow-5: #ffe499;
+  --yellow-10: #ffd666;
+  --yellow-20: #ffc933;
+  --yellow-30: #ffb300;
+  --yellow-40: #eba500;
+  --yellow-50: #d69600;
+  --yellow-60: #b27d00;
+
+  /* Cool Gray Colors */
+  --cool-gray-1: #f8f8fa;
+  --cool-gray-5: #f6f6f9;
+  --cool-gray-10: #edeef2;
+  --cool-gray-20: #dddfe5;
+  --cool-gray-30: #d2d4dd;
+  --cool-gray-40: #c7c9d5;
+  --cool-gray-50: #bbbecd;
+  --cool-gray-60: #b0b3c4;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #6da5fa 0%, #92eaf5 100%);
+  --gradient-skeleton: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.6) 48.5%, transparent 100%);
+
+  /* Semantic Colors - Light Mode */
+  --primary: var(--blue-60);
+  --primary-light: var(--blue-40);
+  --error: var(--red-30);
+  --success: var(--green-30);
+  --warning: var(--yellow-30);
+
+  /* Text Colors - Light Mode */
+  --text-primary: var(--gray-black);
+  --text-secondary: var(--gray-60);
+  --text-tertiary: var(--gray-40);
+  --text-disabled: var(--gray-30);
+
+  /* Background Colors - Light Mode */
+  --background-primary: var(--gray-white);
+  --background-secondary: var(--gray-5);
+  --background-tertiary: var(--gray-10);
+
+  /* Border Colors - Light Mode */
+  --border-primary: var(--gray-20);
+  --border-secondary: var(--gray-10);
+
+  /* Legacy Variables (for backward compatibility) */
+  --background: var(--background-primary);
+  --foreground: var(--text-primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Text Colors - Dark Mode */
+    --text-primary: var(--gray-white);
+    --text-secondary: var(--gray-40);
+    --text-tertiary: var(--gray-50);
+    --text-disabled: var(--gray-60);
+
+    /* Background Colors - Dark Mode */
+    --background-primary: var(--gray-black);
+    --background-secondary: var(--gray-90);
+    --background-tertiary: var(--gray-80);
+
+    /* Border Colors - Dark Mode */
+    --border-primary: var(--gray-70);
+    --border-secondary: var(--gray-80);
+
+    /* Gradient - Dark Mode (skeleton용 투명도 조정) */
+    --gradient-skeleton: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 48.5%, transparent 100%);
+
+    /* Legacy Variables (for backward compatibility) */
+    --background: var(--background-primary);
+    --foreground: var(--text-primary);
   }
 }
 
@@ -23,5 +132,14 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Gradient Utilities */
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .bg-gradient-skeleton {
+    background: var(--gradient-skeleton);
   }
 }
