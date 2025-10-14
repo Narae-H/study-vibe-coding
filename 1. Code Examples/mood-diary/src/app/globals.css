@@ -70,6 +70,141 @@
   --gradient-primary: linear-gradient(135deg, #6da5fa 0%, #92eaf5 100%);
   --gradient-skeleton: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.6) 48.5%, transparent 100%);
 
+  /* Font Families */
+  --font-family-ko: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-en: 'SUIT Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Typography - Web Headline (Desktop) */
+  --typo-web-headline-01-family: var(--font-family-ko);
+  --typo-web-headline-01-weight: 600;
+  --typo-web-headline-01-size: 48px;
+  --typo-web-headline-01-height: 60px;
+  --typo-web-headline-01-spacing: 0;
+
+  --typo-web-headline-02-family: var(--font-family-ko);
+  --typo-web-headline-02-weight: 600;
+  --typo-web-headline-02-size: 36px;
+  --typo-web-headline-02-height: 48px;
+  --typo-web-headline-02-spacing: 0;
+
+  --typo-web-headline-03-family: var(--font-family-ko);
+  --typo-web-headline-03-weight: 600;
+  --typo-web-headline-03-size: 28px;
+  --typo-web-headline-03-height: 36px;
+  --typo-web-headline-03-spacing: 0;
+
+  /* Typography - Headline (Mobile) */
+  --typo-headline-01-family: var(--font-family-ko);
+  --typo-headline-01-weight: 700;
+  --typo-headline-01-size: 24px;
+  --typo-headline-01-height: 32px;
+  --typo-headline-01-spacing: 0;
+
+  --typo-headline-02-family: var(--font-family-ko);
+  --typo-headline-02-weight: 800;
+  --typo-headline-02-size: 22px;
+  --typo-headline-02-height: 30px;
+  --typo-headline-02-spacing: 0;
+
+  --typo-headline-03-family: var(--font-family-ko);
+  --typo-headline-03-weight: 700;
+  --typo-headline-03-size: 20px;
+  --typo-headline-03-height: 28px;
+  --typo-headline-03-spacing: 0;
+
+  /* Typography - Title */
+  --typo-title-01-family: var(--font-family-ko);
+  --typo-title-01-weight: 700;
+  --typo-title-01-size: 18px;
+  --typo-title-01-height: 24px;
+  --typo-title-01-spacing: 0;
+
+  --typo-title-02-family: var(--font-family-ko);
+  --typo-title-02-weight: 700;
+  --typo-title-02-size: 16px;
+  --typo-title-02-height: 22px;
+  --typo-title-02-spacing: 0;
+
+  --typo-title-03-family: var(--font-family-ko);
+  --typo-title-03-weight: 700;
+  --typo-title-03-size: 14px;
+  --typo-title-03-height: 20px;
+  --typo-title-03-spacing: 0;
+
+  --typo-subtitle-01-family: var(--font-family-ko);
+  --typo-subtitle-01-weight: 600;
+  --typo-subtitle-01-size: 14px;
+  --typo-subtitle-01-height: 22px;
+  --typo-subtitle-01-spacing: 0;
+
+  --typo-subtitle-02-family: var(--font-family-ko);
+  --typo-subtitle-02-weight: 600;
+  --typo-subtitle-02-size: 12px;
+  --typo-subtitle-02-height: 18px;
+  --typo-subtitle-02-spacing: 0;
+
+  /* Typography - Body */
+  --typo-body-01-m-family: var(--font-family-ko);
+  --typo-body-01-m-weight: 500;
+  --typo-body-01-m-size: 16px;
+  --typo-body-01-m-height: 24px;
+  --typo-body-01-m-spacing: 0;
+
+  --typo-body-02-m-family: var(--font-family-ko);
+  --typo-body-02-m-weight: 500;
+  --typo-body-02-m-size: 14px;
+  --typo-body-02-m-height: 22px;
+  --typo-body-02-m-spacing: 0;
+
+  --typo-body-03-family: var(--font-family-ko);
+  --typo-body-03-weight: 500;
+  --typo-body-03-size: 12px;
+  --typo-body-03-height: 18px;
+  --typo-body-03-spacing: 0;
+
+  --typo-body-01-family: var(--font-family-ko);
+  --typo-body-01-weight: 400;
+  --typo-body-01-size: 16px;
+  --typo-body-01-height: 22px;
+  --typo-body-01-spacing: 0;
+
+  --typo-body-02-s-family: var(--font-family-ko);
+  --typo-body-02-s-weight: 400;
+  --typo-body-02-s-size: 14px;
+  --typo-body-02-s-height: 20px;
+  --typo-body-02-s-spacing: 0;
+
+  --typo-body-03-regular-family: var(--font-family-ko);
+  --typo-body-03-regular-weight: 400;
+  --typo-body-03-regular-size: 12px;
+  --typo-body-03-regular-height: 16px;
+  --typo-body-03-regular-spacing: 0;
+
+  /* Typography - Caption */
+  --typo-caption-01-family: var(--font-family-ko);
+  --typo-caption-01-weight: 600;
+  --typo-caption-01-size: 12px;
+  --typo-caption-01-height: 14px;
+  --typo-caption-01-spacing: 0;
+
+  --typo-caption-02-m-family: var(--font-family-ko);
+  --typo-caption-02-m-weight: 600;
+  --typo-caption-02-m-size: 10px;
+  --typo-caption-02-m-height: 12px;
+  --typo-caption-02-m-spacing: 0;
+
+  --typo-caption-02-s-family: var(--font-family-ko);
+  --typo-caption-02-s-weight: 500;
+  --typo-caption-02-s-size: 10px;
+  --typo-caption-02-s-height: 12px;
+  --typo-caption-02-s-spacing: 0;
+
+  --typo-caption-03-family: var(--font-family-ko);
+  --typo-caption-03-weight: 600;
+  --typo-caption-03-size: 8px;
+  --typo-caption-03-height: 10px;
+  --typo-caption-03-spacing: 0;
+
   /* Semantic Colors - Light Mode */
   --primary: var(--blue-60);
   --primary-light: var(--blue-40);
@@ -126,7 +261,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-family-ko);
 }
 
 @layer utilities {
@@ -141,5 +276,187 @@ body {
 
   .bg-gradient-skeleton {
     background: var(--gradient-skeleton);
+  }
+
+  /* Typography Utilities - Web Headline */
+  .typo-web-headline-01 {
+    font-family: var(--typo-web-headline-01-family);
+    font-weight: var(--typo-web-headline-01-weight);
+    font-size: var(--typo-web-headline-01-size);
+    line-height: var(--typo-web-headline-01-height);
+    letter-spacing: var(--typo-web-headline-01-spacing);
+  }
+
+  .typo-web-headline-02 {
+    font-family: var(--typo-web-headline-02-family);
+    font-weight: var(--typo-web-headline-02-weight);
+    font-size: var(--typo-web-headline-02-size);
+    line-height: var(--typo-web-headline-02-height);
+    letter-spacing: var(--typo-web-headline-02-spacing);
+  }
+
+  .typo-web-headline-03 {
+    font-family: var(--typo-web-headline-03-family);
+    font-weight: var(--typo-web-headline-03-weight);
+    font-size: var(--typo-web-headline-03-size);
+    line-height: var(--typo-web-headline-03-height);
+    letter-spacing: var(--typo-web-headline-03-spacing);
+  }
+
+  /* Typography Utilities - Headline */
+  .typo-headline-01 {
+    font-family: var(--typo-headline-01-family);
+    font-weight: var(--typo-headline-01-weight);
+    font-size: var(--typo-headline-01-size);
+    line-height: var(--typo-headline-01-height);
+    letter-spacing: var(--typo-headline-01-spacing);
+  }
+
+  .typo-headline-02 {
+    font-family: var(--typo-headline-02-family);
+    font-weight: var(--typo-headline-02-weight);
+    font-size: var(--typo-headline-02-size);
+    line-height: var(--typo-headline-02-height);
+    letter-spacing: var(--typo-headline-02-spacing);
+  }
+
+  .typo-headline-03 {
+    font-family: var(--typo-headline-03-family);
+    font-weight: var(--typo-headline-03-weight);
+    font-size: var(--typo-headline-03-size);
+    line-height: var(--typo-headline-03-height);
+    letter-spacing: var(--typo-headline-03-spacing);
+  }
+
+  /* Typography Utilities - Title */
+  .typo-title-01 {
+    font-family: var(--typo-title-01-family);
+    font-weight: var(--typo-title-01-weight);
+    font-size: var(--typo-title-01-size);
+    line-height: var(--typo-title-01-height);
+    letter-spacing: var(--typo-title-01-spacing);
+  }
+
+  .typo-title-02 {
+    font-family: var(--typo-title-02-family);
+    font-weight: var(--typo-title-02-weight);
+    font-size: var(--typo-title-02-size);
+    line-height: var(--typo-title-02-height);
+    letter-spacing: var(--typo-title-02-spacing);
+  }
+
+  .typo-title-03 {
+    font-family: var(--typo-title-03-family);
+    font-weight: var(--typo-title-03-weight);
+    font-size: var(--typo-title-03-size);
+    line-height: var(--typo-title-03-height);
+    letter-spacing: var(--typo-title-03-spacing);
+  }
+
+  .typo-subtitle-01 {
+    font-family: var(--typo-subtitle-01-family);
+    font-weight: var(--typo-subtitle-01-weight);
+    font-size: var(--typo-subtitle-01-size);
+    line-height: var(--typo-subtitle-01-height);
+    letter-spacing: var(--typo-subtitle-01-spacing);
+  }
+
+  .typo-subtitle-02 {
+    font-family: var(--typo-subtitle-02-family);
+    font-weight: var(--typo-subtitle-02-weight);
+    font-size: var(--typo-subtitle-02-size);
+    line-height: var(--typo-subtitle-02-height);
+    letter-spacing: var(--typo-subtitle-02-spacing);
+  }
+
+  /* Typography Utilities - Body */
+  .typo-body-01-m {
+    font-family: var(--typo-body-01-m-family);
+    font-weight: var(--typo-body-01-m-weight);
+    font-size: var(--typo-body-01-m-size);
+    line-height: var(--typo-body-01-m-height);
+    letter-spacing: var(--typo-body-01-m-spacing);
+  }
+
+  .typo-body-02-m {
+    font-family: var(--typo-body-02-m-family);
+    font-weight: var(--typo-body-02-m-weight);
+    font-size: var(--typo-body-02-m-size);
+    line-height: var(--typo-body-02-m-height);
+    letter-spacing: var(--typo-body-02-m-spacing);
+  }
+
+  .typo-body-03 {
+    font-family: var(--typo-body-03-family);
+    font-weight: var(--typo-body-03-weight);
+    font-size: var(--typo-body-03-size);
+    line-height: var(--typo-body-03-height);
+    letter-spacing: var(--typo-body-03-spacing);
+  }
+
+  .typo-body-01 {
+    font-family: var(--typo-body-01-family);
+    font-weight: var(--typo-body-01-weight);
+    font-size: var(--typo-body-01-size);
+    line-height: var(--typo-body-01-height);
+    letter-spacing: var(--typo-body-01-spacing);
+  }
+
+  .typo-body-02-s {
+    font-family: var(--typo-body-02-s-family);
+    font-weight: var(--typo-body-02-s-weight);
+    font-size: var(--typo-body-02-s-size);
+    line-height: var(--typo-body-02-s-height);
+    letter-spacing: var(--typo-body-02-s-spacing);
+  }
+
+  .typo-body-03-regular {
+    font-family: var(--typo-body-03-regular-family);
+    font-weight: var(--typo-body-03-regular-weight);
+    font-size: var(--typo-body-03-regular-size);
+    line-height: var(--typo-body-03-regular-height);
+    letter-spacing: var(--typo-body-03-regular-spacing);
+  }
+
+  /* Typography Utilities - Caption */
+  .typo-caption-01 {
+    font-family: var(--typo-caption-01-family);
+    font-weight: var(--typo-caption-01-weight);
+    font-size: var(--typo-caption-01-size);
+    line-height: var(--typo-caption-01-height);
+    letter-spacing: var(--typo-caption-01-spacing);
+  }
+
+  .typo-caption-02-m {
+    font-family: var(--typo-caption-02-m-family);
+    font-weight: var(--typo-caption-02-m-weight);
+    font-size: var(--typo-caption-02-m-size);
+    line-height: var(--typo-caption-02-m-height);
+    letter-spacing: var(--typo-caption-02-m-spacing);
+  }
+
+  .typo-caption-02-s {
+    font-family: var(--typo-caption-02-s-family);
+    font-weight: var(--typo-caption-02-s-weight);
+    font-size: var(--typo-caption-02-s-size);
+    line-height: var(--typo-caption-02-s-height);
+    letter-spacing: var(--typo-caption-02-s-spacing);
+  }
+
+  .typo-caption-03 {
+    font-family: var(--typo-caption-03-family);
+    font-weight: var(--typo-caption-03-weight);
+    font-size: var(--typo-caption-03-size);
+    line-height: var(--typo-caption-03-height);
+    letter-spacing: var(--typo-caption-03-spacing);
+  }
+
+  /* Font Family Utilities */
+  .font-ko {
+    font-family: var(--font-family-ko);
+  }
+
+  .font-en {
+    font-family: var(--font-family-en);
   }
 }
