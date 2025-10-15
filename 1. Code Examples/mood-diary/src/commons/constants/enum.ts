@@ -1,100 +1,112 @@
 /**
  * Enum Foundation
  * 
- * 프로젝트에서 사용되는 enum 데이터
- * 감정(emotion) 등의 카테고리 정보를 토큰화하여 사용
+ * 프로젝트에서 사용되는 열거형(enum) 타입들
  */
 
 import { red, blue, gray, yellow, green } from './color';
 
-// Emotion 타입 정의
-export type EmotionType = 'HAPPY' | 'SAD' | 'ANGRY' | 'SURPRISE' | 'ETC';
+/**
+ * 감정 타입 Enum
+ */
+export enum EmotionType {
+  HAPPY = 'HAPPY',
+  SAD = 'SAD',
+  ANGRY = 'ANGRY',
+  SURPRISE = 'SURPRISE',
+  ETC = 'ETC',
+}
 
-// Emotion 데이터 인터페이스
-export interface EmotionData {
-  key: EmotionType;
+/**
+ * 감정 데이터 인터페이스
+ */
+interface EmotionData {
   label: string;
-  images: {
+  image: {
     medium: string;
     small: string;
   };
   color: string;
 }
 
-// Emotion enum 데이터
-export const EMOTION: Record<EmotionType, EmotionData> = {
-  HAPPY: {
-    key: 'HAPPY',
+/**
+ * 감정별 상세 데이터
+ */
+export const EMOTION_DATA: Record<EmotionType, EmotionData> = {
+  [EmotionType.HAPPY]: {
     label: '행복해요',
-    images: {
-      medium: '/icons/emotion-happy-m.svg',
+    image: {
+      medium: '/images/emotion-happy-m.png',
       small: '/images/emotion-happy-s.png',
     },
     color: red[60],
   },
-  SAD: {
-    key: 'SAD',
+  [EmotionType.SAD]: {
     label: '슬퍼요',
-    images: {
-      medium: '/icons/emotion-sad-m.svg',
+    image: {
+      medium: '/images/emotion-sad-m.png',
       small: '/images/emotion-sad-s.png',
     },
     color: blue[60],
   },
-  ANGRY: {
-    key: 'ANGRY',
+  [EmotionType.ANGRY]: {
     label: '화나요',
-    images: {
-      medium: '/icons/emotion-angry-m.svg',
+    image: {
+      medium: '/images/emotion-angry-m.png',
       small: '/images/emotion-angry-s.png',
     },
     color: gray[60],
   },
-  SURPRISE: {
-    key: 'SURPRISE',
+  [EmotionType.SURPRISE]: {
     label: '놀랐어요',
-    images: {
-      medium: '/icons/emotion-surprise-m.svg',
+    image: {
+      medium: '/images/emotion-surprise-m.png',
       small: '/images/emotion-surprise-s.png',
     },
     color: yellow[60],
   },
-  ETC: {
-    key: 'ETC',
+  [EmotionType.ETC]: {
     label: '기타',
-    images: {
-      medium: '/icons/emotion-etc-m.svg',
+    image: {
+      medium: '/images/emotion-etc-m.png',
       small: '/images/emotion-etc-s.png',
     },
     color: green[60],
   },
 } as const;
 
-// Emotion 배열 (순회용)
-export const EMOTION_LIST: EmotionData[] = [
-  EMOTION.HAPPY,
-  EMOTION.SAD,
-  EMOTION.ANGRY,
-  EMOTION.SURPRISE,
-  EMOTION.ETC,
+/**
+ * 감정 타입 배열 (순서 보장)
+ */
+export const EMOTION_LIST = [
+  EmotionType.HAPPY,
+  EmotionType.SAD,
+  EmotionType.ANGRY,
+  EmotionType.SURPRISE,
+  EmotionType.ETC,
 ] as const;
 
-// Emotion key 배열
-export const EMOTION_KEYS: EmotionType[] = [
-  'HAPPY',
-  'SAD',
-  'ANGRY',
-  'SURPRISE',
-  'ETC',
-] as const;
-
-// 유틸리티 함수: key로 emotion 데이터 가져오기
-export const getEmotionByKey = (key: EmotionType): EmotionData => {
-  return EMOTION[key];
+/**
+ * 감정 타입별 라벨 가져오기
+ */
+export const getEmotionLabel = (emotion: EmotionType): string => {
+  return EMOTION_DATA[emotion].label;
 };
 
-// 유틸리티 함수: label로 emotion 데이터 찾기
-export const getEmotionByLabel = (label: string): EmotionData | undefined => {
-  return EMOTION_LIST.find((emotion) => emotion.label === label);
+/**
+ * 감정 타입별 이미지 경로 가져오기
+ */
+export const getEmotionImage = (
+  emotion: EmotionType,
+  size: 'medium' | 'small' = 'medium'
+): string => {
+  return EMOTION_DATA[emotion].image[size];
+};
+
+/**
+ * 감정 타입별 색상 가져오기
+ */
+export const getEmotionColor = (emotion: EmotionType): string => {
+  return EMOTION_DATA[emotion].color;
 };
 
