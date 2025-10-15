@@ -28,7 +28,7 @@ export const EMOTION: Record<EmotionType, EmotionData> = {
     label: '행복해요',
     images: {
       medium: '/icons/emotion-happy-m.svg',
-      small: '/icons/emotion-happy-s.svg',
+      small: '/images/emotion-happy-s.png',
     },
     color: red[60],
   },
@@ -37,7 +37,7 @@ export const EMOTION: Record<EmotionType, EmotionData> = {
     label: '슬퍼요',
     images: {
       medium: '/icons/emotion-sad-m.svg',
-      small: '/icons/emotion-sad-s.svg',
+      small: '/images/emotion-sad-s.png',
     },
     color: blue[60],
   },
@@ -46,7 +46,7 @@ export const EMOTION: Record<EmotionType, EmotionData> = {
     label: '화나요',
     images: {
       medium: '/icons/emotion-angry-m.svg',
-      small: '/icons/emotion-angry-s.svg',
+      small: '/images/emotion-angry-s.png',
     },
     color: gray[60],
   },
@@ -55,7 +55,7 @@ export const EMOTION: Record<EmotionType, EmotionData> = {
     label: '놀랐어요',
     images: {
       medium: '/icons/emotion-surprise-m.svg',
-      small: '/icons/emotion-surprise-s.svg',
+      small: '/images/emotion-surprise-s.png',
     },
     color: yellow[60],
   },
@@ -64,7 +64,7 @@ export const EMOTION: Record<EmotionType, EmotionData> = {
     label: '기타',
     images: {
       medium: '/icons/emotion-etc-m.svg',
-      small: '/icons/emotion-etc-s.svg',
+      small: '/images/emotion-etc-s.png',
     },
     color: green[60],
   },
