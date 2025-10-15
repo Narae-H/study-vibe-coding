@@ -1,0 +1,113 @@
+[33mcommit a35d33006e929d87327e22f3019ec5a953c1f427[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: NaraeH <79120733+Narae-H@users.noreply.github.com>
+Date:   Wed Oct 15 19:50:49 2025 +1100
+
+    feat: NextThemes Provider 구현 및 layout 연결
+
+[33mcommit be70379b70d9002f3e78b154eecaeb53926b6db7[m
+Author: NaraeH <79120733+Narae-H@users.noreply.github.com>
+Date:   Wed Oct 15 19:41:54 2025 +1100
+
+    feat: ëª¨ë‹¬ í”„ë¡œë°”ì´ë” êµ¬í˜„ ë° ë ˆì´ì•„ì›ƒ ì—°ê²°
+
+[33mcommit 7167ac2d7be0fcd8801cafab6dfc486a224736c9[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Narae-H <naraehyeon@gmail.com>
+Date:   Wed Oct 15 16:46:04 2025 +1100
+
+    docs(url): URL 부분 정리
+
+[33mcommit 3a32579a90004bc8a33de08ce0e17c3307747b33[m
+Author: Narae-H <naraehyeon@gmail.com>
+Date:   Wed Oct 15 16:25:40 2025 +1100
+
+    feat: URL 경로 관리 상수 파일 구현
+
+[33mcommit 74d3480abcb8614ad995a64b987d14a9010657a1[m
+Merge: 950030b bb7f568
+Author: Narae-H <naraehyeon@gmail.com>
+Date:   Wed Oct 15 16:12:52 2025 +1100
+
+    Merge branch 'main' of my-github.com:Narae-H/study-vibe-coding
+
+[33mcommit 950030bd642c276754b7cd0a057b2d37ed610c24[m
+Author: Narae-H <naraehyeon@gmail.com>
+Date:   Wed Oct 15 16:12:30 2025 +1100
+
+    feat(rules): 공통 규칙 일부 수정
+
+[33mcommit 991c45629aafc652a7167d3608f535c14ad0fd6f[m
+Author: Narae-H <naraehyeon@gmail.com>
+Date:   Wed Oct 15 15:44:14 2025 +1100
+
+    feat: 감정(emotion) enum 상수 구현
+    
+    - 5가지 감정 타입(행복해요, 슬퍼요, 화나요, 놀랐어요, 기타) 정의
+    - 감정별 라벨, 이미지(medium/small), 색상 데이터 구현
+    - EmotionData interface로 타입 안정성 확보
+    - Record<EmotionType, EmotionData>로 타입 체크 강화
+
+[33mcommit bb7f5687f518be1dffa6c3ba17d8372a96b4c1ae[m
+Author: Narae-H <naraehyeon@gmail.com>
+Date:   Wed Oct 15 15:44:14 2025 +1100
+
+    docs(enum): enum 부분 정리 추가
+
+[33mcommit 54b8950d3c11e4e9a103736dc28c05664bd79977[m
+Author: Narae-H <naraehyeon@gmail.com>
+Date:   Wed Oct 15 15:41:42 2025 +1100
+
+    chore(public): icons 및 images 폴더 추가
+
+[33mcommit 32e3e70fa126e531966c3f1e27b9db0554636152[m
+Author: Narae-H <naraehyeon@gmail.com>
+Date:   Wed Oct 15 15:37:51 2025 +1100
+
+    feat: 감정(emotion) enum 상수 구현
+    
+    - 5가지 감정 타입(행복해요, 슬퍼요, 화나요, 놀랐어요, 기타) 정의
+    - 감정별 라벨, 이미지(medium/small), 색상 데이터 구조화
+    - 감정 데이터 조회를 위한 유틸리티 함수 제공
+    - EmotionType enum 및 EMOTION_DATA 상수 구현
+
+[33mcommit 4506addecbe5880b305640470acb57c2408d0781[m
+Author: Narae-H <naraehyeon@gmail.com>
+Date:   Wed Oct 15 15:16:43 2025 +1100
+
+    fix(constants): 감정 이미지 경로 수정 - small 사이즈 png 파일로 변경
+
+[33mcommit 78426ccab6b3333ac919da5ef6f8e631fed5bf3f[m
+Author: Narae-H <naraehyeon@gmail.com>
+Date:   Wed Oct 15 15:13:53 2025 +1100
+
+    feat(constants): 감정(emotion) enum 상수 추가
+
+[33mcommit e266514e923d6e433932feae7103a775703cd515[m
+Author: NaraeH <79120733+Narae-H@users.noreply.github.com>
+Date:   Tue Oct 14 20:30:03 2025 +1100
+
+    feat: 타이포그래피 파운데이션 시스템 구축
+    
+    - Figma 파운데이션 기반 타이포그래피 토큰 정의
+    - 한글(Pretendard), 영문(SUIT Variable) 폰트 분리
+    - 모바일/데스크톱 반응형 타이포그래피 지원
+    - globals.css에 CSS 변수 및 유틸리티 클래스 추가
+    - Web Headline, Headline, Title, Body, Caption 토큰 구현
+
+[33mcommit a4999d946088b79e649f8c7ca94bcff49e5163c4[m
+Author: NaraeH <79120733+Narae-H@users.noreply.github.com>
+Date:   Tue Oct 14 20:03:15 2025 +1100
+
+    feat: Figma 파운데이션 기반 컬러 시스템 및 다크모드 지원 구현
+    
+    - Figma Color Foundation 데이터를 기반으로 color.ts 구현
+    - Blue, Gray, Red, Green, Yellow, Cool Gray 컬러 팔레트 정의
+    - 다크모드 지원을 위한 시맨틱 컬러 토큰 추가
+    - globals.css에 CSS 변수로 컬러 토큰 정의
+    - Gradient(Primary, Skeleton) 정의
+    - 라이트/다크 모드별 자동 전환 지원
+
+[33mcommit 10e7296de71b42cb67d79db471ba6e0417ead470[m
+Author: Narae-H <naraehyeon@gmail.com>
+Date:   Mon Oct 13 16:28:23 2025 +1100
+
+    doc: 폴더 정리 및 프로젝트 코드 최초 생성
