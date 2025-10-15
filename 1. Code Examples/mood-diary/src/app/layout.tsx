@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ModalProvider } from "@/commons/providers/modal/modal.provider";
+import { NextThemesProvider } from "@/commons/providers/next-themes/next-themes.provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,13 +26,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ModalProvider>
-          {children}
-        </ModalProvider>
+        <NextThemesProvider>
+          <ModalProvider>
+            {children}
+          </ModalProvider>
+        </NextThemesProvider>
       </body>
     </html>
   );
