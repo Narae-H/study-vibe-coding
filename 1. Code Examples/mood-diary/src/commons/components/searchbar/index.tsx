@@ -40,16 +40,15 @@ export interface SearchbarProps extends Omit<InputHTMLAttributes<HTMLInputElemen
 export const Searchbar = forwardRef<HTMLInputElement, SearchbarProps>(
   (
     {
-      className,
       variant = 'primary',
       size = 'medium',
       theme = 'light',
+      className,
       ...props
     },
     ref
   ) => {
-    // 템플릿 리터럴 방식으로 클래스명 조합 (Button 컴포넌트와 동일한 패턴)
-    const searchbarClassName = [
+    const searchbarClasses = [
       styles.searchbar,
       styles[`variant-${variant}`],
       styles[`size-${size}`],
@@ -58,7 +57,7 @@ export const Searchbar = forwardRef<HTMLInputElement, SearchbarProps>(
     ].filter(Boolean).join(' ');
 
     return (
-      <div className={searchbarClassName}>
+      <div className={searchbarClasses}>
         <div className={styles.iconWrapper}>
           <Image
             src="/icons/search_outline_light_m.svg"

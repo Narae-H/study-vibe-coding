@@ -1,6 +1,4 @@
-/* Searchbar Component Styles */
-
-/* Base Searchbar Container */
+/* Searchbar Base Styles */
 .searchbar {
   /* Layout */
   display: flex;
@@ -9,18 +7,22 @@
   box-sizing: border-box;
   width: 100%;
   
+  /* Typography - Figma에서 확인한 Pretendard Variable, Medium, 500 */
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
   /* Border */
   border-width: 1px;
   border-style: solid;
-  
-  /* Typography */
-  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   
   /* Interaction */
   outline: none;
 }
 
-/* Icon Wrapper */
+.searchbar:focus-within {
+  outline: none;
+}
+
+/* Icon Styles */
 .iconWrapper {
   display: flex;
   align-items: center;
@@ -28,12 +30,11 @@
   flex-shrink: 0;
 }
 
-/* Search Icon */
 .searchIcon {
   flex-shrink: 0;
 }
 
-/* Input Element */
+/* Input Styles */
 .input {
   flex: 1;
   width: 100%;
@@ -47,6 +48,10 @@
 .input::placeholder {
   color: inherit;
   opacity: 1;
+}
+
+.input:focus {
+  outline: none;
 }
 
 /* Size Variants */
@@ -66,13 +71,13 @@
   font-size: 12px;
   line-height: 18px;
   font-weight: 500;
-  letter-spacing: 0;
+  letter-spacing: -0.12px;
 }
 
 .size-medium {
-  /* Figma 기본 디자인 (노드 3:1566): height: 48, padding: 16px, borderRadius: 24px */
   height: 48px;
   padding: 0 16px;
+  /* Figma 기본 디자인 (노드 3:1566): borderRadius: 24px (완전 둥근 모서리) */
   border-radius: 24px;
   gap: 8px;
 }
@@ -83,11 +88,11 @@
 }
 
 .size-medium .input {
-  /* Figma에서 확인한 fontSize: 16, lineHeight: 24, fontWeight: 500 */
+  /* Figma에서 확인한 fontSize: 16, lineHeight: 24, fontWeight: 500, letterSpacing: -0.16 */
   font-size: 16px;
   line-height: 24px;
   font-weight: 500;
-  letter-spacing: 0;
+  letter-spacing: -0.16px;
 }
 
 .size-large {
@@ -106,12 +111,11 @@
   font-size: 18px;
   line-height: 28px;
   font-weight: 500;
-  letter-spacing: 0;
+  letter-spacing: -0.18px;
 }
 
 /* Primary Variant - Light Theme */
 .variant-primary.theme-light {
-  /* Figma에서 확인한 기본 디자인 */
   background-color: #ffffff;
   border-color: #c7c7c7;
   color: #000000;
@@ -122,7 +126,6 @@
 }
 
 .variant-primary.theme-light .input::placeholder {
-  /* Figma에서 확인한 placeholder color */
   color: #ababab;
 }
 
@@ -263,13 +266,4 @@
 
 .searchbar .input:disabled {
   cursor: not-allowed;
-}
-
-/* Focus State */
-.searchbar:focus-within {
-  outline: none;
-}
-
-.input:focus {
-  outline: none;
 }
