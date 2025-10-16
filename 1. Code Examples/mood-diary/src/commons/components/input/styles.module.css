@@ -1,0 +1,246 @@
+/* Input Component Styles - 피그마 기반 variant 시스템 */
+
+/* Base Input Styles */
+.input {
+  /* 기본 박스 모델 */
+  width: 100%;
+  box-sizing: border-box;
+  
+  /* Typography - Figma에서 확인한 Pretendard Variable */
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* Border Radius - Figma에서 확인한 cornerRadius: 8 */
+  border-radius: 8px;
+  
+  /* Focus */
+  outline: none;
+}
+
+.input:focus {
+  outline: none;
+}
+
+/* Size Variants */
+.size-small {
+  height: 36px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+.size-medium {
+  /* Figma에서 확인한 height: 48, padding: 12px 16px, fontSize: 16, lineHeight: 24, letterSpacing: -0.16 */
+  height: 48px;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+}
+
+.size-large {
+  height: 56px;
+  padding: 16px 20px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+}
+
+/* Primary Variant - Light Theme */
+.variant-primary.theme-light {
+  /* Figma에서 확인한 기본 디자인 */
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #d4d3d3;
+}
+
+.variant-primary.theme-light::placeholder {
+  color: #ababab;
+}
+
+.variant-primary.theme-light:hover:not(:disabled) {
+  border-color: #bbbecd;
+}
+
+.variant-primary.theme-light:focus {
+  border-color: #3a5cf3;
+}
+
+.variant-primary.theme-light:disabled {
+  background-color: #f2f2f2;
+  border-color: #d4d3d3;
+  color: #ababab;
+  cursor: not-allowed;
+}
+
+.variant-primary.theme-light:disabled::placeholder {
+  color: #c7c7c7;
+}
+
+/* Primary Variant - Dark Theme */
+.variant-primary.theme-dark {
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border: 1px solid #5f5f5f;
+}
+
+.variant-primary.theme-dark::placeholder {
+  color: #919191;
+}
+
+.variant-primary.theme-dark:hover:not(:disabled) {
+  border-color: #777777;
+}
+
+.variant-primary.theme-dark:focus {
+  border-color: #6da5fa;
+}
+
+.variant-primary.theme-dark:disabled {
+  background-color: #333333;
+  border-color: #5f5f5f;
+  color: #777777;
+  cursor: not-allowed;
+}
+
+.variant-primary.theme-dark:disabled::placeholder {
+  color: #5f5f5f;
+}
+
+/* Secondary Variant - Light Theme */
+.variant-secondary.theme-light {
+  background-color: #f2f2f2;
+  color: #333333;
+  border: 1px solid transparent;
+}
+
+.variant-secondary.theme-light::placeholder {
+  color: #ababab;
+}
+
+.variant-secondary.theme-light:hover:not(:disabled) {
+  background-color: #e4e4e4;
+}
+
+.variant-secondary.theme-light:focus {
+  background-color: #f2f2f2;
+  border-color: #3a5cf3;
+}
+
+.variant-secondary.theme-light:disabled {
+  background-color: #e4e4e4;
+  border-color: transparent;
+  color: #ababab;
+  cursor: not-allowed;
+}
+
+.variant-secondary.theme-light:disabled::placeholder {
+  color: #c7c7c7;
+}
+
+/* Secondary Variant - Dark Theme */
+.variant-secondary.theme-dark {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid transparent;
+}
+
+.variant-secondary.theme-dark::placeholder {
+  color: #919191;
+}
+
+.variant-secondary.theme-dark:hover:not(:disabled) {
+  background-color: #5f5f5f;
+}
+
+.variant-secondary.theme-dark:focus {
+  background-color: #333333;
+  border-color: #6da5fa;
+}
+
+.variant-secondary.theme-dark:disabled {
+  background-color: #5f5f5f;
+  border-color: transparent;
+  color: #777777;
+  cursor: not-allowed;
+}
+
+.variant-secondary.theme-dark:disabled::placeholder {
+  color: #5f5f5f;
+}
+
+/* Tertiary Variant - Light Theme */
+.variant-tertiary.theme-light {
+  background-color: transparent;
+  color: #333333;
+  border: none;
+  border-bottom: 1px solid #d4d3d3;
+  border-radius: 0;
+}
+
+.variant-tertiary.theme-light::placeholder {
+  color: #ababab;
+}
+
+.variant-tertiary.theme-light:hover:not(:disabled) {
+  border-bottom-color: #bbbecd;
+}
+
+.variant-tertiary.theme-light:focus {
+  border-bottom-color: #3a5cf3;
+}
+
+.variant-tertiary.theme-light:disabled {
+  background-color: transparent;
+  border-bottom-color: #d4d3d3;
+  color: #ababab;
+  cursor: not-allowed;
+}
+
+.variant-tertiary.theme-light:disabled::placeholder {
+  color: #c7c7c7;
+}
+
+/* Tertiary Variant - Dark Theme */
+.variant-tertiary.theme-dark {
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+  border-bottom: 1px solid #5f5f5f;
+  border-radius: 0;
+}
+
+.variant-tertiary.theme-dark::placeholder {
+  color: #919191;
+}
+
+.variant-tertiary.theme-dark:hover:not(:disabled) {
+  border-bottom-color: #777777;
+}
+
+.variant-tertiary.theme-dark:focus {
+  border-bottom-color: #6da5fa;
+}
+
+.variant-tertiary.theme-dark:disabled {
+  background-color: transparent;
+  border-bottom-color: #5f5f5f;
+  color: #777777;
+  cursor: not-allowed;
+}
+
+.variant-tertiary.theme-dark:disabled::placeholder {
+  color: #5f5f5f;
+}
+
+/* Responsive - 모바일에서 large 크기 조정 */
+@media (max-width: 768px) {
+  .size-large {
+    height: 48px;
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+}
