@@ -1,8 +1,7 @@
 /* Toggle Base Styles */
 .toggle {
   /* Layout */
-  position: relative;
-  display: inline-block;
+  display: inline-flex;
   cursor: pointer;
   user-select: none;
 }
@@ -14,16 +13,19 @@
 
 /* Hidden Checkbox Input */
 .input {
-  position: absolute;
-  opacity: 0;
+  /* 접근성을 위해 DOM에는 존재하지만 화면에서 숨김 (flexbox 방식) */
   width: 0;
   height: 0;
+  opacity: 0;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 /* Slider (Background Track) */
 .slider {
-  position: relative;
-  display: block;
+  /* Layout - flexbox 사용 */
+  display: flex;
+  align-items: center;
   
   /* Figma에서 확인한 cornerRadius: 100 (완전 둥글게) */
   border-radius: 100px;
@@ -31,61 +33,58 @@
 
 /* Thumb (움직이는 동그라미) */
 .thumb {
-  position: absolute;
   background-color: #ffffff;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 /* Size Variants - Medium (기본, Figma: 58x32) */
 .size-medium .slider {
   width: 58px;
   height: 32px;
+  padding: 4px;
 }
 
 .size-medium .thumb {
   width: 24px;
   height: 24px;
-  top: 4px;
-  left: 4px;
 }
 
-.size-medium.checked .thumb {
-  /* 켜짐 상태: 오른쪽으로 이동 (58 - 24 - 4 - 4 = 26px) */
-  transform: translateX(26px);
+.size-medium.checked .slider {
+  /* 켜짐 상태: flexbox의 justify-content로 오른쪽 정렬 */
+  justify-content: flex-end;
 }
 
 /* Size Variants - Small */
 .size-small .slider {
   width: 44px;
   height: 24px;
+  padding: 3px;
 }
 
 .size-small .thumb {
   width: 18px;
   height: 18px;
-  top: 3px;
-  left: 3px;
 }
 
-.size-small.checked .thumb {
-  transform: translateX(20px);
+.size-small.checked .slider {
+  justify-content: flex-end;
 }
 
 /* Size Variants - Large */
 .size-large .slider {
   width: 68px;
   height: 38px;
+  padding: 4px;
 }
 
 .size-large .thumb {
   width: 30px;
   height: 30px;
-  top: 4px;
-  left: 4px;
 }
 
-.size-large.checked .thumb {
-  transform: translateX(30px);
+.size-large.checked .slider {
+  justify-content: flex-end;
 }
 
 /* Primary Variant - Light Theme */
