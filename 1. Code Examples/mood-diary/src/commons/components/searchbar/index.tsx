@@ -48,22 +48,14 @@ export const Searchbar = forwardRef<HTMLInputElement, SearchbarProps>(
     },
     ref
   ) => {
-    // 클래스명 조합 함수 (외부 라이브러리 없이 구현)
-    const getClassName = (...classes: (string | undefined | false)[]) => {
-      return classes.filter(Boolean).join(' ');
-    };
-
-    // variant, size, theme 조합 클래스명 생성
-    const searchbarClassName = getClassName(
+    // 템플릿 리터럴 방식으로 클래스명 조합 (Button 컴포넌트와 동일한 패턴)
+    const searchbarClassName = [
       styles.searchbar,
-      styles[variant],
-      styles[size],
-      styles[theme],
-      className
-    );
-
-    // size에 따른 아이콘 크기 결정
-    const iconSize = size === 'small' ? 18 : size === 'large' ? 28 : 24;
+      styles[`variant-${variant}`],
+      styles[`size-${size}`],
+      styles[`theme-${theme}`],
+      className,
+    ].filter(Boolean).join(' ');
 
     return (
       <div className={searchbarClassName}>
@@ -71,8 +63,8 @@ export const Searchbar = forwardRef<HTMLInputElement, SearchbarProps>(
           <Image
             src="/icons/search_outline_light_m.svg"
             alt="search"
-            width={iconSize}
-            height={iconSize}
+            width={24}
+            height={24}
             className={styles.searchIcon}
           />
         </div>
