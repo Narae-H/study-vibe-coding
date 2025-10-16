@@ -1,0 +1,269 @@
+/* Selectbox Base Styles */
+.selectbox {
+  /* Layout - Flexbox 기반 (position-absolute 금지) */
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  
+  /* Typography - Figma에서 확인한 Pretendard Variable, Medium, 500 */
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 500;
+  
+  /* Interaction */
+  cursor: pointer;
+  user-select: none;
+  
+  /* Border Radius - Figma에서 확인한 cornerRadius: 8 */
+  border-radius: 8px;
+  border: 1px solid transparent;
+  
+  /* Focus */
+  outline: none;
+}
+
+.selectbox:focus-within {
+  outline: 2px solid #3a5cf3;
+  outline-offset: 2px;
+}
+
+/* Select Element */
+.select {
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  outline: none;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+.select::-ms-expand {
+  display: none;
+}
+
+/* Icon Wrapper - Flexbox 기반 (position 미사용) */
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+/* Dropdown Icon */
+.dropdownIcon {
+  display: block;
+}
+
+/* Size Variants */
+.size-small {
+  width: 100px;
+  height: 36px;
+  border-radius: 6px;
+  gap: 4px;
+}
+
+.size-small .select {
+  padding-left: 12px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+.size-small .iconWrapper {
+  padding-right: 8px;
+}
+
+.size-small .dropdownIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Medium Size (기본) - Figma 기준 */
+.size-medium {
+  width: 120px;
+  height: 48px;
+  border-radius: 8px;
+  gap: 8px;
+}
+
+.size-medium .select {
+  padding-left: 16px;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+}
+
+.size-medium .iconWrapper {
+  padding-right: 12px;
+}
+
+.size-medium .dropdownIcon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Large Size */
+.size-large {
+  width: 160px;
+  height: 56px;
+  border-radius: 10px;
+  gap: 12px;
+}
+
+.size-large .select {
+  padding-left: 20px;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+}
+
+.size-large .iconWrapper {
+  padding-right: 16px;
+}
+
+.size-large .dropdownIcon {
+  width: 28px;
+  height: 28px;
+}
+
+/* Primary Variant - Light Theme */
+.variant-primary.theme-light {
+  background-color: #ffffff;
+  border-color: #c7c7c7;
+}
+
+.variant-primary.theme-light .select {
+  color: #1c1c1c;
+}
+
+.variant-primary.theme-light:hover:not(.disabled) {
+  border-color: #ababab;
+}
+
+.variant-primary.theme-light:active:not(.disabled) {
+  border-color: #919191;
+  background-color: #f2f2f2;
+}
+
+.variant-primary.theme-light .select option {
+  color: #1c1c1c;
+  background-color: #ffffff;
+}
+
+/* Primary Variant - Dark Theme */
+.variant-primary.theme-dark {
+  background-color: #1c1c1c;
+  border-color: #5f5f5f;
+}
+
+.variant-primary.theme-dark .select {
+  color: #ffffff;
+}
+
+.variant-primary.theme-dark:hover:not(.disabled) {
+  border-color: #777777;
+}
+
+.variant-primary.theme-dark:active:not(.disabled) {
+  border-color: #919191;
+  background-color: #333333;
+}
+
+.variant-primary.theme-dark .select option {
+  color: #ffffff;
+  background-color: #1c1c1c;
+}
+
+/* Secondary Variant - Light Theme */
+.variant-secondary.theme-light {
+  background-color: #f2f2f2;
+  border-color: #e4e4e4;
+}
+
+.variant-secondary.theme-light .select {
+  color: #1c1c1c;
+}
+
+.variant-secondary.theme-light:hover:not(.disabled) {
+  background-color: #e4e4e4;
+  border-color: #d4d3d3;
+}
+
+.variant-secondary.theme-light:active:not(.disabled) {
+  background-color: #d4d3d3;
+  border-color: #c7c7c7;
+}
+
+/* Secondary Variant - Dark Theme */
+.variant-secondary.theme-dark {
+  background-color: #333333;
+  border-color: #5f5f5f;
+}
+
+.variant-secondary.theme-dark .select {
+  color: #ffffff;
+}
+
+.variant-secondary.theme-dark:hover:not(.disabled) {
+  background-color: #5f5f5f;
+  border-color: #777777;
+}
+
+.variant-secondary.theme-dark:active:not(.disabled) {
+  background-color: #777777;
+  border-color: #919191;
+}
+
+/* Tertiary Variant - Light Theme */
+.variant-tertiary.theme-light {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.variant-tertiary.theme-light .select {
+  color: #1c1c1c;
+}
+
+.variant-tertiary.theme-light:hover:not(.disabled) {
+  background-color: #f2f2f2;
+}
+
+.variant-tertiary.theme-light:active:not(.disabled) {
+  background-color: #e4e4e4;
+}
+
+/* Tertiary Variant - Dark Theme */
+.variant-tertiary.theme-dark {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.variant-tertiary.theme-dark .select {
+  color: #ffffff;
+}
+
+.variant-tertiary.theme-dark:hover:not(.disabled) {
+  background-color: #1c1c1c;
+}
+
+.variant-tertiary.theme-dark:active:not(.disabled) {
+  background-color: #333333;
+}
+
+/* Disabled State */
+.selectbox.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.selectbox.disabled .select {
+  cursor: not-allowed;
+}
