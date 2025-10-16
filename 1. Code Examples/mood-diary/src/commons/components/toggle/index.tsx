@@ -57,7 +57,7 @@ export const Toggle: React.FC<ToggleProps> = ({
     }
   };
 
-  const wrapperClasses = [
+  const toggleClasses = [
     styles.toggle,
     styles[`variant-${variant}`],
     styles[`size-${size}`],
@@ -68,7 +68,7 @@ export const Toggle: React.FC<ToggleProps> = ({
   ].filter(Boolean).join(' ');
 
   return (
-    <label className={wrapperClasses}>
+    <label className={toggleClasses}>
       <input
         type="checkbox"
         className={styles.input}
@@ -85,4 +85,3 @@ export const Toggle: React.FC<ToggleProps> = ({
 };
 
 export default Toggle;
-

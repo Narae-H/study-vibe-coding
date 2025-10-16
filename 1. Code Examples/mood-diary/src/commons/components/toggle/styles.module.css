@@ -24,7 +24,6 @@
 .slider {
   position: relative;
   display: block;
-  transition: background-color 0.3s ease;
   
   /* Figma에서 확인한 cornerRadius: 100 (완전 둥글게) */
   border-radius: 100px;
@@ -35,10 +34,6 @@
   position: absolute;
   background-color: #ffffff;
   border-radius: 50%;
-  transition: transform 0.3s ease;
-  
-  /* 그림자 효과 추가 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Size Variants - Medium (기본, Figma: 58x32) */
@@ -204,22 +199,3 @@
   outline: 2px solid #3a5cf3;
   outline-offset: 2px;
 }
-
-/* Active State (클릭 시) */
-.toggle:active:not(.disabled) .thumb {
-  /* 클릭 시 약간 확대 효과 */
-  width: calc(100% - 4px);
-}
-
-.size-small.toggle:active:not(.disabled) .thumb {
-  width: calc(18px + 4px);
-}
-
-.size-medium.toggle:active:not(.disabled) .thumb {
-  width: calc(24px + 4px);
-}
-
-.size-large.toggle:active:not(.disabled) .thumb {
-  width: calc(30px + 4px);
-}
-
