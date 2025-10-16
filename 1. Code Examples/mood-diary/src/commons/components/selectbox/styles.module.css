@@ -1,8 +1,8 @@
 /* Selectbox Base Styles */
 .selectbox {
-  /* Layout - Relative positioning for dropdown */
-  position: relative;
-  display: inline-block;
+  /* Layout - Flexbox 기반 (position 금지) */
+  display: inline-flex;
+  flex-direction: column;
   box-sizing: border-box;
   
   /* Typography - Figma에서 확인한 Pretendard Variable, Medium, 500 */
@@ -54,11 +54,9 @@
 
 /* Dropdown Menu */
 .dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  /* Flexbox 기반 레이아웃 (position absolute 금지) */
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
   border: 1px solid #c7c7c7;
   border-radius: 8px;
@@ -75,7 +73,6 @@
   height: 48px;
   padding: 0 12px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
 .option:hover {
@@ -118,7 +115,6 @@
   justify-content: center;
   flex-shrink: 0;
   pointer-events: none;
-  transition: transform 0.2s ease;
 }
 
 .selectbox.open .iconWrapper {
