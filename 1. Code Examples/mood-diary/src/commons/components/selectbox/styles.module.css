@@ -11,6 +11,9 @@
   
   /* Interaction */
   user-select: none;
+  
+  /* Open 상태에서 높이 자동 조정 */
+  overflow: visible;
 }
 
 .selectbox:focus-within {
@@ -62,7 +65,10 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin-top: 4px;
+  /* margin-top 제거하여 selectbox와 연결 */
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 /* Option Item */
@@ -121,6 +127,12 @@
   transform: rotate(180deg);
 }
 
+/* Open 상태에서 selectButton 하단 radius 제거 */
+.selectbox.open .selectButton {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 /* Dropdown Icon */
 .dropdownIcon {
   display: block;
@@ -165,14 +177,14 @@
 }
 
 .size-medium .selectedText {
-  padding-left: 10px;
+  padding-left: 12px;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.16px;
 }
 
 .size-medium .iconWrapper {
-  padding-right: 10px;
+  padding-right: 12px;
 }
 
 .size-medium .dropdownIcon {
@@ -229,7 +241,7 @@
 
 .size-medium .option {
   height: 48px;
-  padding: 0 10px;
+  padding: 0 12px;
 }
 
 .size-medium .optionText {
