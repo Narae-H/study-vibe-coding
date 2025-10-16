@@ -1,9 +1,8 @@
 /* Selectbox Base Styles */
 .selectbox {
-  /* Layout - Flexbox 기반 (position-absolute 금지) */
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
+  /* Layout - Relative positioning for dropdown */
+  position: relative;
+  display: inline-block;
   box-sizing: border-box;
   
   /* Typography - Figma에서 확인한 Pretendard Variable, Medium, 500 */
@@ -11,15 +10,7 @@
   font-weight: 500;
   
   /* Interaction */
-  cursor: pointer;
   user-select: none;
-  
-  /* Border Radius - Figma에서 확인한 cornerRadius: 8 */
-  border-radius: 8px;
-  border: 1px solid transparent;
-  
-  /* Focus */
-  outline: none;
 }
 
 .selectbox:focus-within {
@@ -27,25 +18,96 @@
   outline-offset: 2px;
 }
 
-/* Select Element */
-.select {
-  flex: 1;
+/* Select Button */
+.selectButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   height: 100%;
-  border: none;
-  background: transparent;
   cursor: pointer;
-  appearance: none;
+  border-radius: 8px;
+  border: 1px solid transparent;
   outline: none;
+}
+
+.selectButton:focus {
+  outline: 2px solid #3a5cf3;
+  outline-offset: 2px;
+}
+
+/* Selected Text */
+.selectedText {
+  flex: 1;
+  text-align: left;
   font-family: inherit;
   font-weight: inherit;
   font-size: inherit;
   line-height: inherit;
   letter-spacing: inherit;
   color: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.select::-ms-expand {
-  display: none;
+/* Dropdown Menu */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  border: 1px solid #c7c7c7;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+/* Option Item */
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.option:hover {
+  background-color: #f2f2f2;
+}
+
+.option.selected {
+  background-color: rgba(58, 181, 15, 0.05);
+  color: #299c00;
+  font-weight: 700;
+}
+
+.option.selected:hover {
+  background-color: rgba(58, 181, 15, 0.1);
+}
+
+/* Option Text */
+.optionText {
+  flex: 1;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  color: inherit;
+}
+
+/* Check Icon */
+.checkIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
 }
 
 /* Icon Wrapper - Flexbox 기반 (position 미사용) */
@@ -55,6 +117,11 @@
   justify-content: center;
   flex-shrink: 0;
   pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+.selectbox.open .iconWrapper {
+  transform: rotate(180deg);
 }
 
 /* Dropdown Icon */
@@ -66,11 +133,14 @@
 .size-small {
   width: 100px;
   height: 36px;
+}
+
+.size-small .selectButton {
   border-radius: 6px;
   gap: 4px;
 }
 
-.size-small .select {
+.size-small .selectedText {
   padding-left: 12px;
   font-size: 14px;
   line-height: 20px;
@@ -90,11 +160,14 @@
 .size-medium {
   width: 120px;
   height: 48px;
+}
+
+.size-medium .selectButton {
   border-radius: 8px;
   gap: 8px;
 }
 
-.size-medium .select {
+.size-medium .selectedText {
   padding-left: 16px;
   font-size: 16px;
   line-height: 24px;
@@ -114,11 +187,14 @@
 .size-large {
   width: 160px;
   height: 56px;
+}
+
+.size-large .selectButton {
   border-radius: 10px;
   gap: 12px;
 }
 
-.size-large .select {
+.size-large .selectedText {
   padding-left: 20px;
   font-size: 18px;
   line-height: 24px;
@@ -134,136 +210,198 @@
   height: 28px;
 }
 
+/* Size-specific dropdown styles */
+.size-small .dropdown {
+  border-radius: 6px;
+}
+
+.size-small .option {
+  height: 36px;
+  padding: 0 8px;
+}
+
+.size-small .optionText {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+.size-medium .dropdown {
+  border-radius: 8px;
+}
+
+.size-medium .option {
+  height: 48px;
+  padding: 0 12px;
+}
+
+.size-medium .optionText {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+}
+
+.size-large .dropdown {
+  border-radius: 10px;
+}
+
+.size-large .option {
+  height: 56px;
+  padding: 0 16px;
+}
+
+.size-large .optionText {
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+}
+
 /* Primary Variant - Light Theme */
-.variant-primary.theme-light {
+.variant-primary.theme-light .selectButton {
   background-color: #ffffff;
   border-color: #c7c7c7;
 }
 
-.variant-primary.theme-light .select {
+.variant-primary.theme-light .selectedText {
   color: #1c1c1c;
 }
 
-.variant-primary.theme-light:hover:not(.disabled) {
+.variant-primary.theme-light .selectButton:hover:not(.disabled) {
   border-color: #ababab;
 }
 
-.variant-primary.theme-light:active:not(.disabled) {
+.variant-primary.theme-light .selectButton:active:not(.disabled) {
   border-color: #919191;
   background-color: #f2f2f2;
 }
 
-.variant-primary.theme-light .select option {
-  color: #1c1c1c;
+.variant-primary.theme-light .dropdown {
   background-color: #ffffff;
+  border-color: #c7c7c7;
+}
+
+.variant-primary.theme-light .option {
+  color: #5f5f5f;
+}
+
+.variant-primary.theme-light .option:hover {
+  background-color: #f2f2f2;
 }
 
 /* Primary Variant - Dark Theme */
-.variant-primary.theme-dark {
+.variant-primary.theme-dark .selectButton {
   background-color: #1c1c1c;
   border-color: #5f5f5f;
 }
 
-.variant-primary.theme-dark .select {
+.variant-primary.theme-dark .selectedText {
   color: #ffffff;
 }
 
-.variant-primary.theme-dark:hover:not(.disabled) {
+.variant-primary.theme-dark .selectButton:hover:not(.disabled) {
   border-color: #777777;
 }
 
-.variant-primary.theme-dark:active:not(.disabled) {
+.variant-primary.theme-dark .selectButton:active:not(.disabled) {
   border-color: #919191;
   background-color: #333333;
 }
 
-.variant-primary.theme-dark .select option {
-  color: #ffffff;
+.variant-primary.theme-dark .dropdown {
   background-color: #1c1c1c;
+  border-color: #5f5f5f;
+}
+
+.variant-primary.theme-dark .option {
+  color: #ffffff;
+}
+
+.variant-primary.theme-dark .option:hover {
+  background-color: #333333;
 }
 
 /* Secondary Variant - Light Theme */
-.variant-secondary.theme-light {
+.variant-secondary.theme-light .selectButton {
   background-color: #f2f2f2;
   border-color: #e4e4e4;
 }
 
-.variant-secondary.theme-light .select {
+.variant-secondary.theme-light .selectedText {
   color: #1c1c1c;
 }
 
-.variant-secondary.theme-light:hover:not(.disabled) {
+.variant-secondary.theme-light .selectButton:hover:not(.disabled) {
   background-color: #e4e4e4;
   border-color: #d4d3d3;
 }
 
-.variant-secondary.theme-light:active:not(.disabled) {
+.variant-secondary.theme-light .selectButton:active:not(.disabled) {
   background-color: #d4d3d3;
   border-color: #c7c7c7;
 }
 
 /* Secondary Variant - Dark Theme */
-.variant-secondary.theme-dark {
+.variant-secondary.theme-dark .selectButton {
   background-color: #333333;
   border-color: #5f5f5f;
 }
 
-.variant-secondary.theme-dark .select {
+.variant-secondary.theme-dark .selectedText {
   color: #ffffff;
 }
 
-.variant-secondary.theme-dark:hover:not(.disabled) {
+.variant-secondary.theme-dark .selectButton:hover:not(.disabled) {
   background-color: #5f5f5f;
   border-color: #777777;
 }
 
-.variant-secondary.theme-dark:active:not(.disabled) {
+.variant-secondary.theme-dark .selectButton:active:not(.disabled) {
   background-color: #777777;
   border-color: #919191;
 }
 
 /* Tertiary Variant - Light Theme */
-.variant-tertiary.theme-light {
+.variant-tertiary.theme-light .selectButton {
   background-color: transparent;
   border-color: transparent;
 }
 
-.variant-tertiary.theme-light .select {
+.variant-tertiary.theme-light .selectedText {
   color: #1c1c1c;
 }
 
-.variant-tertiary.theme-light:hover:not(.disabled) {
+.variant-tertiary.theme-light .selectButton:hover:not(.disabled) {
   background-color: #f2f2f2;
 }
 
-.variant-tertiary.theme-light:active:not(.disabled) {
+.variant-tertiary.theme-light .selectButton:active:not(.disabled) {
   background-color: #e4e4e4;
 }
 
 /* Tertiary Variant - Dark Theme */
-.variant-tertiary.theme-dark {
+.variant-tertiary.theme-dark .selectButton {
   background-color: transparent;
   border-color: transparent;
 }
 
-.variant-tertiary.theme-dark .select {
+.variant-tertiary.theme-dark .selectedText {
   color: #ffffff;
 }
 
-.variant-tertiary.theme-dark:hover:not(.disabled) {
+.variant-tertiary.theme-dark .selectButton:hover:not(.disabled) {
   background-color: #1c1c1c;
 }
 
-.variant-tertiary.theme-dark:active:not(.disabled) {
+.variant-tertiary.theme-dark .selectButton:active:not(.disabled) {
   background-color: #333333;
 }
 
 /* Disabled State */
 .selectbox.disabled {
-  cursor: not-allowed;
   opacity: 0.5;
 }
 
-.selectbox.disabled .select {
+.selectbox.disabled .selectButton {
   cursor: not-allowed;
+  pointer-events: none;
 }

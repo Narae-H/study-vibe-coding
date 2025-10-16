@@ -17,13 +17,14 @@ const CATEGORY_OPTIONS = [
   { value: 'study', label: '학습' },
 ];
 
-/** 감정 옵션 데이터 */
+/** 감정 옵션 데이터 - Figma 디자인 기준 */
 const EMOTION_OPTIONS = [
-  { value: 'happy', label: '😊 행복' },
-  { value: 'sad', label: '😢 슬픔' },
-  { value: 'angry', label: '😠 화남' },
-  { value: 'surprise', label: '😲 놀람' },
-  { value: 'etc', label: '🤔 기타' },
+  { value: 'all', label: '전체' },
+  { value: 'happy', label: '행복해요' },
+  { value: 'sad', label: '슬퍼요' },
+  { value: 'surprise', label: '놀랐어요' },
+  { value: 'angry', label: '화나요' },
+  { value: 'etc', label: '기타' },
 ];
 
 /** Storybook Meta 설정 객체 */
@@ -75,6 +76,14 @@ Selectbox 컴포넌트는 Figma 디자인을 기반으로 한 완전한 variant 
     options: {
       control: { type: 'object' },
       description: '선택 가능한 옵션 목록'
+    },
+    value: {
+      control: { type: 'text' },
+      description: '선택된 값'
+    },
+    onChange: {
+      action: 'changed',
+      description: '값 변경 핸들러'
     }
   },
 } satisfies Meta<typeof Selectbox>;
@@ -251,7 +260,7 @@ export const CategoryExample: Story = {
           theme="light" 
           placeholder="전체" 
           options={CATEGORY_OPTIONS}
-          defaultValue="all"
+          value="all"
         />
       </div>
     </div>

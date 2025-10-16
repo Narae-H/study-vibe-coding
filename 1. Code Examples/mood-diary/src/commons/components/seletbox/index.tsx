@@ -1,10 +1,10 @@
 'use client';
 
-import React, { forwardRef, SelectHTMLAttributes } from 'react';
+import React, { forwardRef, SelectHTMLAttributes, useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './styles.module.css';
 
-export interface SelectboxProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
+export interface SelectboxProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size' | 'onChange'> {
   /**
    * 셀렉트박스의 시각적 스타일 variant
    */
@@ -29,6 +29,16 @@ export interface SelectboxProps extends Omit<SelectHTMLAttributes<HTMLSelectElem
    * placeholder 텍스트
    */
   placeholder?: string;
+  
+  /**
+   * 선택된 값
+   */
+  value?: string;
+  
+  /**
+   * 값 변경 핸들러
+   */
+  onChange?: (value: string) => void;
 }
 
 /**
@@ -39,7 +49,7 @@ export interface SelectboxProps extends Omit<SelectHTMLAttributes<HTMLSelectElem
  * - size: small, medium, large
  * - theme: light, dark
  */
-export const Selectbox = forwardRef<HTMLSelectElement, SelectboxProps>(
+export const Selectbox = forwardRef<HTMLDivElement, SelectboxProps>(
   (
     {
       variant = 'primary',
@@ -48,11 +58,37 @@ export const Selectbox = forwardRef<HTMLSelectElement, SelectboxProps>(
       options = [],
       placeholder = '전체',
       disabled = false,
-      className,
-      ...props
+      value,
+      onChange,
+      className
     },
     ref
   ) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedValue, setSelectedValue] = useState(value || '');
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    // 외부 클릭 감지
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+          setIsOpen(false);
+        }
+      };
+
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, []);
+
+    // value prop 변경 감지
+    useEffect(() => {
+      if (value !== undefined) {
+        setSelectedValue(value);
+      }
+    }, [value]);
+
     // 템플릿 리터럴 방식으로 클래스명 조합 (Button 컴포넌트와 동일한 패턴)
     const selectboxClasses = [
       styles.selectbox,
@@ -60,37 +96,82 @@ export const Selectbox = forwardRef<HTMLSelectElement, SelectboxProps>(
       styles[`size-${size}`],
       styles[`theme-${theme}`],
       disabled && styles.disabled,
+      isOpen && styles.open,
       className,
     ].filter(Boolean).join(' ');
 
+    const handleToggle = () => {
+      if (!disabled) {
+        setIsOpen(!isOpen);
+      }
+    };
+
+    const handleOptionClick = (optionValue: string) => {
+      setSelectedValue(optionValue);
+      setIsOpen(false);
+      onChange?.(optionValue);
+    };
+
+    const selectedOption = options.find(option => option.value === selectedValue);
+    const displayText = selectedOption ? selectedOption.label : placeholder;
+
     return (
-      <div className={selectboxClasses}>
-        <select
+      <div ref={dropdownRef} className={selectboxClasses}>
+        <div
           ref={ref}
-          className={styles.select}
-          disabled={disabled}
-          {...props}
+          className={styles.selectButton}
+          onClick={handleToggle}
+          role="button"
+          tabIndex={disabled ? -1 : 0}
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleToggle();
+            }
+          }}
         >
-          {placeholder && (
-            <option value="" disabled>
-              {placeholder}
-            </option>
-          )}
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <div className={styles.iconWrapper}>
-          <Image
-            src="/icons/arrow_drop_down.svg"
-            alt="dropdown"
-            width={24}
-            height={24}
-            className={styles.dropdownIcon}
-          />
+          <span className={styles.selectedText}>{displayText}</span>
+          <div className={styles.iconWrapper}>
+            <Image
+              src="/icons/arrow_drop_down.svg"
+              alt="dropdown"
+              width={24}
+              height={24}
+              className={styles.dropdownIcon}
+            />
+          </div>
         </div>
+        
+        {isOpen && (
+          <div className={styles.dropdown} role="listbox">
+            {options.map((option) => {
+              const isSelected = option.value === selectedValue;
+              return (
+                <div
+                  key={option.value}
+                  className={`${styles.option} ${isSelected ? styles.selected : ''}`}
+                  onClick={() => handleOptionClick(option.value)}
+                  role="option"
+                  aria-selected={isSelected}
+                >
+                  <span className={styles.optionText}>{option.label}</span>
+                  {isSelected && (
+                    <div className={styles.checkIcon}>
+                      <Image
+                        src="/icons/check_outline_light_xs.svg"
+                        alt="selected"
+                        width={16}
+                        height={16}
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }
