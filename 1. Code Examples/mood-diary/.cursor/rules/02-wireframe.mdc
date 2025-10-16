@@ -21,4 +21,5 @@ alwaysApply: false
     - globals.css는 개별 독립적인 파일을 위해서는 변경하지 말 것.
     - globals.css는 변경 전, 다시 한 번 전역을 위해 필요한 작업인지 확인하고, 그러한 경우에만 변경할 것.
     - 추후 수정이 쉽도록, 부모-자식 관계를 형성하여 only flexbox 방식으로 구현할 것. (position-absolute 금지)
-    - 추가적인 애니메이션 등은 넣지 말고, 있는 그대로만 완벽히 구현할 것.
+    - 추가적인 animation, transition은 넣지 말고, 있는 그대로만 완벽히 구현할 것.
+    - variant 시스템을 구현하는 경우, 템플릿 리터럴 방식을 사용할 것.
