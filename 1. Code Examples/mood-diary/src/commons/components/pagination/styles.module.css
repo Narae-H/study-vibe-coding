@@ -1,0 +1,274 @@
+/* Pagination Base Styles - Figma Design: 425:2243 */
+.pagination {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  
+  /* User Interaction */
+  user-select: none;
+}
+
+/* Arrow Button Styles - Figma에서 확인한 24x24px 아이콘 */
+.arrowButton {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Size */
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  
+  /* Reset */
+  background: transparent;
+  border: none;
+  
+  /* Interaction */
+  cursor: pointer;
+}
+
+.arrowButton:hover:not(.disabled) {
+  opacity: 0.7;
+}
+
+.arrowButton.disabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+/* Page Numbers Container */
+.pageNumbers {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Page Button Base Styles */
+.pageButton {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Typography - Figma에서 확인한 스타일 */
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  text-align: center;
+  
+  /* Reset */
+  border: none;
+  outline: none;
+  
+  /* Interaction */
+  cursor: pointer;
+  
+  /* Border Radius - Figma에서 확인한 cornerRadius: 8 */
+  border-radius: 8px;
+}
+
+.pageButton:focus-visible {
+  outline: 2px solid #3a5cf3;
+  outline-offset: 2px;
+}
+
+/* Size Variants - Figma 기반 32x32px 기본 (medium) */
+.size-small .pageButton {
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+}
+
+.size-small .pageButton.active {
+  font-weight: 500;
+}
+
+.size-medium .pageButton {
+  /* Figma에서 확인한 크기 */
+  width: 32px;
+  height: 32px;
+  /* Figma에서 확인한 타이포그래피 */
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+}
+
+.size-medium .pageButton.active {
+  /* Figma에서 확인한 fontWeight: 500 (Medium) */
+  font-weight: 500;
+}
+
+.size-large .pageButton {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.18px;
+}
+
+.size-large .pageButton.active {
+  font-weight: 600;
+}
+
+/* Primary Variant - Light Theme (Figma 기준 디자인) */
+.variant-primary.theme-light .pageButton {
+  /* Figma에서 확인한 일반 페이지 스타일: 투명 배경 */
+  background-color: transparent;
+  /* Figma에서 확인한 텍스트 컬러: #777777 */
+  color: #777777;
+}
+
+.variant-primary.theme-light .pageButton:hover {
+  background-color: #f2f2f2;
+  color: #000000;
+}
+
+.variant-primary.theme-light .pageButton.active {
+  /* Figma에서 확인한 현재 페이지 배경: #f2f2f2 */
+  background-color: #f2f2f2;
+  /* Figma에서 확인한 현재 페이지 텍스트: #000000 */
+  color: #000000;
+}
+
+.variant-primary.theme-light .pageButton.active:hover {
+  background-color: #e4e4e4;
+}
+
+/* Primary Variant - Dark Theme */
+.variant-primary.theme-dark .pageButton {
+  background-color: transparent;
+  color: #ababab;
+}
+
+.variant-primary.theme-dark .pageButton:hover {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.variant-primary.theme-dark .pageButton.active {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.variant-primary.theme-dark .pageButton.active:hover {
+  background-color: #5f5f5f;
+}
+
+/* Secondary Variant - Light Theme */
+.variant-secondary.theme-light .pageButton {
+  background-color: transparent;
+  color: #777777;
+  border: 1px solid #e4e4e4;
+}
+
+.variant-secondary.theme-light .pageButton:hover {
+  background-color: #f2f2f2;
+  color: #000000;
+  border-color: #d4d3d3;
+}
+
+.variant-secondary.theme-light .pageButton.active {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+}
+
+.variant-secondary.theme-light .pageButton.active:hover {
+  background-color: #f2f2f2;
+}
+
+/* Secondary Variant - Dark Theme */
+.variant-secondary.theme-dark .pageButton {
+  background-color: transparent;
+  color: #ababab;
+  border: 1px solid #5f5f5f;
+}
+
+.variant-secondary.theme-dark .pageButton:hover {
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border-color: #777777;
+}
+
+.variant-secondary.theme-dark .pageButton.active {
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.variant-secondary.theme-dark .pageButton.active:hover {
+  background-color: #333333;
+}
+
+/* Tertiary Variant - Light Theme */
+.variant-tertiary.theme-light .pageButton {
+  background-color: transparent;
+  color: #777777;
+}
+
+.variant-tertiary.theme-light .pageButton:hover {
+  background-color: #f2f2f2;
+  color: #000000;
+}
+
+.variant-tertiary.theme-light .pageButton.active {
+  background-color: transparent;
+  color: #000000;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Tertiary Variant - Dark Theme */
+.variant-tertiary.theme-dark .pageButton {
+  background-color: transparent;
+  color: #ababab;
+}
+
+.variant-tertiary.theme-dark .pageButton:hover {
+  background-color: #1c1c1c;
+  color: #ffffff;
+}
+
+.variant-tertiary.theme-dark .pageButton.active {
+  background-color: transparent;
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Arrow Button Theme Variations */
+.theme-dark .arrowButton {
+  filter: invert(1);
+}
+
+/* Size Variations for Container Gap */
+.size-small {
+  gap: 6px;
+}
+
+.size-small .pageNumbers {
+  gap: 12px;
+}
+
+.size-medium {
+  gap: 8px;
+}
+
+.size-medium .pageNumbers {
+  /* Figma에서 계산한 페이지 버튼 간 간격 */
+  gap: 16px;
+}
+
+.size-large {
+  gap: 12px;
+}
+
+.size-large .pageNumbers {
+  gap: 20px;
+}
