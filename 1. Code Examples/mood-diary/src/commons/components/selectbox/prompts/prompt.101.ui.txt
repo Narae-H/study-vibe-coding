@@ -35,11 +35,10 @@
 기존히스토리-참고만) selectbox 사이즈가 피그마와 동일하게 변경할 것.
 
 기존히스토리-참고만) selectbox가 open 이 되어도, arrow 버튼은 selectbox 밖으로 나가지 않고 동일한 위치를 유지할 것.
+
 ==============================================
 
-핵심요구사항) selectbox를 피그마 디자인과 일치하도록 변경할 것.
+핵심요구사항) selectbox의 padding 크기를 피그마와 일치하도록 변경할 것.
 
-핵심요구사항) selectbox의 placeholder 글자를 피그마 디자인과 일치하도록 변경할 것.
-
-핵심요구사항) iconWrapper에서 arrow 버튼 사이즈를 피그마 디자인과 일치하도록 변경할 것.
+핵심요구사항) selectbox가 open 되었을 때 높이는 dropdown 박스의 높이만큼 길어질 것.
 
