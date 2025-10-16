@@ -1,0 +1,225 @@
+/* Toggle Base Styles */
+.toggle {
+  /* Layout */
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Hidden Checkbox Input */
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Slider (Background Track) */
+.slider {
+  position: relative;
+  display: block;
+  transition: background-color 0.3s ease;
+  
+  /* Figma에서 확인한 cornerRadius: 100 (완전 둥글게) */
+  border-radius: 100px;
+}
+
+/* Thumb (움직이는 동그라미) */
+.thumb {
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  
+  /* 그림자 효과 추가 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Size Variants - Medium (기본, Figma: 58x32) */
+.size-medium .slider {
+  width: 58px;
+  height: 32px;
+}
+
+.size-medium .thumb {
+  width: 24px;
+  height: 24px;
+  top: 4px;
+  left: 4px;
+}
+
+.size-medium.checked .thumb {
+  /* 켜짐 상태: 오른쪽으로 이동 (58 - 24 - 4 - 4 = 26px) */
+  transform: translateX(26px);
+}
+
+/* Size Variants - Small */
+.size-small .slider {
+  width: 44px;
+  height: 24px;
+}
+
+.size-small .thumb {
+  width: 18px;
+  height: 18px;
+  top: 3px;
+  left: 3px;
+}
+
+.size-small.checked .thumb {
+  transform: translateX(20px);
+}
+
+/* Size Variants - Large */
+.size-large .slider {
+  width: 68px;
+  height: 38px;
+}
+
+.size-large .thumb {
+  width: 30px;
+  height: 30px;
+  top: 4px;
+  left: 4px;
+}
+
+.size-large.checked .thumb {
+  transform: translateX(30px);
+}
+
+/* Primary Variant - Light Theme */
+.variant-primary.theme-light .slider {
+  /* 꺼짐 상태: Figma에서 확인한 #e4e4e4 */
+  background-color: #e4e4e4;
+}
+
+.variant-primary.theme-light.checked .slider {
+  /* 켜짐 상태: Figma에서 확인한 #3ad84a (초록색) */
+  background-color: #3ad84a;
+}
+
+.variant-primary.theme-light:hover:not(.disabled) .slider {
+  background-color: #d4d3d3;
+}
+
+.variant-primary.theme-light.checked:hover:not(.disabled) .slider {
+  background-color: #2fc03d;
+}
+
+/* Primary Variant - Dark Theme */
+.variant-primary.theme-dark .slider {
+  background-color: #5f5f5f;
+}
+
+.variant-primary.theme-dark.checked .slider {
+  background-color: #3ad84a;
+}
+
+.variant-primary.theme-dark:hover:not(.disabled) .slider {
+  background-color: #777777;
+}
+
+.variant-primary.theme-dark.checked:hover:not(.disabled) .slider {
+  background-color: #2fc03d;
+}
+
+/* Secondary Variant - Light Theme (파란색) */
+.variant-secondary.theme-light .slider {
+  background-color: #e4e4e4;
+}
+
+.variant-secondary.theme-light.checked .slider {
+  /* Blue-60: #3a5cf3 */
+  background-color: #3a5cf3;
+}
+
+.variant-secondary.theme-light:hover:not(.disabled) .slider {
+  background-color: #d4d3d3;
+}
+
+.variant-secondary.theme-light.checked:hover:not(.disabled) .slider {
+  background-color: #274ae1;
+}
+
+/* Secondary Variant - Dark Theme */
+.variant-secondary.theme-dark .slider {
+  background-color: #5f5f5f;
+}
+
+.variant-secondary.theme-dark.checked .slider {
+  background-color: #6da5fa;
+}
+
+.variant-secondary.theme-dark:hover:not(.disabled) .slider {
+  background-color: #777777;
+}
+
+.variant-secondary.theme-dark.checked:hover:not(.disabled) .slider {
+  background-color: #93beff;
+}
+
+/* Tertiary Variant - Light Theme (회색) */
+.variant-tertiary.theme-light .slider {
+  background-color: #e4e4e4;
+}
+
+.variant-tertiary.theme-light.checked .slider {
+  /* Gray-80 */
+  background-color: #333333;
+}
+
+.variant-tertiary.theme-light:hover:not(.disabled) .slider {
+  background-color: #d4d3d3;
+}
+
+.variant-tertiary.theme-light.checked:hover:not(.disabled) .slider {
+  background-color: #1c1c1c;
+}
+
+/* Tertiary Variant - Dark Theme */
+.variant-tertiary.theme-dark .slider {
+  background-color: #5f5f5f;
+}
+
+.variant-tertiary.theme-dark.checked .slider {
+  background-color: #c7c7c7;
+}
+
+.variant-tertiary.theme-dark:hover:not(.disabled) .slider {
+  background-color: #777777;
+}
+
+.variant-tertiary.theme-dark.checked:hover:not(.disabled) .slider {
+  background-color: #d4d3d3;
+}
+
+/* Focus State */
+.toggle:focus-within .slider {
+  outline: 2px solid #3a5cf3;
+  outline-offset: 2px;
+}
+
+/* Active State (클릭 시) */
+.toggle:active:not(.disabled) .thumb {
+  /* 클릭 시 약간 확대 효과 */
+  width: calc(100% - 4px);
+}
+
+.size-small.toggle:active:not(.disabled) .thumb {
+  width: calc(18px + 4px);
+}
+
+.size-medium.toggle:active:not(.disabled) .thumb {
+  width: calc(24px + 4px);
+}
+
+.size-large.toggle:active:not(.disabled) .thumb {
+  width: calc(30px + 4px);
+}
+
