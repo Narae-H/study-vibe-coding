@@ -44,10 +44,18 @@ export interface SelectboxProps extends Omit<SelectHTMLAttributes<HTMLSelectElem
 /**
  * Selectbox 컴포넌트
  * 
- * Figma 디자인을 기반으로 한 완전한 variant 시스템을 제공합니다.
- * - variant: primary, secondary, tertiary
- * - size: small, medium, large
- * - theme: light, dark
+ * Figma 디자인을 기반으로 한 커스텀 드롭다운 selectbox 컴포넌트입니다.
+ * 완전한 variant 시스템과 키보드 접근성을 제공합니다.
+ * 
+ * @param variant - 시각적 스타일 variant ('primary' | 'secondary' | 'tertiary')
+ * @param size - 컴포넌트 크기 ('small' | 'medium' | 'large')
+ * @param theme - 테마 모드 ('light' | 'dark')
+ * @param options - 선택 가능한 옵션 목록
+ * @param placeholder - 기본 표시 텍스트
+ * @param value - 현재 선택된 값
+ * @param onChange - 값 변경 시 호출되는 콜백 함수
+ * @param disabled - 비활성화 상태
+ * @returns JSX.Element
  */
 export const Selectbox = forwardRef<HTMLDivElement, SelectboxProps>(
   (
@@ -64,8 +72,11 @@ export const Selectbox = forwardRef<HTMLDivElement, SelectboxProps>(
     },
     ref
   ) => {
+    // 드롭다운 열림/닫힘 상태
     const [isOpen, setIsOpen] = useState(false);
+    // 현재 선택된 값 상태
     const [selectedValue, setSelectedValue] = useState(value || '');
+    // 드롭다운 컨테이너 참조
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     // 외부 클릭 감지
@@ -100,19 +111,28 @@ export const Selectbox = forwardRef<HTMLDivElement, SelectboxProps>(
       className,
     ].filter(Boolean).join(' ');
 
+    /**
+     * 드롭다운 토글 핸들러
+     */
     const handleToggle = () => {
       if (!disabled) {
         setIsOpen(!isOpen);
       }
     };
 
+    /**
+     * 옵션 선택 핸들러
+     * @param optionValue - 선택된 옵션의 값
+     */
     const handleOptionClick = (optionValue: string) => {
       setSelectedValue(optionValue);
       setIsOpen(false);
       onChange?.(optionValue);
     };
 
+    // 현재 선택된 옵션 찾기
     const selectedOption = options.find(option => option.value === selectedValue);
+    // 표시할 텍스트 결정
     const displayText = selectedOption ? selectedOption.label : placeholder;
 
     return (

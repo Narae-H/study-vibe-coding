@@ -29,6 +29,7 @@
   border-radius: 8px;
   border: 1px solid transparent;
   outline: none;
+  box-sizing: border-box;
 }
 
 .selectButton:focus {
@@ -168,14 +169,14 @@
 }
 
 .size-medium .selectedText {
-  padding-left: 16px;
+  padding-left: 10px;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.16px;
 }
 
 .size-medium .iconWrapper {
-  padding-right: 12px;
+  padding-right: 10px;
 }
 
 .size-medium .dropdownIcon {
@@ -232,7 +233,7 @@
 
 .size-medium .option {
   height: 48px;
-  padding: 0 12px;
+  padding: 0 10px;
 }
 
 .size-medium .optionText {
