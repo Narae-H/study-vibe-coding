@@ -101,6 +101,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.16px;
+  font-weight: 400;
   color: inherit;
 }
 
@@ -177,14 +178,14 @@
 }
 
 .size-medium .selectedText {
-  padding-left: 12px;
+  padding-left: 10px;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.16px;
 }
 
 .size-medium .iconWrapper {
-  padding-right: 12px;
+  padding-right: 10px;
 }
 
 .size-medium .dropdownIcon {
