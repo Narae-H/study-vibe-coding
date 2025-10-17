@@ -71,7 +71,6 @@
   height: 48px;
   display: flex;
   align-items: center;
-  border-bottom: 2px solid var(--gray-black);
 }
 
 .tabContainer {
@@ -95,6 +94,7 @@
 .tabActive {
   font-weight: var(--typo-headline-01-weight);
   color: var(--gray-black);
+  border-bottom: 1px solid var(--gray-black);
 }
 
 .tabInactive {
