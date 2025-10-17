@@ -1,24 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { Selectbox } from './index';
 
-/** 테스트용 옵션 데이터 */
-const SAMPLE_OPTIONS = [
-  { value: 'option1', label: '옵션 1' },
-  { value: 'option2', label: '옵션 2' },
-  { value: 'option3', label: '옵션 3' },
-  { value: 'option4', label: '옵션 4' },
-];
-
-/** 카테고리별 옵션 데이터 */
-const CATEGORY_OPTIONS = [
-  { value: 'all', label: '전체' },
-  { value: 'work', label: '업무' },
-  { value: 'personal', label: '개인' },
-  { value: 'study', label: '학습' },
-];
-
-/** 감정 옵션 데이터 - Figma 디자인 기준 */
-const EMOTION_OPTIONS = [
+/** 기본 옵션 데이터 */
+const defaultOptions = [
   { value: 'all', label: '전체' },
   { value: 'happy', label: '행복해요' },
   { value: 'sad', label: '슬퍼요' },
@@ -42,8 +27,8 @@ Selectbox 컴포넌트는 Figma 디자인을 기반으로 한 완전한 variant 
 - **Variant**: primary, secondary, tertiary
 - **Size**: small, medium, large  
 - **Theme**: light, dark
-- **Options**: 동적 옵션 목록 지원
-- **States**: disabled, placeholder
+- **States**: disabled, selected
+- **외부 클릭 감지**: 드롭다운 외부 클릭 시 자동으로 닫힘
         `
       }
     }
@@ -71,285 +56,332 @@ Selectbox 컴포넌트는 Figma 디자인을 기반으로 한 완전한 variant 
     },
     placeholder: {
       control: { type: 'text' },
-      description: 'Placeholder 텍스트'
+      description: 'placeholder 텍스트'
     },
     options: {
       control: { type: 'object' },
       description: '선택 가능한 옵션 목록'
-    },
-    value: {
-      control: { type: 'text' },
-      description: '선택된 값'
-    },
-    onChange: {
-      action: 'changed',
-      description: '값 변경 핸들러'
     }
   },
+  args: {
+    options: defaultOptions,
+    variant: 'primary',
+    size: 'medium',
+    theme: 'light',
+    disabled: false,
+    placeholder: '선택하세요'
+  }
 } satisfies Meta<typeof Selectbox>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** 기본 Selectbox */
-export const Default: Story = {
+// 기본 스토리
+export const Default: Story = {};
+
+// Controlled Component 예제
+export const Controlled: Story = {
+  render: (args) => {
+    const [value, setValue] = useState('');
+    
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <Selectbox
+          {...args}
+          value={value}
+          onChange={setValue}
+        />
+        <div style={{ fontSize: '14px', color: '#5f5f5f' }}>
+          선택된 값: <strong>{value || '없음'}</strong>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Controlled component로 사용하는 예제입니다. 선택된 값을 외부 state로 관리합니다.'
+      }
+    }
+  }
+};
+
+// Variant 스토리들
+export const Primary: Story = {
   args: {
     variant: 'primary',
+    defaultValue: 'all'
+  }
+};
+
+export const Secondary: Story = {
+  args: {
+    variant: 'secondary',
+    defaultValue: 'happy'
+  }
+};
+
+export const Tertiary: Story = {
+  args: {
+    variant: 'tertiary',
+    defaultValue: 'sad'
+  }
+};
+
+// Size 스토리들
+export const Small: Story = {
+  args: {
+    size: 'small',
+    defaultValue: 'all'
+  }
+};
+
+export const Medium: Story = {
+  args: {
     size: 'medium',
+    defaultValue: 'all'
+  }
+};
+
+export const Large: Story = {
+  args: {
+    size: 'large',
+    defaultValue: 'all'
+  }
+};
+
+// Theme 스토리들
+export const LightTheme: Story = {
+  args: {
     theme: 'light',
-    placeholder: '선택하세요',
-    options: SAMPLE_OPTIONS,
+    defaultValue: 'all'
   },
+  parameters: {
+    backgrounds: { default: 'light' }
+  }
 };
 
-/** Primary Variant 모든 조합 */
-export const PrimaryVariants: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Light Theme */}
-      <div>
-        <h3 style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600' }}>Primary - Light Theme</h3>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <Selectbox variant="primary" size="small" theme="light" placeholder="Small" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="primary" size="medium" theme="light" placeholder="Medium" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="primary" size="large" theme="light" placeholder="Large" options={SAMPLE_OPTIONS} />
-        </div>
-      </div>
-      
-      {/* Dark Theme */}
-      <div style={{ padding: '20px', backgroundColor: '#1c1c1c', borderRadius: '8px' }}>
-        <h3 style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600', color: '#ffffff' }}>Primary - Dark Theme</h3>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <Selectbox variant="primary" size="small" theme="dark" placeholder="Small" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="primary" size="medium" theme="dark" placeholder="Medium" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="primary" size="large" theme="dark" placeholder="Large" options={SAMPLE_OPTIONS} />
-        </div>
-      </div>
-    </div>
-  ),
+export const DarkTheme: Story = {
+  args: {
+    theme: 'dark',
+    defaultValue: 'all'
+  },
+  parameters: {
+    backgrounds: { default: 'dark' }
+  }
 };
 
-/** Secondary Variant 모든 조합 */
-export const SecondaryVariants: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Light Theme */}
-      <div>
-        <h3 style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600' }}>Secondary - Light Theme</h3>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <Selectbox variant="secondary" size="small" theme="light" placeholder="Small" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="secondary" size="medium" theme="light" placeholder="Medium" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="secondary" size="large" theme="light" placeholder="Large" options={SAMPLE_OPTIONS} />
-        </div>
-      </div>
-      
-      {/* Dark Theme */}
-      <div style={{ padding: '20px', backgroundColor: '#1c1c1c', borderRadius: '8px' }}>
-        <h3 style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600', color: '#ffffff' }}>Secondary - Dark Theme</h3>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <Selectbox variant="secondary" size="small" theme="dark" placeholder="Small" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="secondary" size="medium" theme="dark" placeholder="Medium" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="secondary" size="large" theme="dark" placeholder="Large" options={SAMPLE_OPTIONS} />
-        </div>
-      </div>
-    </div>
-  ),
+// 상태 스토리들
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    defaultValue: 'all'
+  }
 };
 
-/** Tertiary Variant 모든 조합 */
-export const TertiaryVariants: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Light Theme */}
-      <div>
-        <h3 style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600' }}>Tertiary - Light Theme</h3>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <Selectbox variant="tertiary" size="small" theme="light" placeholder="Small" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="tertiary" size="medium" theme="light" placeholder="Medium" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="tertiary" size="large" theme="light" placeholder="Large" options={SAMPLE_OPTIONS} />
-        </div>
-      </div>
-      
-      {/* Dark Theme */}
-      <div style={{ padding: '20px', backgroundColor: '#1c1c1c', borderRadius: '8px' }}>
-        <h3 style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600', color: '#ffffff' }}>Tertiary - Dark Theme</h3>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <Selectbox variant="tertiary" size="small" theme="dark" placeholder="Small" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="tertiary" size="medium" theme="dark" placeholder="Medium" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="tertiary" size="large" theme="dark" placeholder="Large" options={SAMPLE_OPTIONS} />
-        </div>
-      </div>
-    </div>
-  ),
+export const WithPlaceholder: Story = {
+  args: {
+    placeholder: '감정을 선택하세요'
+  }
 };
 
-/** 모든 Variant 비교 */
+// 모든 Variant 조합 보여주기
 export const AllVariants: Story = {
   render: () => (
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+      <Selectbox variant="primary" options={defaultOptions} defaultValue="all" />
+      <Selectbox variant="secondary" options={defaultOptions} defaultValue="happy" />
+      <Selectbox variant="tertiary" options={defaultOptions} defaultValue="sad" />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '모든 variant를 한 번에 확인할 수 있습니다.'
+      }
+    }
+  }
+};
+
+// 모든 Size 조합 보여주기
+export const AllSizes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+      <Selectbox size="small" options={defaultOptions} defaultValue="all" />
+      <Selectbox size="medium" options={defaultOptions} defaultValue="all" />
+      <Selectbox size="large" options={defaultOptions} defaultValue="all" />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '모든 size를 한 번에 확인할 수 있습니다.'
+      }
+    }
+  }
+};
+
+// Light Theme 모든 Variant
+export const LightThemeVariants: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+      <Selectbox variant="primary" theme="light" options={defaultOptions} defaultValue="all" />
+      <Selectbox variant="secondary" theme="light" options={defaultOptions} defaultValue="happy" />
+      <Selectbox variant="tertiary" theme="light" options={defaultOptions} defaultValue="sad" />
+    </div>
+  ),
+  parameters: {
+    backgrounds: { default: 'light' },
+    docs: {
+      description: {
+        story: 'Light theme에서의 모든 variant를 확인할 수 있습니다.'
+      }
+    }
+  }
+};
+
+// Dark Theme 모든 Variant
+export const DarkThemeVariants: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+      <Selectbox variant="primary" theme="dark" options={defaultOptions} defaultValue="all" />
+      <Selectbox variant="secondary" theme="dark" options={defaultOptions} defaultValue="happy" />
+      <Selectbox variant="tertiary" theme="dark" options={defaultOptions} defaultValue="sad" />
+    </div>
+  ),
+  parameters: {
+    backgrounds: { default: 'dark' },
+    docs: {
+      description: {
+        story: 'Dark theme에서의 모든 variant를 확인할 수 있습니다.'
+      }
+    }
+  }
+};
+
+// Disabled 상태의 모든 Variant
+export const DisabledVariants: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+      <Selectbox variant="primary" disabled options={defaultOptions} defaultValue="all" />
+      <Selectbox variant="secondary" disabled options={defaultOptions} defaultValue="happy" />
+      <Selectbox variant="tertiary" disabled options={defaultOptions} defaultValue="sad" />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Disabled 상태의 모든 variant를 확인할 수 있습니다.'
+      }
+    }
+  }
+};
+
+// 완전한 매트릭스 - 모든 조합
+export const CompleteMatrix: Story = {
+  render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Light Theme */}
       <div>
-        <h3 style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600' }}>All Variants - Light Theme (Medium Size)</h3>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <Selectbox variant="primary" size="medium" theme="light" placeholder="Primary" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="secondary" size="medium" theme="light" placeholder="Secondary" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="tertiary" size="medium" theme="light" placeholder="Tertiary" options={SAMPLE_OPTIONS} />
+        <h3 style={{ margin: '0 0 16px 0', fontSize: '16px', fontWeight: '600' }}>Light Theme</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '16px' }}>
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>Primary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <Selectbox variant="primary" theme="light" size="small" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="primary" theme="light" size="medium" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="primary" theme="light" size="large" options={defaultOptions} defaultValue="all" />
+            </div>
+          </div>
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>Secondary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <Selectbox variant="secondary" theme="light" size="small" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="secondary" theme="light" size="medium" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="secondary" theme="light" size="large" options={defaultOptions} defaultValue="all" />
+            </div>
+          </div>
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>Tertiary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <Selectbox variant="tertiary" theme="light" size="small" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="tertiary" theme="light" size="medium" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="tertiary" theme="light" size="large" options={defaultOptions} defaultValue="all" />
+            </div>
+          </div>
         </div>
       </div>
       
-      {/* Dark Theme */}
-      <div style={{ padding: '20px', backgroundColor: '#1c1c1c', borderRadius: '8px' }}>
-        <h3 style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600', color: '#ffffff' }}>All Variants - Dark Theme (Medium Size)</h3>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <Selectbox variant="primary" size="medium" theme="dark" placeholder="Primary" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="secondary" size="medium" theme="dark" placeholder="Secondary" options={SAMPLE_OPTIONS} />
-          <Selectbox variant="tertiary" size="medium" theme="dark" placeholder="Tertiary" options={SAMPLE_OPTIONS} />
+      <div style={{ padding: '24px', backgroundColor: '#1a1a1a', borderRadius: '8px' }}>
+        <h3 style={{ margin: '0 0 16px 0', fontSize: '16px', fontWeight: '600', color: 'white' }}>Dark Theme</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', color: 'white' }}>Primary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <Selectbox variant="primary" theme="dark" size="small" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="primary" theme="dark" size="medium" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="primary" theme="dark" size="large" options={defaultOptions} defaultValue="all" />
+            </div>
+          </div>
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', color: 'white' }}>Secondary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <Selectbox variant="secondary" theme="dark" size="small" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="secondary" theme="dark" size="medium" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="secondary" theme="dark" size="large" options={defaultOptions} defaultValue="all" />
+            </div>
+          </div>
+          <div>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' , color: 'white' }}>Tertiary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <Selectbox variant="tertiary" theme="dark" size="small" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="tertiary" theme="dark" size="medium" options={defaultOptions} defaultValue="all" />
+              <Selectbox variant="tertiary" theme="dark" size="large" options={defaultOptions} defaultValue="all" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
   ),
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        story: '모든 variant, size, theme 조합을 한 번에 확인할 수 있는 완전한 매트릭스입니다.'
+      }
+    }
+  }
 };
 
-/** 크기별 비교 */
-export const SizeComparison: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <h3 style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600' }}>Size Comparison (Primary Light)</h3>
-      <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-          <Selectbox variant="primary" size="small" theme="light" placeholder="Small" options={SAMPLE_OPTIONS} />
-          <span style={{ fontSize: '12px', color: '#666' }}>Small (100px × 36px)</span>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-          <Selectbox variant="primary" size="medium" theme="light" placeholder="Medium" options={SAMPLE_OPTIONS} />
-          <span style={{ fontSize: '12px', color: '#666' }}>Medium (120px × 48px)</span>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-          <Selectbox variant="primary" size="large" theme="light" placeholder="Large" options={SAMPLE_OPTIONS} />
-          <span style={{ fontSize: '12px', color: '#666' }}>Large (160px × 56px)</span>
-        </div>
-      </div>
-    </div>
-  ),
-};
-
-/** 비활성화 상태 */
-export const DisabledState: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <h3 style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600' }}>Disabled State</h3>
-      <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-        <Selectbox variant="primary" size="medium" theme="light" placeholder="Disabled Primary" options={SAMPLE_OPTIONS} disabled />
-        <Selectbox variant="secondary" size="medium" theme="light" placeholder="Disabled Secondary" options={SAMPLE_OPTIONS} disabled />
-        <Selectbox variant="tertiary" size="medium" theme="light" placeholder="Disabled Tertiary" options={SAMPLE_OPTIONS} disabled />
-      </div>
-    </div>
-  ),
-};
-
-/** 실제 사용 예시 - 카테고리 선택 */
-export const CategoryExample: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <h3 style={{ marginBottom: '8px', fontSize: '16px', fontWeight: '600' }}>카테고리 선택 예시</h3>
-      <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-        <label style={{ fontSize: '14px', fontWeight: '500', minWidth: '60px' }}>카테고리:</label>
-        <Selectbox 
-          variant="primary" 
-          size="medium" 
-          theme="light" 
-          placeholder="전체" 
-          options={CATEGORY_OPTIONS}
-          value="all"
-        />
-      </div>
-    </div>
-  ),
-};
-
-/** 실제 사용 예시 - 감정 선택 */
-export const EmotionExample: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <h3 style={{ marginBottom: '8px', fontSize: '16px', fontWeight: '600' }}>감정 선택 예시</h3>
-      <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-        <label style={{ fontSize: '14px', fontWeight: '500', minWidth: '60px' }}>감정:</label>
-        <Selectbox 
-          variant="secondary" 
-          size="medium" 
-          theme="light" 
-          placeholder="감정을 선택하세요" 
-          options={EMOTION_OPTIONS}
-        />
-      </div>
-    </div>
-  ),
-};
-
-/** 폼 레이아웃 예시 */
-export const FormLayoutExample: Story = {
-  render: () => (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      gap: '20px',
-      padding: '24px',
-      border: '1px solid #e4e4e4',
-      borderRadius: '12px',
-      backgroundColor: '#fafafa',
-      maxWidth: '400px'
-    }}>
-      <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', fontWeight: '600' }}>일기 필터</h3>
-      
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <label style={{ fontSize: '14px', fontWeight: '500', color: '#333' }}>기간</label>
-        <Selectbox 
-          variant="primary" 
-          size="medium" 
-          theme="light" 
-          placeholder="기간 선택" 
-          options={[
-            { value: 'today', label: '오늘' },
-            { value: 'week', label: '이번 주' },
-            { value: 'month', label: '이번 달' },
-            { value: 'year', label: '올해' },
-          ]}
-        />
-      </div>
-      
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <label style={{ fontSize: '14px', fontWeight: '500', color: '#333' }}>카테고리</label>
-        <Selectbox 
-          variant="primary" 
-          size="medium" 
-          theme="light" 
-          placeholder="카테고리 선택" 
-          options={CATEGORY_OPTIONS}
-        />
-      </div>
-      
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <label style={{ fontSize: '14px', fontWeight: '500', color: '#333' }}>감정</label>
-        <Selectbox 
-          variant="primary" 
-          size="medium" 
-          theme="light" 
-          placeholder="감정 선택" 
-          options={EMOTION_OPTIONS}
-        />
-      </div>
-    </div>
-  ),
-};
-
-/** 인터랙티브 플레이그라운드 */
-export const Playground: Story = {
+// 다양한 옵션 수 테스트
+export const FewOptions: Story = {
   args: {
-    variant: 'primary',
-    size: 'medium',
-    theme: 'light',
-    placeholder: '옵션을 선택하세요',
-    options: SAMPLE_OPTIONS,
-    disabled: false,
+    options: [
+      { value: '1', label: '옵션 1' },
+      { value: '2', label: '옵션 2' },
+    ]
   },
+  parameters: {
+    docs: {
+      description: {
+        story: '옵션이 적은 경우의 Selectbox입니다.'
+      }
+    }
+  }
 };
+
+export const ManyOptions: Story = {
+  args: {
+    options: Array.from({ length: 20 }, (_, i) => ({
+      value: `option-${i + 1}`,
+      label: `옵션 ${i + 1}`
+    }))
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '옵션이 많은 경우의 Selectbox입니다. 리스트는 최대 높이를 가지며 스크롤이 가능합니다.'
+      }
+    }
+  }
+};
+

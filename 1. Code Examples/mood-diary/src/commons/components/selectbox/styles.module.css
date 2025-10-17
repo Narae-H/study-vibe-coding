@@ -1,417 +1,390 @@
-/* Selectbox Base Styles */
+/* Selectbox Container */
 .selectbox {
-  /* Layout - Flexbox 기반 (position 금지) */
+  /* Layout */
+  position: relative;
   display: inline-flex;
   flex-direction: column;
-  box-sizing: border-box;
+  
+  /* Width - Figma에서 확인한 기본 너비 */
+  width: 120px;
+}
+
+/* Button Base Styles */
+.button {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  
+  /* Sizing - Figma에서 확인한 버튼 크기 */
+  width: 100%;
+  padding: 0 10px;
   
   /* Typography - Figma에서 확인한 Pretendard Variable, Medium, 500 */
   font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
   
   /* Interaction */
+  border: 1px solid;
+  cursor: pointer;
   user-select: none;
   
-  /* Open 상태에서 높이 자동 조정 */
-  overflow: visible;
-}
-
-.selectbox:focus-within {
-  outline: 2px solid #3a5cf3;
-  outline-offset: 2px;
-}
-
-/* Select Button */
-.selectButton {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
+  /* Border Radius - Figma에서 확인한 cornerRadius: 8 */
   border-radius: 8px;
-  border: 1px solid transparent;
+  
+  /* Focus */
   outline: none;
-  box-sizing: border-box;
 }
 
-.selectButton:focus {
+.button:focus-visible {
   outline: 2px solid #3a5cf3;
   outline-offset: 2px;
 }
 
-/* Selected Text */
-.selectedText {
+.buttonText {
+  /* Layout */
   flex: 1;
-  text-align: left;
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-  color: inherit;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-/* Dropdown Menu */
-.dropdown {
-  /* Flexbox 기반 레이아웃 (position absolute 금지) */
+.icon {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+/* List Container - Figma에서 확인한 리스트 스타일 */
+.list {
+  /* Layout */
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  border: 1px solid #c7c7c7;
+  
+  /* Sizing */
+  width: 100%;
+  max-height: 288px;
+  overflow-y: auto;
+  
+  /* Visual - Figma에서 확인한 배경, 테두리 */
+  border: 1px solid;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  /* margin-top 제거하여 selectbox와 연결 */
-  border-top: none;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  
+  /* Z-index */
+  z-index: 1000;
 }
 
-/* Option Item */
-.option {
+/* List Item - Figma에서 확인한 아이템 크기 */
+.item {
+  /* Layout */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 48px;
-  padding: 0 12px;
+  gap: 8px;
+  
+  /* Sizing */
+  padding: 12px;
+  
+  /* Typography */
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* Interaction */
   cursor: pointer;
+  user-select: none;
 }
 
-.option:hover {
-  background-color: #f2f2f2;
-}
-
-.option.selected {
-  background-color: rgba(58, 181, 15, 0.05);
-  color: #299c00;
-  font-weight: 700;
-}
-
-.option.selected:hover {
-  background-color: rgba(58, 181, 15, 0.1);
-}
-
-/* Option Text */
-.optionText {
+.itemText {
+  /* Layout */
   flex: 1;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: -0.16px;
-  font-weight: 400;
-  color: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Check Icon */
 .checkIcon {
-  display: flex;
+  /* Layout */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 16px;
   height: 16px;
-  flex-shrink: 0;
-}
-
-/* Icon Wrapper - Flexbox 기반 (position 미사용) */
-.iconWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  pointer-events: none;
-}
-
-.selectbox.open .iconWrapper {
-  transform: rotate(180deg);
-}
-
-/* Open 상태에서 selectButton 하단 radius 제거 */
-.selectbox.open .selectButton {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-/* Dropdown Icon */
-.dropdownIcon {
-  display: block;
 }
 
 /* Size Variants */
 .size-small {
   width: 100px;
-  height: 36px;
 }
 
-.size-small .selectButton {
-  border-radius: 6px;
-  gap: 4px;
-}
-
-.size-small .selectedText {
-  padding-left: 12px;
+.size-small .button {
+  height: 40px;
+  padding: 0 8px;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 22px;
   letter-spacing: 0;
 }
 
-.size-small .iconWrapper {
-  padding-right: 8px;
+.size-small .item {
+  padding: 10px 8px;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0;
 }
 
-.size-small .dropdownIcon {
-  width: 20px;
-  height: 20px;
-}
-
-/* Medium Size (기본) - Figma 기준 */
 .size-medium {
   width: 120px;
+}
+
+.size-medium .button {
+  /* Figma에서 확인한 버튼 높이 */
   height: 48px;
-}
-
-.size-medium .selectButton {
-  border-radius: 8px;
-  gap: 8px;
-}
-
-.size-medium .selectedText {
-  padding-left: 10px;
+  padding: 0 10px;
+  /* Figma에서 확인한 fontSize: 16, lineHeight: 24, letterSpacing: -0.16 */
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.16px;
 }
 
-.size-medium .iconWrapper {
-  padding-right: 10px;
+.size-medium .item {
+  /* Figma에서 확인한 아이템 padding */
+  padding: 12px;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.16px;
 }
 
-.size-medium .dropdownIcon {
-  width: 24px;
-  height: 24px;
-}
-
-/* Large Size */
 .size-large {
   width: 160px;
+}
+
+.size-large .button {
   height: 56px;
-}
-
-.size-large .selectButton {
-  border-radius: 10px;
-  gap: 12px;
-}
-
-.size-large .selectedText {
-  padding-left: 20px;
+  padding: 0 12px;
   font-size: 18px;
   line-height: 24px;
   letter-spacing: -0.18px;
 }
 
-.size-large .iconWrapper {
-  padding-right: 16px;
-}
-
-.size-large .dropdownIcon {
-  width: 28px;
-  height: 28px;
-}
-
-/* Size-specific dropdown styles */
-.size-small .dropdown {
-  border-radius: 6px;
-}
-
-.size-small .option {
-  height: 36px;
-  padding: 0 8px;
-}
-
-.size-small .optionText {
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0;
-}
-
-.size-medium .dropdown {
-  border-radius: 8px;
-}
-
-.size-medium .option {
-  height: 48px;
-  padding: 0 12px;
-}
-
-.size-medium .optionText {
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: -0.16px;
-}
-
-.size-large .dropdown {
-  border-radius: 10px;
-}
-
-.size-large .option {
-  height: 56px;
-  padding: 0 16px;
-}
-
-.size-large .optionText {
+.size-large .item {
+  padding: 16px 12px;
   font-size: 18px;
   line-height: 24px;
   letter-spacing: -0.18px;
 }
 
 /* Primary Variant - Light Theme */
-.variant-primary.theme-light .selectButton {
+.variant-primary.theme-light .button {
+  /* Figma에서 확인한 배경: #ffffff, 테두리: #c7c7c7 */
   background-color: #ffffff;
   border-color: #c7c7c7;
-}
-
-.variant-primary.theme-light .selectedText {
+  /* Figma에서 확인한 텍스트: #1c1c1c */
   color: #1c1c1c;
 }
 
-.variant-primary.theme-light .selectButton:hover:not(.disabled) {
+.variant-primary.theme-light .button:hover:not(:disabled) {
+  background-color: #f2f2f2;
   border-color: #ababab;
 }
 
-.variant-primary.theme-light .selectButton:active:not(.disabled) {
-  border-color: #919191;
-  background-color: #f2f2f2;
-}
-
-.variant-primary.theme-light .dropdown {
+.variant-primary.theme-light .list {
+  /* Figma에서 확인한 리스트 배경: #ffffff, 테두리: #c7c7c7 */
   background-color: #ffffff;
   border-color: #c7c7c7;
 }
 
-.variant-primary.theme-light .option {
+.variant-primary.theme-light .item {
+  /* Figma에서 확인한 기본 아이템 텍스트: #5f5f5f */
   color: #5f5f5f;
+  font-weight: 400;
 }
 
-.variant-primary.theme-light .option:hover {
+.variant-primary.theme-light .item:hover {
   background-color: #f2f2f2;
+}
+
+.variant-primary.theme-light .item.selected {
+  /* Figma에서 확인한 선택된 아이템 배경: rgba(58, 181, 15, 0.05), 텍스트: #299c00 */
+  background-color: rgba(58, 181, 15, 0.05);
+  color: #299c00;
+  font-weight: 700;
 }
 
 /* Primary Variant - Dark Theme */
-.variant-primary.theme-dark .selectButton {
-  background-color: #1c1c1c;
+.variant-primary.theme-dark .button {
+  background-color: #000000;
   border-color: #5f5f5f;
-}
-
-.variant-primary.theme-dark .selectedText {
   color: #ffffff;
 }
 
-.variant-primary.theme-dark .selectButton:hover:not(.disabled) {
+.variant-primary.theme-dark .button:hover:not(:disabled) {
+  background-color: #1c1c1c;
   border-color: #777777;
 }
 
-.variant-primary.theme-dark .selectButton:active:not(.disabled) {
-  border-color: #919191;
-  background-color: #333333;
-}
-
-.variant-primary.theme-dark .dropdown {
-  background-color: #1c1c1c;
+.variant-primary.theme-dark .list {
+  background-color: #000000;
   border-color: #5f5f5f;
 }
 
-.variant-primary.theme-dark .option {
-  color: #ffffff;
+.variant-primary.theme-dark .item {
+  color: #ababab;
+  font-weight: 400;
 }
 
-.variant-primary.theme-dark .option:hover {
-  background-color: #333333;
+.variant-primary.theme-dark .item:hover {
+  background-color: #1c1c1c;
+}
+
+.variant-primary.theme-dark .item.selected {
+  background-color: rgba(58, 181, 15, 0.1);
+  color: #3ab50f;
+  font-weight: 700;
 }
 
 /* Secondary Variant - Light Theme */
-.variant-secondary.theme-light .selectButton {
+.variant-secondary.theme-light .button {
   background-color: #f2f2f2;
-  border-color: #e4e4e4;
-}
-
-.variant-secondary.theme-light .selectedText {
+  border-color: #d4d3d3;
   color: #1c1c1c;
 }
 
-.variant-secondary.theme-light .selectButton:hover:not(.disabled) {
+.variant-secondary.theme-light .button:hover:not(:disabled) {
   background-color: #e4e4e4;
-  border-color: #d4d3d3;
-}
-
-.variant-secondary.theme-light .selectButton:active:not(.disabled) {
-  background-color: #d4d3d3;
   border-color: #c7c7c7;
 }
 
-/* Secondary Variant - Dark Theme */
-.variant-secondary.theme-dark .selectButton {
-  background-color: #333333;
-  border-color: #5f5f5f;
-}
-
-.variant-secondary.theme-dark .selectedText {
-  color: #ffffff;
-}
-
-.variant-secondary.theme-dark .selectButton:hover:not(.disabled) {
-  background-color: #5f5f5f;
-  border-color: #777777;
-}
-
-.variant-secondary.theme-dark .selectButton:active:not(.disabled) {
-  background-color: #777777;
-  border-color: #919191;
-}
-
-/* Tertiary Variant - Light Theme */
-.variant-tertiary.theme-light .selectButton {
-  background-color: transparent;
-  border-color: transparent;
-}
-
-.variant-tertiary.theme-light .selectedText {
-  color: #1c1c1c;
-}
-
-.variant-tertiary.theme-light .selectButton:hover:not(.disabled) {
+.variant-secondary.theme-light .list {
   background-color: #f2f2f2;
+  border-color: #d4d3d3;
 }
 
-.variant-tertiary.theme-light .selectButton:active:not(.disabled) {
+.variant-secondary.theme-light .item {
+  color: #5f5f5f;
+  font-weight: 400;
+}
+
+.variant-secondary.theme-light .item:hover {
   background-color: #e4e4e4;
 }
 
-/* Tertiary Variant - Dark Theme */
-.variant-tertiary.theme-dark .selectButton {
-  background-color: transparent;
-  border-color: transparent;
+.variant-secondary.theme-light .item.selected {
+  background-color: rgba(58, 181, 15, 0.05);
+  color: #299c00;
+  font-weight: 700;
 }
 
-.variant-tertiary.theme-dark .selectedText {
+/* Secondary Variant - Dark Theme */
+.variant-secondary.theme-dark .button {
+  background-color: #1c1c1c;
+  border-color: #5f5f5f;
   color: #ffffff;
 }
 
-.variant-tertiary.theme-dark .selectButton:hover:not(.disabled) {
-  background-color: #1c1c1c;
+.variant-secondary.theme-dark .button:hover:not(:disabled) {
+  background-color: #333333;
+  border-color: #777777;
 }
 
-.variant-tertiary.theme-dark .selectButton:active:not(.disabled) {
+.variant-secondary.theme-dark .list {
+  background-color: #1c1c1c;
+  border-color: #5f5f5f;
+}
+
+.variant-secondary.theme-dark .item {
+  color: #ababab;
+  font-weight: 400;
+}
+
+.variant-secondary.theme-dark .item:hover {
   background-color: #333333;
 }
 
+.variant-secondary.theme-dark .item.selected {
+  background-color: rgba(58, 181, 15, 0.1);
+  color: #3ab50f;
+  font-weight: 700;
+}
+
+/* Tertiary Variant - Light Theme */
+.variant-tertiary.theme-light .button {
+  background-color: transparent;
+  border-color: #c7c7c7;
+  color: #1c1c1c;
+}
+
+.variant-tertiary.theme-light .button:hover:not(:disabled) {
+  background-color: #f2f2f2;
+  border-color: #ababab;
+}
+
+.variant-tertiary.theme-light .list {
+  background-color: #ffffff;
+  border-color: #c7c7c7;
+}
+
+.variant-tertiary.theme-light .item {
+  color: #5f5f5f;
+  font-weight: 400;
+}
+
+.variant-tertiary.theme-light .item:hover {
+  background-color: #f2f2f2;
+}
+
+.variant-tertiary.theme-light .item.selected {
+  background-color: rgba(58, 181, 15, 0.05);
+  color: #299c00;
+  font-weight: 700;
+}
+
+/* Tertiary Variant - Dark Theme */
+.variant-tertiary.theme-dark .button {
+  background-color: transparent;
+  border-color: #5f5f5f;
+  color: #ffffff;
+}
+
+.variant-tertiary.theme-dark .button:hover:not(:disabled) {
+  background-color: #1c1c1c;
+  border-color: #777777;
+}
+
+.variant-tertiary.theme-dark .list {
+  background-color: #000000;
+  border-color: #5f5f5f;
+}
+
+.variant-tertiary.theme-dark .item {
+  color: #ababab;
+  font-weight: 400;
+}
+
+.variant-tertiary.theme-dark .item:hover {
+  background-color: #1c1c1c;
+}
+
+.variant-tertiary.theme-dark .item.selected {
+  background-color: rgba(58, 181, 15, 0.1);
+  color: #3ab50f;
+  font-weight: 700;
+}
+
 /* Disabled State */
-.selectbox.disabled {
+.selectbox.disabled .button {
+  cursor: not-allowed;
   opacity: 0.5;
 }
 
-.selectbox.disabled .selectButton {
+.selectbox.disabled .item {
   cursor: not-allowed;
-  pointer-events: none;
+  opacity: 0.5;
 }
+

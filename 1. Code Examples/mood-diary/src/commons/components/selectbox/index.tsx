@@ -1,17 +1,27 @@
-'use client';
-
-import React, { forwardRef, SelectHTMLAttributes, useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './styles.module.css';
 
-export interface SelectboxProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size' | 'onChange'> {
+export interface SelectOption {
   /**
-   * 셀렉트박스의 시각적 스타일 variant
+   * 옵션의 고유값
+   */
+  value: string;
+  
+  /**
+   * 옵션의 표시 레이블
+   */
+  label: string;
+}
+
+export interface SelectboxProps {
+  /**
+   * Selectbox의 시각적 스타일 variant
    */
   variant?: 'primary' | 'secondary' | 'tertiary';
   
   /**
-   * 셀렉트박스의 크기
+   * Selectbox의 크기
    */
   size?: 'small' | 'medium' | 'large';
   
@@ -21,9 +31,24 @@ export interface SelectboxProps extends Omit<SelectHTMLAttributes<HTMLSelectElem
   theme?: 'light' | 'dark';
   
   /**
-   * 옵션 목록
+   * 선택 가능한 옵션 목록
    */
-  options?: Array<{ value: string; label: string }>;
+  options: SelectOption[];
+  
+  /**
+   * 현재 선택된 값
+   */
+  value?: string;
+  
+  /**
+   * 기본 선택 값
+   */
+  defaultValue?: string;
+  
+  /**
+   * 값 변경 시 호출되는 콜백
+   */
+  onChange?: (value: string) => void;
   
   /**
    * placeholder 텍스트
@@ -31,173 +56,161 @@ export interface SelectboxProps extends Omit<SelectHTMLAttributes<HTMLSelectElem
   placeholder?: string;
   
   /**
-   * 선택된 값
+   * 비활성화 상태
    */
-  value?: string;
+  disabled?: boolean;
   
   /**
-   * 값 변경 핸들러
+   * 추가 CSS 클래스명
    */
-  onChange?: (value: string) => void;
+  className?: string;
 }
 
 /**
  * Selectbox 컴포넌트
  * 
- * Figma 디자인을 기반으로 한 커스텀 드롭다운 selectbox 컴포넌트입니다.
- * 완전한 variant 시스템과 키보드 접근성을 제공합니다.
- * 
- * @param variant - 시각적 스타일 variant ('primary' | 'secondary' | 'tertiary')
- * @param size - 컴포넌트 크기 ('small' | 'medium' | 'large')
- * @param theme - 테마 모드 ('light' | 'dark')
- * @param options - 선택 가능한 옵션 목록
- * @param placeholder - 기본 표시 텍스트
- * @param value - 현재 선택된 값
- * @param onChange - 값 변경 시 호출되는 콜백 함수
- * @param disabled - 비활성화 상태
- * @returns JSX.Element
+ * Figma 디자인을 기반으로 한 완전한 variant 시스템을 제공합니다.
+ * - variant: primary, secondary, tertiary
+ * - size: small, medium, large
+ * - theme: light, dark
  */
-export const Selectbox = forwardRef<HTMLDivElement, SelectboxProps>(
-  (
-    {
-      variant = 'primary',
-      size = 'medium',
-      theme = 'light',
-      options = [],
-      placeholder = '전체',
-      disabled = false,
-      value,
-      onChange,
-      className
-    },
-    ref
-  ) => {
-    // 드롭다운 열림/닫힘 상태
-    const [isOpen, setIsOpen] = useState(false);
-    // 현재 선택된 값 상태
-    const [selectedValue, setSelectedValue] = useState(value || '');
-    // 드롭다운 컨테이너 참조
-    const dropdownRef = useRef<HTMLDivElement>(null);
+export const Selectbox: React.FC<SelectboxProps> = ({
+  variant = 'primary',
+  size = 'medium',
+  theme = 'light',
+  options,
+  value: controlledValue,
+  defaultValue,
+  onChange,
+  placeholder = '선택하세요',
+  disabled = false,
+  className,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(controlledValue ?? defaultValue ?? '');
+  const containerRef = useRef<HTMLDivElement>(null);
 
-    // 외부 클릭 감지
-    useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-          setIsOpen(false);
-        }
-      };
+  // Controlled component 지원
+  const value = controlledValue !== undefined ? controlledValue : selectedValue;
 
+  // 선택된 옵션 찾기
+  const selectedOption = options.find(option => option.value === value);
+
+  /**
+   * 드롭다운 토글
+   */
+  const handleToggle = () => {
+    if (!disabled) {
+      setIsOpen(!isOpen);
+    }
+  };
+
+  /**
+   * 옵션 선택 핸들러
+   */
+  const handleSelect = (optionValue: string) => {
+    setSelectedValue(optionValue);
+    setIsOpen(false);
+    onChange?.(optionValue);
+  };
+
+  /**
+   * 외부 클릭 감지하여 드롭다운 닫기
+   */
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }, []);
+    }
 
-    // value prop 변경 감지
-    useEffect(() => {
-      if (value !== undefined) {
-        setSelectedValue(value);
-      }
-    }, [value]);
-
-    // 템플릿 리터럴 방식으로 클래스명 조합 (Button 컴포넌트와 동일한 패턴)
-    const selectboxClasses = [
-      styles.selectbox,
-      styles[`variant-${variant}`],
-      styles[`size-${size}`],
-      styles[`theme-${theme}`],
-      disabled && styles.disabled,
-      isOpen && styles.open,
-      className,
-    ].filter(Boolean).join(' ');
-
-    /**
-     * 드롭다운 토글 핸들러
-     */
-    const handleToggle = () => {
-      if (!disabled) {
-        setIsOpen(!isOpen);
-      }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
     };
+  }, [isOpen]);
 
-    /**
-     * 옵션 선택 핸들러
-     * @param optionValue - 선택된 옵션의 값
-     */
-    const handleOptionClick = (optionValue: string) => {
-      setSelectedValue(optionValue);
-      setIsOpen(false);
-      onChange?.(optionValue);
-    };
+  const containerClasses = [
+    styles.selectbox,
+    styles[`variant-${variant}`],
+    styles[`size-${size}`],
+    styles[`theme-${theme}`],
+    disabled && styles.disabled,
+    className,
+  ].filter(Boolean).join(' ');
 
-    // 현재 선택된 옵션 찾기
-    const selectedOption = options.find(option => option.value === selectedValue);
-    // 표시할 텍스트 결정
-    const displayText = selectedOption ? selectedOption.label : placeholder;
+  const buttonClasses = [
+    styles.button,
+    isOpen && styles.open,
+  ].filter(Boolean).join(' ');
 
-    return (
-      <div ref={dropdownRef} className={selectboxClasses}>
-        <div
-          ref={ref}
-          className={styles.selectButton}
-          onClick={handleToggle}
-          role="button"
-          tabIndex={disabled ? -1 : 0}
-          aria-expanded={isOpen}
-          aria-haspopup="listbox"
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              handleToggle();
-            }
-          }}
-        >
-          <span className={styles.selectedText}>{displayText}</span>
-          <div className={styles.iconWrapper}>
-            <Image
-              src="/icons/arrow_drop_down.svg"
-              alt="dropdown"
-              width={24}
-              height={24}
-              className={styles.dropdownIcon}
-            />
-          </div>
+  const listClasses = [
+    styles.list,
+    isOpen && styles.open,
+  ].filter(Boolean).join(' ');
+
+  return (
+    <div className={containerClasses} ref={containerRef}>
+      <button
+        type="button"
+        className={buttonClasses}
+        onClick={handleToggle}
+        disabled={disabled}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+      >
+        <span className={styles.buttonText}>
+          {selectedOption ? selectedOption.label : placeholder}
+        </span>
+        <span className={styles.icon}>
+          <Image
+            src="/icons/arrow_drop_down.svg"
+            alt="dropdown"
+            width={24}
+            height={24}
+          />
+        </span>
+      </button>
+      
+      {isOpen && (
+        <div className={listClasses} role="listbox">
+          {options.map((option) => {
+            const isSelected = option.value === value;
+            const itemClasses = [
+              styles.item,
+              isSelected && styles.selected,
+            ].filter(Boolean).join(' ');
+
+            return (
+              <div
+                key={option.value}
+                className={itemClasses}
+                onClick={() => handleSelect(option.value)}
+                role="option"
+                aria-selected={isSelected}
+              >
+                <span className={styles.itemText}>{option.label}</span>
+                {isSelected && (
+                  <span className={styles.checkIcon}>
+                    <Image
+                      src="/icons/check_outline_light_xs.svg"
+                      alt="selected"
+                      width={16}
+                      height={16}
+                    />
+                  </span>
+                )}
+              </div>
+            );
+          })}
         </div>
-        
-        {isOpen && (
-          <div className={styles.dropdown} role="listbox">
-            {options.map((option) => {
-              const isSelected = option.value === selectedValue;
-              return (
-                <div
-                  key={option.value}
-                  className={`${styles.option} ${isSelected ? styles.selected : ''}`}
-                  onClick={() => handleOptionClick(option.value)}
-                  role="option"
-                  aria-selected={isSelected}
-                >
-                  <span className={styles.optionText}>{option.label}</span>
-                  {isSelected && (
-                    <div className={styles.checkIcon}>
-                      <Image
-                        src="/icons/check_outline_light_xs.svg"
-                        alt="selected"
-                        width={16}
-                        height={16}
-                      />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-    );
-  }
-);
-
-Selectbox.displayName = 'Selectbox';
+      )}
+    </div>
+  );
+};
 
 export default Selectbox;
 
