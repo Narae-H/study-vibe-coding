@@ -13,7 +13,6 @@
   height: 60px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .logo {
@@ -31,15 +30,6 @@
   line-height: 16px;
   letter-spacing: -0.18px;
   color: var(--gray-black);
-}
-
-.darkModeText {
-  font-family: var(--typo-body-01-family);
-  font-weight: var(--typo-body-01-weight);
-  font-size: var(--typo-body-01-size);
-  line-height: var(--typo-body-01-height);
-  letter-spacing: -0.16px;
-  color: var(--gray-90);
 }
 
 /* Gap */
