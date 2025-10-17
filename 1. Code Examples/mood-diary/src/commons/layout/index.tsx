@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import styles from './styles.module.css';
 
 interface LayoutProps {
@@ -10,7 +11,10 @@ export default function Layout({ children }: LayoutProps) {
     <div className={styles.container}>
       {/* Header */}
       <header className={styles.header}>
-        Header
+        <div className={styles.logo}>
+          <span className={styles.logoText}>민지의 다이어리</span>
+        </div>
+        <span className={styles.darkModeText}>다크모드</span>
       </header>
 
       {/* Gap */}
@@ -18,7 +22,14 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Banner */}
       <div className={styles.banner}>
-        Banner
+        <Image
+          src="/images/banner.png"
+          alt="배너 이미지"
+          width={1168}
+          height={240}
+          className={styles.bannerImage}
+          priority
+        />
       </div>
 
       {/* Gap */}
@@ -26,7 +37,14 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Navigation */}
       <nav className={styles.navigation}>
-        Navigation
+        <div className={styles.tabContainer}>
+          <div className={`${styles.tab} ${styles.tabActive}`}>
+            일기보관함
+          </div>
+          <div className={`${styles.tab} ${styles.tabInactive}`}>
+            사진보관함
+          </div>
+        </div>
       </nav>
 
       {/* Children */}
@@ -36,7 +54,13 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Footer */}
       <footer className={styles.footer}>
-        Footer
+        <div className={styles.footerContent}>
+          <div className={styles.footerLogo}>민지의 다이어리</div>
+          <div className={styles.footerInfo}>대표 : {'{name}'}</div>
+          <div className={styles.footerCopyright}>
+            Copyright © 2024. {'{name}'} Co., Ltd.
+          </div>
+        </div>
       </footer>
     </div>
   );
