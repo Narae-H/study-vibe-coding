@@ -146,25 +146,16 @@ export const CheckedDisabled: Story = {
 // 모든 Variant 조합 보여주기
 export const AllVariants: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Primary</span>
-        <Toggle variant="primary" />
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Secondary</span>
-        <Toggle variant="secondary" />
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Tertiary</span>
-        <Toggle variant="tertiary" />
-      </div>
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+      <Toggle variant="primary" />
+      <Toggle variant="secondary" />
+      <Toggle variant="tertiary" />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: '모든 variant를 한 번에 확인할 수 있습니다. (클릭하여 토글 가능)'
+        story: '모든 variant를 한 번에 확인할 수 있습니다.'
       }
     }
   }
@@ -173,25 +164,16 @@ export const AllVariants: Story = {
 // 모든 Size 조합 보여주기
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '24px', alignItems: 'center', flexWrap: 'wrap' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Small</span>
-        <Toggle size="small" />
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Medium</span>
-        <Toggle size="medium" />
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Large</span>
-        <Toggle size="large" />
-      </div>
+    <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+      <Toggle size="small" />
+      <Toggle size="medium" />
+      <Toggle size="large" />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: '모든 size를 한 번에 확인할 수 있습니다. (클릭하여 토글 가능)'
+        story: '모든 size를 한 번에 확인할 수 있습니다.'
       }
     }
   }
@@ -200,28 +182,10 @@ export const AllSizes: Story = {
 // Light Theme 모든 Variant
 export const LightThemeVariants: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Primary Light</span>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Toggle variant="primary" theme="light" checked={false} />
-          <Toggle variant="primary" theme="light" checked={true} />
-        </div>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Secondary Light</span>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Toggle variant="secondary" theme="light" checked={false} />
-          <Toggle variant="secondary" theme="light" checked={true} />
-        </div>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Tertiary Light</span>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Toggle variant="tertiary" theme="light" checked={false} />
-          <Toggle variant="tertiary" theme="light" checked={true} />
-        </div>
-      </div>
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+      <Toggle variant="primary" theme="light" />
+      <Toggle variant="secondary" theme="light" />
+      <Toggle variant="tertiary" theme="light" />
     </div>
   ),
   parameters: {
@@ -237,28 +201,10 @@ export const LightThemeVariants: Story = {
 // Dark Theme 모든 Variant
 export const DarkThemeVariants: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500', color: 'white' }}>Primary Dark</span>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Toggle variant="primary" theme="dark" checked={false} />
-          <Toggle variant="primary" theme="dark" checked={true} />
-        </div>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500', color: 'white' }}>Secondary Dark</span>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Toggle variant="secondary" theme="dark" checked={false} />
-          <Toggle variant="secondary" theme="dark" checked={true} />
-        </div>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500', color: 'white' }}>Tertiary Dark</span>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Toggle variant="tertiary" theme="dark" checked={false} />
-          <Toggle variant="tertiary" theme="dark" checked={true} />
-        </div>
-      </div>
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+      <Toggle variant="primary" theme="dark" />
+      <Toggle variant="secondary" theme="dark" />
+      <Toggle variant="tertiary" theme="dark" />
     </div>
   ),
   parameters: {
@@ -274,28 +220,10 @@ export const DarkThemeVariants: Story = {
 // Disabled 상태의 모든 Variant
 export const DisabledVariants: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Primary Disabled</span>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Toggle variant="primary" disabled checked={false} />
-          <Toggle variant="primary" disabled checked={true} />
-        </div>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Secondary Disabled</span>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Toggle variant="secondary" disabled checked={false} />
-          <Toggle variant="secondary" disabled checked={true} />
-        </div>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontSize: '14px', fontWeight: '500' }}>Tertiary Disabled</span>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <Toggle variant="tertiary" disabled checked={false} />
-          <Toggle variant="tertiary" disabled checked={true} />
-        </div>
-      </div>
+    <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+      <Toggle variant="primary" disabled />
+      <Toggle variant="secondary" disabled />
+      <Toggle variant="tertiary" disabled />
     </div>
   ),
   parameters: {
@@ -313,10 +241,10 @@ export const CompleteMatrix: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div>
         <h3 style={{ margin: '0 0 16px 0', fontSize: '16px', fontWeight: '600' }}>Light Theme</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', marginBottom: '16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '16px' }}>
           <div>
-            <h4 style={{ margin: '0 0 12px 0', fontSize: '14px' }}>Primary</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>Primary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Toggle variant="primary" theme="light" size="small" />
                 <span style={{ fontSize: '12px' }}>Small</span>
@@ -332,8 +260,8 @@ export const CompleteMatrix: Story = {
             </div>
           </div>
           <div>
-            <h4 style={{ margin: '0 0 12px 0', fontSize: '14px' }}>Secondary</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>Secondary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Toggle variant="secondary" theme="light" size="small" />
                 <span style={{ fontSize: '12px' }}>Small</span>
@@ -349,8 +277,8 @@ export const CompleteMatrix: Story = {
             </div>
           </div>
           <div>
-            <h4 style={{ margin: '0 0 12px 0', fontSize: '14px' }}>Tertiary</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px' }}>Tertiary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Toggle variant="tertiary" theme="light" size="small" />
                 <span style={{ fontSize: '12px' }}>Small</span>
@@ -370,10 +298,10 @@ export const CompleteMatrix: Story = {
       
       <div style={{ padding: '24px', backgroundColor: '#1a1a1a', borderRadius: '8px' }}>
         <h3 style={{ margin: '0 0 16px 0', fontSize: '16px', fontWeight: '600', color: 'white' }}>Dark Theme</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
           <div>
-            <h4 style={{ margin: '0 0 12px 0', fontSize: '14px', color: 'white' }}>Primary</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', color: 'white' }}>Primary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Toggle variant="primary" theme="dark" size="small" />
                 <span style={{ fontSize: '12px', color: 'white' }}>Small</span>
@@ -389,8 +317,8 @@ export const CompleteMatrix: Story = {
             </div>
           </div>
           <div>
-            <h4 style={{ margin: '0 0 12px 0', fontSize: '14px', color: 'white' }}>Secondary</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', color: 'white' }}>Secondary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Toggle variant="secondary" theme="dark" size="small" />
                 <span style={{ fontSize: '12px', color: 'white' }}>Small</span>
@@ -406,8 +334,8 @@ export const CompleteMatrix: Story = {
             </div>
           </div>
           <div>
-            <h4 style={{ margin: '0 0 12px 0', fontSize: '14px', color: 'white' }}>Tertiary</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', color: 'white' }}>Tertiary</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Toggle variant="tertiary" theme="dark" size="small" />
                 <span style={{ fontSize: '12px', color: 'white' }}>Small</span>
@@ -430,7 +358,7 @@ export const CompleteMatrix: Story = {
     layout: 'padded',
     docs: {
       description: {
-        story: '모든 variant, size, theme 조합을 한 번에 확인할 수 있는 완전한 매트릭스입니다. (클릭하여 토글 가능)'
+        story: '모든 variant, size, theme 조합을 한 번에 확인할 수 있는 완전한 매트릭스입니다.'
       }
     }
   }
