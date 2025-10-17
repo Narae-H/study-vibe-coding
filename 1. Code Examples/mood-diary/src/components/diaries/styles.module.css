@@ -1,0 +1,81 @@
+/**
+ * Diaries Component Styles
+ * 
+ * 일기 목록 페이지의 와이어프레임 스타일을 정의합니다.
+ * 1168px 고정 너비와 flexbox 레이아웃을 사용합니다.
+ */
+
+/* 컨테이너 - 전체 레이아웃 구조 */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 1168px;
+  margin: 0 auto;
+}
+
+/* 간격 영역들 - wireframe 요구사항에 따른 정확한 높이 */
+.gap32 {
+  width: 1168px;
+  height: 32px;
+  background-color: #f0f0f0; /* 와이어프레임 시각화용 */
+}
+
+.gap42 {
+  width: 1168px;
+  height: 42px;
+  background-color: #f0f0f0; /* 와이어프레임 시각화용 */
+}
+
+.gap40 {
+  width: 1168px;
+  height: 40px;
+  background-color: #f0f0f0; /* 와이어프레임 시각화용 */
+}
+
+/* 검색 영역 - 48px 높이 */
+.search {
+  width: 1168px;
+  height: 48px;
+  background-color: #e0e0e0; /* 와이어프레임 시각화용 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+}
+
+.searchPlaceholder {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 메인 콘텐츠 영역 - 936px 높이 */
+.main {
+  width: 1168px;
+  height: 936px;
+  background-color: #d0d0d0; /* 와이어프레임 시각화용 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+}
+
+.mainPlaceholder {
+  font-size: 16px;
+  color: #666;
+}
+
+/* 페이지네이션 영역 - 32px 높이 */
+.pagination {
+  width: 1168px;
+  height: 32px;
+  background-color: #e0e0e0; /* 와이어프레임 시각화용 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+}
+
+.paginationPlaceholder {
+  font-size: 14px;
+  color: #666;
+}
