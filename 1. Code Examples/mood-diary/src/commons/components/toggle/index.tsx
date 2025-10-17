@@ -40,20 +40,39 @@ export interface ToggleProps extends Omit<React.InputHTMLAttributes<HTMLInputEle
  * - variant: primary, secondary, tertiary
  * - size: small, medium, large  
  * - theme: light, dark
+ * 
+ * controlled/uncontrolled 모두 지원
  */
 export const Toggle: React.FC<ToggleProps> = ({
   variant = 'primary',
   size = 'medium',
   theme = 'light',
-  checked = false,
+  checked: checkedProp,
   onChange,
   disabled = false,
   className,
   ...props
 }) => {
+  // 내부 상태 관리 (uncontrolled component 지원)
+  const [internalChecked, setInternalChecked] = React.useState(false);
+  
+  // checked prop이 제공되면 controlled, 아니면 uncontrolled
+  const isControlled = checkedProp !== undefined;
+  const checked = isControlled ? checkedProp : internalChecked;
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!disabled && onChange) {
-      onChange(e.target.checked);
+    if (disabled) return;
+    
+    const newChecked = e.target.checked;
+    
+    // uncontrolled 모드일 때 내부 상태 업데이트
+    if (!isControlled) {
+      setInternalChecked(newChecked);
+    }
+    
+    // onChange 콜백 호출
+    if (onChange) {
+      onChange(newChecked);
     }
   };
 

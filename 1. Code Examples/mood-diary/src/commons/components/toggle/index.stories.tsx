@@ -41,7 +41,7 @@ Toggle 컴포넌트는 Figma 디자인을 기반으로 한 완전한 variant 시
     },
     checked: {
       control: { type: 'boolean' },
-      description: '체크 상태'
+      description: '체크 상태 (undefined일 경우 uncontrolled 모드로 작동)'
     },
     disabled: {
       control: { type: 'boolean' },
@@ -56,7 +56,6 @@ Toggle 컴포넌트는 Figma 디자인을 기반으로 한 완전한 variant 시
     variant: 'primary',
     size: 'medium',
     theme: 'light',
-    checked: false,
     disabled: false
   }
 } satisfies Meta<typeof Toggle>;
@@ -165,7 +164,7 @@ export const AllVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: '모든 variant를 한 번에 확인할 수 있습니다.'
+        story: '모든 variant를 한 번에 확인할 수 있습니다. (클릭하여 토글 가능)'
       }
     }
   }
@@ -192,7 +191,7 @@ export const AllSizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: '모든 size를 한 번에 확인할 수 있습니다.'
+        story: '모든 size를 한 번에 확인할 수 있습니다. (클릭하여 토글 가능)'
       }
     }
   }
@@ -431,7 +430,7 @@ export const CompleteMatrix: Story = {
     layout: 'padded',
     docs: {
       description: {
-        story: '모든 variant, size, theme 조합을 한 번에 확인할 수 있는 완전한 매트릭스입니다.'
+        story: '모든 variant, size, theme 조합을 한 번에 확인할 수 있는 완전한 매트릭스입니다. (클릭하여 토글 가능)'
       }
     }
   }
