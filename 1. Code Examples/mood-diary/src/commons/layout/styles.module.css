@@ -18,9 +18,11 @@
 .logo {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 120px;
+  justify-content: flex-start;
+  min-width: 120px;
+  max-width: 200px;
   height: 40px;
+  flex-shrink: 0;
 }
 
 .logoText {
@@ -30,6 +32,9 @@
   line-height: 16px;
   letter-spacing: -0.18px;
   color: var(--gray-black);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Gap */
@@ -78,7 +83,7 @@
   font-family: var(--typo-headline-01-family);
   font-size: var(--typo-headline-01-size);
   line-height: var(--typo-headline-01-height);
-  letter-spacing: -0.24px;
+  letter-spacing: var(--typo-headline-01-spacing);
 }
 
 .tabActive {
@@ -144,5 +149,46 @@
   line-height: 16px;
   letter-spacing: -0.14px;
   color: var(--gray-50);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+  .header,
+  .gap,
+  .banner,
+  .navigation,
+  .main,
+  .footerContent {
+    width: 100%;
+    max-width: 1168px;
+    padding: 0 24px;
+    box-sizing: border-box;
+  }
+  
+  .logoText {
+    font-size: calc(var(--typo-title-01-size) * 0.9);
+  }
+}
+
+@media (max-width: 768px) {
+  .logoText {
+    font-size: calc(var(--typo-title-01-size) * 0.8);
+  }
+  
+  .logo {
+    min-width: 100px;
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logoText {
+    font-size: calc(var(--typo-title-01-size) * 0.7);
+  }
+  
+  .logo {
+    min-width: 80px;
+    max-width: 120px;
+  }
 }
 
