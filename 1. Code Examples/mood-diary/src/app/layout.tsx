@@ -1,21 +1,17 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
 import "./globals.css";
 import { ModalProvider } from "@/commons/providers/modal/modal.provider";
 import { NextThemesProvider } from "@/commons/providers/next-themes/next-themes.provider";
 import { ReactQueryProvider } from "@/commons/providers/react-query/react-query.provider";
 import Layout from "@/commons/layout";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+// 커스텀 폰트를 사용하고 싶다면 아래 주석을 해제하고 설정
+// const customFont = localFont({
+//   src: "./fonts/YourFont.woff",
+//   variable: "--font-custom",
+//   weight: "100 900",
+// });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -30,7 +26,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className="antialiased"
+        // 폰트를 추가하면: className={`${customFont.variable} antialiased`}
       >
         <ReactQueryProvider>
           <NextThemesProvider>
