@@ -47,6 +47,9 @@ const DiariesDetail: React.FC = () => {
       <div className={styles.retrospectList}>
         Retrospect List Area
       </div>
+      
+      {/* 64px gap */}
+      <div className={styles.gap64}></div>
     </div>
   );
 };

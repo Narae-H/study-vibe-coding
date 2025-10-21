@@ -30,3 +30,4 @@
             - retrospect-input: 1168 * 85
             - {gap}: 1168 * 16
             - retrospect-list: 1168 * 72
+            - {gap}: 1168 * 64
