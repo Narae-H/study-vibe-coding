@@ -75,20 +75,132 @@
 /* 메인 콘텐츠 영역 - 936px 높이 */
 .main {
   width: 1168px;
-  height: 936px;
-  background-color: var(--gray-20); /* 와이어프레임 시각화용 */
+  min-height: 936px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* 일기 카드 그리드 */
+.diaryGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+/* 일기 카드 */
+.diaryCard {
+  width: 274px;
+  height: 296px;
+  background-color: var(--background-primary);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.diaryCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* 카드 이미지 컨테이너 */
+.cardImageContainer {
+  position: relative;
+  width: 274px;
+  height: 208px;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+}
+
+/* 카드 이미지 */
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px 16px 0 0;
+}
+
+/* 삭제 버튼 */
+.deleteButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--background-primary);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--gray-30);
+  transition: background-color 0.2s ease;
 }
 
-.mainPlaceholder {
-  font-size: var(--typo-body-01-m-size);
-  line-height: var(--typo-body-01-m-height);
-  font-weight: var(--typo-body-01-m-weight);
-  font-family: var(--typo-body-01-m-family);
+.deleteButton:hover {
+  background-color: var(--background-secondary);
+}
+
+/* 카드 콘텐츠 */
+.cardContent {
+  padding: 8px;
+  height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 카드 메타 정보 (감정, 날짜) */
+.cardMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 24px;
+}
+
+/* 감정 텍스트 */
+.emotionText {
+  font-family: var(--typo-subtitle-01-family);
+  font-weight: var(--typo-subtitle-01-weight);
+  font-size: var(--typo-subtitle-01-size);
+  line-height: var(--typo-subtitle-01-height);
+  letter-spacing: var(--typo-subtitle-01-spacing);
+}
+
+/* 날짜 텍스트 */
+.dateText {
+  font-family: var(--typo-body-02-s-family);
+  font-weight: var(--typo-body-02-s-weight);
+  font-size: var(--typo-body-02-s-size);
+  line-height: var(--typo-body-02-s-height);
+  letter-spacing: var(--typo-body-02-s-spacing);
   color: var(--text-secondary);
+}
+
+/* 카드 제목 */
+.cardTitle {
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+/* 제목 텍스트 */
+.titleText {
+  font-family: var(--typo-title-01-family);
+  font-weight: var(--typo-title-01-weight);
+  font-size: var(--typo-title-01-size);
+  line-height: var(--typo-title-01-height);
+  letter-spacing: var(--typo-title-01-spacing);
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
 }
 
 /* 페이지네이션 영역 - 32px 높이 */
