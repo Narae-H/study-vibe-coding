@@ -198,3 +198,8 @@
   align-items: center;
   justify-content: center;
 }
+
+/* 페이지네이션 컴포넌트 - width 제한 (프롬프트 요구사항) */
+.paginationComponent {
+  width: 288px; /* 피그마 디자인과 일치 */
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import styles from './styles.module.css';
 
-export interface PaginationProps {
+export interface PaginationProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * 현재 페이지 번호 (1부터 시작)
    */
@@ -61,8 +61,13 @@ export const Pagination: React.FC<PaginationProps> = ({
   size = 'medium',
   theme = 'light',
   maxPages = 5,
+  className,
+  style,
+  ...props
 }) => {
-  // 페이지 번호 배열 생성
+  /**
+   * 현재 페이지를 중심으로 표시할 페이지 번호 배열 생성
+   */
   const getPageNumbers = () => {
     const pages: number[] = [];
     const halfMax = Math.floor(maxPages / 2);
@@ -70,7 +75,7 @@ export const Pagination: React.FC<PaginationProps> = ({
     let startPage = Math.max(1, currentPage - halfMax);
     const endPage = Math.min(totalPages, startPage + maxPages - 1);
     
-    // 끝 페이지 조정
+    // 전체 페이지가 maxPages보다 적을 때 시작 페이지 조정
     if (endPage - startPage + 1 < maxPages) {
       startPage = Math.max(1, endPage - maxPages + 1);
     }
@@ -86,18 +91,27 @@ export const Pagination: React.FC<PaginationProps> = ({
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
   
+  /**
+   * 이전 페이지로 이동
+   */
   const handlePrevious = () => {
     if (!isFirstPage) {
       onPageChange(currentPage - 1);
     }
   };
   
+  /**
+   * 다음 페이지로 이동
+   */
   const handleNext = () => {
     if (!isLastPage) {
       onPageChange(currentPage + 1);
     }
   };
   
+  /**
+   * 특정 페이지로 이동
+   */
   const handlePageClick = (page: number) => {
     if (page !== currentPage) {
       onPageChange(page);
@@ -109,10 +123,11 @@ export const Pagination: React.FC<PaginationProps> = ({
     styles[`variant-${variant}`],
     styles[`size-${size}`],
     styles[`theme-${theme}`],
+    className,
   ].filter(Boolean).join(' ');
   
   return (
-    <div className={paginationClasses}>
+    <div className={paginationClasses} style={style} {...props}>
       {/* 이전 버튼 */}
       <button
         className={`${styles.arrowButton} ${isFirstPage ? styles.disabled : ''}`}

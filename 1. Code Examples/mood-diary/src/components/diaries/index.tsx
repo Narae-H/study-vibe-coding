@@ -323,6 +323,7 @@ export default function Diaries(): JSX.Element {
           size="medium"
           theme="light"
           maxPages={5}
+          className={styles.paginationComponent}
         />
       </div>
       
