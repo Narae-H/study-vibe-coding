@@ -200,29 +200,89 @@
   flex-shrink: 0;
 }
 
-/* 미구현 영역들 (임시) */
+/* Retrospect Input 영역 - 1168 * 85 */
 .retrospectInput {
   width: 100%;
   height: 85px;
-  background-color: var(--background-tertiary);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-primary);
-  font-family: var(--font-family-ko);
-  font-weight: 400;
-  font-size: 16px;
+  flex-direction: column;
+  gap: 13px;
 }
 
+.retrospectLabel {
+  font-family: var(--typo-title-01-family);
+  font-weight: var(--typo-title-01-weight);
+  font-size: var(--typo-title-01-size);
+  line-height: var(--typo-title-01-height);
+  letter-spacing: -0.18px;
+  color: var(--text-primary);
+  margin: 0;
+  height: 24px;
+}
+
+.retrospectInputArea {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.retrospectInputField {
+  width: 1101px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.retrospectSubmitButton {
+  width: 51px;
+  height: 48px;
+  min-width: 51px;
+  flex-shrink: 0;
+}
+
+/* Retrospect List 영역 */
 .retrospectList {
   width: 100%;
-  height: 72px;
-  background-color: var(--background-tertiary);
   display: flex;
+  flex-direction: column;
+  background-color: var(--background-primary);
+  border-radius: 16px;
+  padding: 0;
+  min-height: 72px;
+}
+
+.retrospectItem {
+  width: 100%;
+  height: 24px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  padding: 24px 0;
+}
+
+.retrospectContent {
+  font-family: var(--typo-body-01-m-family);
+  font-weight: var(--typo-body-01-m-weight);
+  font-size: var(--typo-body-01-m-size);
+  line-height: var(--typo-body-01-m-height);
+  letter-spacing: -0.16px;
   color: var(--text-primary);
-  font-family: var(--font-family-ko);
-  font-weight: 400;
-  font-size: 14px;
+  flex: 1;
+}
+
+.retrospectDate {
+  font-family: var(--typo-body-01-family);
+  font-weight: var(--typo-body-01-weight);
+  font-size: var(--typo-body-01-size);
+  line-height: var(--typo-body-01-height);
+  letter-spacing: -0.16px;
+  color: var(--gray-60);
+  margin-left: 12px;
+}
+
+.retrospectDivider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--gray-10);
 }

@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/commons/components/button';
+import { Input } from '@/commons/components/input';
 import { EmotionType, EMOTION_DATA } from '@/commons/constants/enum';
 import styles from './styles.module.css';
 
@@ -14,6 +15,15 @@ interface DiaryDetailData {
   title: string;
   content: string;
   emotion: EmotionType;
+  createdAt: string;
+}
+
+/**
+ * 회고 데이터 인터페이스
+ */
+interface RetrospectData {
+  id: string;
+  content: string;
   createdAt: string;
 }
 
@@ -30,6 +40,20 @@ const COMPONENT_CONFIG = {
     createdAt: '2024. 07. 12'
   } as DiaryDetailData,
   
+  // Mock 회고 데이터 그룹화
+  mockRetrospects: [
+    {
+      id: '1',
+      content: '3년이 지나고 다시 보니 이때가 그립다.',
+      createdAt: '2024. 09. 24'
+    },
+    {
+      id: '2', 
+      content: '3년이 지나고 다시 보니 이때가 그립다.',
+      createdAt: '2024. 09. 24'
+    }
+  ] as RetrospectData[],
+  
   // 버튼 설정 그룹화
   buttonProps: {
     edit: {
@@ -39,6 +63,20 @@ const COMPONENT_CONFIG = {
     },
     delete: {
       variant: 'secondary' as const,
+      size: 'medium' as const,
+      theme: 'light' as const
+    },
+    retrospectSubmit: {
+      variant: 'primary' as const,
+      size: 'medium' as const,
+      theme: 'light' as const
+    }
+  },
+  
+  // Input 설정 그룹화
+  inputProps: {
+    retrospect: {
+      variant: 'primary' as const,
       size: 'medium' as const,
       theme: 'light' as const
     }
@@ -55,7 +93,10 @@ const COMPONENT_CONFIG = {
     copyButton: '내용 복사',
     editButton: '수정',
     deleteButton: '삭제',
-    dateLabel: '작성'
+    dateLabel: '작성',
+    retrospectLabel: '회고',
+    retrospectPlaceholder: '회고를 남겨보세요.',
+    retrospectSubmit: '입력'
   }
 } as const;
 
@@ -65,8 +106,12 @@ const COMPONENT_CONFIG = {
  */
 const DiariesDetail: React.FC = () => {
   // 구조화된 데이터 사용
-  const { mockData, buttonProps, icons, labels } = COMPONENT_CONFIG;
+  const { mockData, mockRetrospects, buttonProps, inputProps, icons, labels } = COMPONENT_CONFIG;
   const emotionData = EMOTION_DATA[mockData.emotion];
+  
+  // 회고 입력 상태 관리
+  const [retrospectInput, setRetrospectInput] = useState<string>('');
+  const [retrospects, setRetrospects] = useState<RetrospectData[]>(mockRetrospects);
 
   /**
    * 내용 복사 핸들러
@@ -90,6 +135,41 @@ const DiariesDetail: React.FC = () => {
   const handleDelete = () => {
     // TODO: 삭제 확인 모달 표시
     console.log('삭제 버튼 클릭');
+  };
+
+  /**
+   * 회고 입력 핸들러
+   */
+  const handleRetrospectSubmit = () => {
+    if (retrospectInput.trim()) {
+      const newRetrospect: RetrospectData = {
+        id: Date.now().toString(),
+        content: retrospectInput.trim(),
+        createdAt: new Date().toLocaleDateString('ko-KR', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+        }).replace(/\./g, '. ').replace(/ $/, '')
+      };
+      setRetrospects([newRetrospect, ...retrospects]);
+      setRetrospectInput('');
+    }
+  };
+
+  /**
+   * 회고 입력 변경 핸들러
+   */
+  const handleRetrospectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRetrospectInput(e.target.value);
+  };
+
+  /**
+   * Enter 키 입력 핸들러
+   */
+  const handleRetrospectKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleRetrospectSubmit();
+    }
   };
 
   return (
@@ -176,15 +256,40 @@ const DiariesDetail: React.FC = () => {
       
       {/* retrospect-input: 1168 * 85 */}
       <div className={styles.retrospectInput}>
-        Retrospect Input Area
+        <h2 className={styles.retrospectLabel}>{labels.retrospectLabel}</h2>
+        <div className={styles.retrospectInputArea}>
+          <Input
+            {...inputProps.retrospect}
+            value={retrospectInput}
+            onChange={handleRetrospectChange}
+            onKeyPress={handleRetrospectKeyPress}
+            placeholder={labels.retrospectPlaceholder}
+            className={styles.retrospectInputField}
+          />
+          <Button
+            {...buttonProps.retrospectSubmit}
+            onClick={handleRetrospectSubmit}
+            className={styles.retrospectSubmitButton}
+          >
+            {labels.retrospectSubmit}
+          </Button>
+        </div>
       </div>
       
       {/* 16px gap */}
       <div className={styles.gap16}></div>
       
-      {/* retrospect-list: 1168 * 72 */}
+      {/* retrospect-list: 1168 * auto */}
       <div className={styles.retrospectList}>
-        Retrospect List Area
+        {retrospects.map((retrospect, index) => (
+          <div key={retrospect.id}>
+            <div className={styles.retrospectItem}>
+              <span className={styles.retrospectContent}>{retrospect.content}</span>
+              <span className={styles.retrospectDate}>[{retrospect.createdAt}]</span>
+            </div>
+            {index < retrospects.length - 1 && <div className={styles.retrospectDivider}></div>}
+          </div>
+        ))}
       </div>
       
       {/* 64px gap */}
