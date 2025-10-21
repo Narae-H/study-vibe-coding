@@ -10,7 +10,7 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: 4dumgofa)
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: n5vkq5w7)
 조건-피그마) 구현될 컴포넌트 노드ID(라이트모드: detail-title 영역): 3:1073
 조건-피그마) 구현될 컴포넌트 노드ID(라이트모드: detail-content 영역): 3:1083
 조건-피그마) 구현될 컴포넌트 노드ID(라이트모드: detail-footer 영역): 3:1092
@@ -33,11 +33,17 @@
 
 기존히스토리-참고만) MCP를 연동하여 피그마의 디자인을 이미 만들어져있는 와이어프레임의 detail-title, detail-content, deatil-footer 영역에 그대로 구현할 것.
 
+기존히스토리-참고만) 피그마는 타이틀 밑에 줄이 있는데, styles_titleSection 밑에는 줄이 안보임. 피그마의 "타이틀" 프레임과 동일하게 수정할 것. 
+
+기존히스토리-참고만) 피그마는 detail_footer 부분 위아래로 갭이 있는데, styles_detailFooter는 갭이 없음. 위아래로 16px padding 추가.
+
+기존히스토리-참고만) 피그마의 Frame 79를 보면 detail-title, detail-content, detail-footer를 다 포함하고 있고, bottom에 줄이 있음. 피그마와 동일하게 업데이트
+
 ==============================================
 
-핵심요구사항) styles_titleSection의 border-bottom을 2px solild black 추가할 것.
+핵심요구사항) styles_titleSection의 border 색상을 피그마의 보더 색상과 동일하게 바꾸고 두께는 2px로 할 것.
 
-핵심요구사항) styles_detailFooter는 height를 56px로 설정하고, border-bottom을 1px solid black으로 추가할 것.
+핵심요구사항) styles_diaryDetailWrapper의 border 색상을 피그마의 보더 색상과 동일하게 바꾸고 두께는 1px로 할것.
 
 핵심요구사항) 일기상세는 아래의 조건으로 Mock 데이터를 만들어 적용할 것.
             1. 일기카드는 감정과 관련된 내용으로 enum 타입을 활용할 것.
@@ -47,7 +53,7 @@
             2. 아래의 지시를 반영하여 구현할 것.
                 1) detail-title
                     - 제목텍스트: 피그마와 동일하게 구현할 것.
-                    - 감정아이콘: emotion enum 타입에 지정된 s사이즈 이미지경로(/images) 사용할 것.
+                    - 감정아이콘: emotion enum 타입에 지정된 s사이즈 이미지경로(/images/emotion-*-s.png) 사용할 것.
                     - 감정텍스트: emotion enum 타입에 지정된 감정텍스트. "행복해요", "슬퍼요" 등 사용할 것.
                     - 작성일텍스트: 피그마와 동일하게 구현할 것.
 
