@@ -28,17 +28,19 @@
 
 기존히스토리-참고만) MCP를 연동하여 피그마의 디자인을 이미 만들어져있는 와이어프레임의 main 영역에 그대로 구현할 것.
 
+기존히스토리-참고만) 애니매이션(animation, trasition) 효과는 없앨 것
+
+기존히스토리-참고만) styles_diaryCard 에 피그마와 동일하지 않은 box-shadow 없앨 것
+
+기존히스토리-참고만) imageContainer 왼쪽, 오른쪽 아래 border-radius를 피그마와 동일하게 16px로 바꿀 것
+
+기존히스토리-참고만) style_cardContent 의 padding을 좌,우는 8px 위,아래는 16px로 맞출것.
+
+기존히스토리-참고만) styles_metaInfo와 styles_titleContainer의 간격을 8px로 맞출것.
+
 ==============================================
 
-핵심요구사항) 애니매이션(animation, trasition) 효과는 없앨 것
-
-핵심요구사항) styles_diaryCard 에 피그마와 동일하지 않은 box-shadow 없앨 것
-
-핵심요구사항) imageContainer 왼쪽, 오른쪽 아래 border-radius를 피그마와 동일하게 16px로 바꿀 것
-
-핵심요구사항) style_cardContent 의 padding을 좌,우는 8px 위,아래는 16px로 맞출것.
-
-핵심요구사항) styles_metaInfo와 styles_titleContainer의 간격을 8px로 맞출것.
+핵심요구사항) styles_imageContainer 의 border-radius를 피그마와 동일하게 16px로 바꿀 것
 
 핵심요구사항) 일기카드는 아래의 조건으로 Mock 데이터를 만들어 적용할 것.
             1. 일기카드는 감정과 관련된 내용으로 enum 타입을 활용할 것.
