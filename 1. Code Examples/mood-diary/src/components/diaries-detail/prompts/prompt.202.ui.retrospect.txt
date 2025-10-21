@@ -39,7 +39,7 @@
 핵심요구사항) styles_retrospectItem 에서 content와 date가 space-between으로 정렬 되어 있는데, 
            피그마에서는 content 옆에 12px 갭이 있고, date가 붙어있음. 피그마와 동일하게 디자인 변경. 
 
-핵심요구사항) styles_retrospectItem의 위, 아래 패딩이 24px로 되어있는데, 피그마에서는 위, 아래 패딩이 12px. 피그마와 동일하게 변경.
+핵심요구사항) styles_retrospectItem의 위, 아래 패딩이 12px로 되어있는데, 피그마에서는 위, 아래 패딩이 24px. 피그마와 동일하게 변경.
 
 핵심요구사항) 공통컴포넌트는 다음의 규칙을 지켜 step-by-step 으로 구현하고, 적용 결과를 체크리스트로 반환할 것.
             1. 공통컴포넌트 원본을 수정하지 말고, 아래의 props만 활용할 것.
