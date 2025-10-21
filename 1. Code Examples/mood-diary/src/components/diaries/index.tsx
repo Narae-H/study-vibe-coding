@@ -62,26 +62,29 @@ export default function Diaries(): JSX.Element {
       {/* Search */}
       <div className={styles.search}>
         <div className={styles.searchContent}>
-          {/* 필터 선택박스 */}
-          <Selectbox
-            variant="primary"
-            size="medium"
-            theme="light"
-            options={filterOptions}
-            value={selectedFilter}
-            onChange={handleFilterChange}
-            className={styles.filterSelect}
-          />
-          
-          {/* 검색바 */}
-          <Searchbar
-            variant="primary"
-            size="medium"
-            theme="light"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            className={styles.searchInput}
-          />
+          {/* SelectBox와 SearchBar 묶음 */}
+          <div className={styles.searchGroup}>
+            {/* 필터 선택박스 */}
+            <Selectbox
+              variant="primary"
+              size="medium"
+              theme="light"
+              options={filterOptions}
+              value={selectedFilter}
+              onChange={handleFilterChange}
+              className={styles.filterSelect}
+            />
+            
+            {/* 검색바 */}
+            <Searchbar
+              variant="primary"
+              size="medium"
+              theme="light"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className={styles.searchInput}
+            />
+          </div>
           
           {/* 일기쓰기 버튼 */}
           <Button

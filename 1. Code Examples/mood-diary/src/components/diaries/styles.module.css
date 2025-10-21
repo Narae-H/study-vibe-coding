@@ -43,22 +43,32 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  width: 1050px; /* 피그마 Frame 12 너비와 일치 */
+  width: 100%;
 }
 
-/* 필터 선택박스 - 피그마 기준 120px */
+/* SelectBox와 SearchBar 묶음 그룹 */
+.searchGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* 필터 선택박스 - 피그마 Frame 12 내 드롭다운: 120×48px */
 .filterSelect {
   width: 120px;
+  flex-shrink: 0;
 }
 
-/* 검색바 - 피그마 기준 320px */
+/* 검색바 - 피그마 Frame 8: 고정 320px */
 .searchInput {
   width: 320px;
+  flex-shrink: 0;
 }
 
-/* 일기쓰기 버튼 - 피그마 기준 110px */
+/* 일기쓰기 버튼 - 피그마 Frame 12 내 버튼: 110×48px, 오른쪽 정렬 */
 .writeButton {
   width: 110px;
+  flex-shrink: 0;
   margin-left: auto;
 }
 
@@ -66,30 +76,36 @@
 .main {
   width: 1168px;
   height: 936px;
-  background-color: #d0d0d0; /* 와이어프레임 시각화용 */
+  background-color: var(--gray-20); /* 와이어프레임 시각화용 */
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #ccc;
+  border: 1px solid var(--gray-30);
 }
 
 .mainPlaceholder {
-  font-size: 16px;
-  color: #666;
+  font-size: var(--typo-body-01-m-size);
+  line-height: var(--typo-body-01-m-height);
+  font-weight: var(--typo-body-01-m-weight);
+  font-family: var(--typo-body-01-m-family);
+  color: var(--text-secondary);
 }
 
 /* 페이지네이션 영역 - 32px 높이 */
 .pagination {
   width: 1168px;
   height: 32px;
-  background-color: #e0e0e0; /* 와이어프레임 시각화용 */
+  background-color: var(--gray-10); /* 와이어프레임 시각화용 */
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #ccc;
+  border: 1px solid var(--gray-30);
 }
 
 .paginationPlaceholder {
-  font-size: 14px;
-  color: #666;
+  font-size: var(--typo-body-02-m-size);
+  line-height: var(--typo-body-02-m-height);
+  font-weight: var(--typo-body-02-m-weight);
+  font-family: var(--typo-body-02-m-family);
+  color: var(--text-secondary);
 }
