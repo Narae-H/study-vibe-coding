@@ -6,6 +6,7 @@ import styles from './styles.module.css';
 import { Selectbox, SelectOption } from '@/commons/components/selectbox';
 import { Searchbar } from '@/commons/components/searchbar';
 import { Button } from '@/commons/components/button';
+import { Pagination } from '@/commons/components/pagination';
 import { EmotionType, EMOTION_DATA } from '@/commons/constants/enum';
 
 // 필터 옵션 데이터
@@ -204,6 +205,10 @@ export default function Diaries(): JSX.Element {
   // 검색 상태 관리
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  
+  // 페이지네이션 상태 관리
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const totalPages = 5;
 
   /**
    * 필터 변경 핸들러
@@ -227,6 +232,16 @@ export default function Diaries(): JSX.Element {
   const handleWriteDiary = () => {
     // TODO: 일기 작성 페이지로 이동
     console.log('일기쓰기 버튼 클릭');
+  };
+
+  /**
+   * 페이지 변경 핸들러
+   * @param {number} page - 변경될 페이지 번호
+   */
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // TODO: 페이지에 따른 일기 목록 데이터 로딩
+    console.log('페이지 변경:', page);
   };
 
   return (
@@ -300,7 +315,15 @@ export default function Diaries(): JSX.Element {
       
       {/* Pagination */}
       <div className={styles.pagination}>
-        <div className={styles.paginationPlaceholder}>페이지네이션 영역</div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          variant="primary"
+          size="medium"
+          theme="light"
+          maxPages={5}
+        />
       </div>
       
       {/* Gap */}
