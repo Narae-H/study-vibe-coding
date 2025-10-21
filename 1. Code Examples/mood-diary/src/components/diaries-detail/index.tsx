@@ -68,7 +68,7 @@ const COMPONENT_CONFIG = {
     },
     retrospectSubmit: {
       variant: 'primary' as const,
-      size: 'medium' as const,
+      size: 'large' as const,
       theme: 'light' as const
     }
   },
@@ -77,7 +77,7 @@ const COMPONENT_CONFIG = {
   inputProps: {
     retrospect: {
       variant: 'primary' as const,
-      size: 'medium' as const,
+      size: 'large' as const,
       theme: 'light' as const
     }
   },

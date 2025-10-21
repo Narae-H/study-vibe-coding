@@ -228,17 +228,14 @@
   align-items: center;
 }
 
+/* Input 필드 - width만 className으로 전달 */
 .retrospectInputField {
   width: 1101px;
-  height: 48px;
-  flex-shrink: 0;
 }
 
+/* 버튼 - width만 className으로 전달 */
 .retrospectSubmitButton {
   width: 51px;
-  height: 48px;
-  min-width: 51px;
-  flex-shrink: 0;
 }
 
 /* Retrospect List 영역 */
