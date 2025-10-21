@@ -149,8 +149,8 @@ function DiaryCard({ diary }: { diary: DiaryEntry }): JSX.Element {
     <div className={styles.diaryCard} onClick={handleCardClick}>
       {/* 이미지 영역 */}
       <div className={styles.imageContainer}>
-        {/* 이미지 헤더 - 삭제 버튼 */}
-        <div className={styles.imageHeader}>
+        {/* 삭제 버튼 - 이미지 위에 겹침 */}
+        <div className={styles.deleteButtonWrapper}>
           <button 
             className={styles.deleteButton}
             onClick={handleDeleteClick}
@@ -169,7 +169,7 @@ function DiaryCard({ diary }: { diary: DiaryEntry }): JSX.Element {
           src={diary.image}
           alt={diary.title}
           width={274}
-          height={160}
+          height={208}
           className={styles.diaryImage}
         />
       </div>

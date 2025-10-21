@@ -110,12 +110,26 @@
   flex-direction: column;
 }
 
-/* 이미지 헤더 - 삭제 버튼 영역 */
-.imageHeader {
+
+/* 삭제 버튼 래퍼 - 이미지 위에 겹침 (flexbox 방식) */
+.deleteButtonWrapper {
   display: flex;
   justify-content: flex-end;
+  align-items: flex-start;
   padding: 12px;
-  height: 48px; /* 버튼 영역 높이 */
+  height: 48px; /* 삭제 버튼 영역 높이 */
+  flex-shrink: 0;
+  z-index: 2; /* 이미지 위에 표시 */
+}
+
+/* 일기 이미지 */
+.diaryImage {
+  width: 100%;
+  height: 208px; /* 전체 높이 사용 */
+  object-fit: cover;
+  flex-shrink: 0;
+  margin-top: -48px; /* 삭제버튼 영역과 겹치도록 네거티브 마진 */
+  z-index: 1; /* 삭제버튼보다 아래 레이어 */
 }
 
 /* 삭제 버튼 - 피그마 close icon */
@@ -130,14 +144,7 @@
   justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
-}
-
-/* 일기 이미지 */
-.diaryImage {
-  width: 100%;
-  height: 160px; /* 208px - 48px (헤더 높이) */
-  object-fit: cover;
-  flex-shrink: 0;
+  z-index: 3; /* 이미지 위에 확실히 표시 */
 }
 
 /* 카드 콘텐츠 영역 - 피그마 Frame 26 */
