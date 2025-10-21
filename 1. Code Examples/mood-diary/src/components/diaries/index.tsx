@@ -149,26 +149,29 @@ function DiaryCard({ diary }: { diary: DiaryEntry }): JSX.Element {
     <div className={styles.diaryCard} onClick={handleCardClick}>
       {/* 이미지 영역 */}
       <div className={styles.imageContainer}>
+        {/* 이미지 헤더 - 삭제 버튼 */}
+        <div className={styles.imageHeader}>
+          <button 
+            className={styles.deleteButton}
+            onClick={handleDeleteClick}
+            aria-label="일기 삭제"
+          >
+            <Image
+              src="/icons/close_outline_light_m.svg"
+              alt="삭제"
+              width={24}
+              height={24}
+            />
+          </button>
+        </div>
+        {/* 일기 이미지 */}
         <Image
           src={diary.image}
           alt={diary.title}
           width={274}
-          height={208}
+          height={160}
           className={styles.diaryImage}
         />
-        {/* 삭제 버튼 */}
-        <button 
-          className={styles.deleteButton}
-          onClick={handleDeleteClick}
-          aria-label="일기 삭제"
-        >
-          <Image
-            src="/icons/close_outline_light_m.svg"
-            alt="삭제"
-            width={24}
-            height={24}
-          />
-        </button>
       </div>
 
       {/* 콘텐츠 영역 */}
