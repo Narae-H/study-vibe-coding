@@ -166,7 +166,7 @@ const DiariesDetail: React.FC = () => {
   /**
    * Enter 키 입력 핸들러
    */
-  const handleRetrospectKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleRetrospectKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleRetrospectSubmit();
     }
@@ -262,7 +262,7 @@ const DiariesDetail: React.FC = () => {
             {...inputProps.retrospect}
             value={retrospectInput}
             onChange={handleRetrospectChange}
-            onKeyPress={handleRetrospectKeyPress}
+            onKeyDown={handleRetrospectKeyDown}
             placeholder={labels.retrospectPlaceholder}
             className={styles.retrospectInputField}
           />
