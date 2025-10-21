@@ -96,7 +96,6 @@ const DiariesNew: React.FC = () => {
           placeholder="제목을 입력합니다."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className={styles.titleInput}
         />
       </div>
 
@@ -122,18 +121,18 @@ const DiariesNew: React.FC = () => {
         <Button
           variant="secondary"
           theme="light"
-          size="medium"
+          size="large"
           onClick={handleClose}
-          className={styles.closeButton}
+          className={styles.footerButton}
         >
           닫기
         </Button>
         <Button
           variant="primary"
           theme="light"
-          size="medium"
+          size="large"
           onClick={handleSubmit}
-          className={styles.submitButton}
+          className={styles.footerButton}
         >
           등록하기
         </Button>

@@ -113,31 +113,7 @@
   margin: 0;
 }
 
-.titleInput {
-  width: 100%;
-  height: 48px;
-  padding: 12px 16px;
-  border: 1px solid var(--gray-20);
-  border-radius: 8px;
-  background-color: var(--background-primary);
-  font-family: var(--typo-body-01-m-family);
-  font-weight: var(--typo-body-01-m-weight);
-  font-size: var(--typo-body-01-m-size);
-  line-height: var(--typo-body-01-m-height);
-  color: var(--text-primary);
-  box-sizing: border-box;
-}
-
-.titleInput::placeholder {
-  color: var(--text-primary);
-  font-weight: var(--typo-body-01-m-weight);
-  letter-spacing: -0.16px;
-}
-
-.titleInput:focus {
-  outline: none;
-  border-color: var(--primary);
-}
+/* Input 컴포넌트는 공통 컴포넌트의 기본 스타일 사용 */
 
 /* input-content: full * 156 */
 .inputContent {
@@ -187,30 +163,8 @@
   flex-shrink: 0;
 }
 
-.closeButton {
+/* Button 컴포넌트는 공통 컴포넌트의 기본 스타일 사용 */
+/* 피그마 디자인: 104px 너비를 위해 width만 설정 (커서룰 준수) */
+.footerButton {
   width: 104px;
-  height: 48px;
-  border: 1px solid var(--text-primary);
-  border-radius: 8px;
-  background-color: var(--background-primary);
-  color: var(--gray-90);
-  font-family: var(--typo-title-01-family);
-  font-weight: var(--typo-title-01-weight);
-  font-size: var(--typo-title-01-size);
-  line-height: var(--typo-title-01-height);
-  letter-spacing: -0.18px;
-}
-
-.submitButton {
-  width: 104px;
-  height: 48px;
-  border: none;
-  border-radius: 8px;
-  background-color: var(--text-primary);
-  color: var(--gray-5);
-  font-family: var(--typo-title-01-family);
-  font-weight: var(--typo-title-01-weight);
-  font-size: var(--typo-title-01-size);
-  line-height: var(--typo-title-01-height);
-  letter-spacing: -0.18px;
 }
