@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '@/commons/layout';
 import Diaries from '@/components/diaries';
 
 /**
@@ -12,8 +11,6 @@ import Diaries from '@/components/diaries';
  */
 export default function DiariesPage(): JSX.Element {
   return (
-    <Layout>
-      <Diaries />
-    </Layout>
+    <Diaries />
   );
 }

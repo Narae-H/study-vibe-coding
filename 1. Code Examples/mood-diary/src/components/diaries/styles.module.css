@@ -17,19 +17,16 @@
 .gap32 {
   width: 1168px;
   height: 32px;
-  background-color: #f0f0f0; /* 와이어프레임 시각화용 */
 }
 
 .gap42 {
   width: 1168px;
   height: 42px;
-  background-color: #f0f0f0; /* 와이어프레임 시각화용 */
 }
 
 .gap40 {
   width: 1168px;
   height: 40px;
-  background-color: #f0f0f0; /* 와이어프레임 시각화용 */
 }
 
 /* 검색 영역 - 48px 높이 */
