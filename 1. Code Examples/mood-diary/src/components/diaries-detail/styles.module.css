@@ -253,9 +253,8 @@
   width: 100%;
   height: 24px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 24px 0;
+  padding: 12px 0;
 }
 
 .retrospectContent {
@@ -265,7 +264,6 @@
   line-height: var(--typo-body-01-m-height);
   letter-spacing: -0.16px;
   color: var(--text-primary);
-  flex: 1;
 }
 
 .retrospectDate {

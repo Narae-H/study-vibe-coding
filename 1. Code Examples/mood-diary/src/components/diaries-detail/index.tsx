@@ -77,7 +77,7 @@ const COMPONENT_CONFIG = {
   inputProps: {
     retrospect: {
       variant: 'primary' as const,
-      size: 'large' as const,
+      size: 'medium' as const,
       theme: 'light' as const
     }
   },
