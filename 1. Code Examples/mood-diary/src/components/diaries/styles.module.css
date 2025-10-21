@@ -33,16 +33,33 @@
 .search {
   width: 1168px;
   height: 48px;
-  background-color: #e0e0e0; /* 와이어프레임 시각화용 */
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: 1px solid #ccc;
+  justify-content: flex-start;
 }
 
-.searchPlaceholder {
-  font-size: 14px;
-  color: #666;
+/* 검색 영역 내부 컨텐츠 */
+.searchContent {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 1050px; /* 피그마 Frame 12 너비와 일치 */
+}
+
+/* 필터 선택박스 - 피그마 기준 120px */
+.filterSelect {
+  width: 120px;
+}
+
+/* 검색바 - 피그마 기준 320px */
+.searchInput {
+  width: 320px;
+}
+
+/* 일기쓰기 버튼 - 피그마 기준 110px */
+.writeButton {
+  width: 110px;
+  margin-left: auto;
 }
 
 /* 메인 콘텐츠 영역 - 936px 높이 */
