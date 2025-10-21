@@ -12,61 +12,185 @@
 .gap64 {
   width: 100%;
   height: 64px;
-  background-color: var(--background-secondary);
 }
 
 .gap24 {
   width: 100%;
   height: 24px;
-  background-color: var(--background-secondary);
 }
 
 .gap16 {
   width: 100%;
   height: 16px;
-  background-color: var(--background-secondary);
 }
 
-/* 컨텐츠 영역들 */
+/* Detail Title 영역 - 1168 * 84 */
 .detailTitle {
   width: 100%;
   height: 84px;
-  background-color: var(--background-tertiary);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-primary);
-  font-family: var(--font-family-ko);
-  font-weight: 600;
-  font-size: 18px;
+  flex-direction: column;
+  gap: 16px;
 }
 
+.titleSection {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-family: var(--typo-headline-02-family);
+  font-weight: var(--typo-headline-02-weight);
+  font-size: var(--typo-headline-02-size);
+  line-height: var(--typo-headline-02-height);
+  letter-spacing: -0.22px;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.emotionAndDate {
+  width: 100%;
+  height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.emotionInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+}
+
+.emotionIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.emotionText {
+  font-family: var(--typo-headline-03-family);
+  font-weight: var(--typo-headline-03-weight);
+  font-size: var(--typo-headline-03-size);
+  line-height: var(--typo-headline-03-height);
+  letter-spacing: -0.2px;
+  color: var(--red-30);
+}
+
+.dateInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 20px;
+}
+
+.dateText,
+.dateLabel {
+  font-family: var(--typo-body-02-s-family);
+  font-weight: var(--typo-body-02-s-weight);
+  font-size: var(--typo-body-02-s-size);
+  line-height: var(--typo-body-02-s-height);
+  letter-spacing: -0.14px;
+  color: var(--gray-50);
+}
+
+/* Detail Content 영역 - 1168 * 169 */
 .detailContent {
   width: 100%;
   height: 169px;
-  background-color: var(--background-tertiary);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-primary);
-  font-family: var(--font-family-ko);
-  font-weight: 400;
-  font-size: 16px;
+  flex-direction: column;
+  gap: 12px;
 }
 
+.contentArea {
+  width: 100%;
+  height: 133px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.contentLabel {
+  font-family: var(--typo-title-02-family);
+  font-weight: var(--typo-title-02-weight);
+  font-size: var(--typo-title-02-size);
+  line-height: var(--typo-title-02-height);
+  letter-spacing: -0.16px;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.contentText {
+  font-family: var(--typo-body-01-m-family);
+  font-weight: var(--typo-body-01-m-weight);
+  font-size: var(--typo-body-01-m-size);
+  line-height: var(--typo-body-01-m-height);
+  letter-spacing: -0.16px;
+  color: var(--gray-80);
+  margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+.copyButtonArea {
+  width: 100%;
+  height: 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  height: 24px;
+}
+
+.copyButtonText {
+  font-family: var(--typo-body-01-family);
+  font-weight: var(--typo-body-01-weight);
+  font-size: var(--typo-body-01-size);
+  line-height: var(--typo-body-01-height);
+  letter-spacing: -0.16px;
+  color: var(--gray-90);
+}
+
+/* Detail Footer 영역 - 1168 * 56 */
 .detailFooter {
   width: 100%;
-  height: 56px;
-  background-color: var(--background-tertiary);
+  height: 40px;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: center;
-  color: var(--text-primary);
-  font-family: var(--font-family-ko);
-  font-weight: 400;
-  font-size: 14px;
 }
 
+.buttonGroup {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* @02-wireframe.mdc 룰 적용: important 키워드 제거 */
+.editButton,
+.deleteButton {
+  width: 51px;
+  height: 40px;
+  min-width: 51px;
+  flex-shrink: 0;
+}
+
+/* 미구현 영역들 (임시) */
 .retrospectInput {
   width: 100%;
   height: 85px;
