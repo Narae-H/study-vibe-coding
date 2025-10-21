@@ -97,74 +97,77 @@ const DiariesDetail: React.FC = () => {
       {/* 64px gap */}
       <div className={styles.gap64}></div>
       
-      {/* detail-title: 1168 * 84 */}
-      <div className={styles.detailTitle}>
-        <div className={styles.titleSection}>
-          <h1 className={styles.title}>{mockData.title}</h1>
-        </div>
-        <div className={styles.emotionAndDate}>
-          <div className={styles.emotionInfo}>
-            <Image
-              src={emotionData.imageSmall}
-              alt={emotionData.label}
-              width={32}
-              height={32}
-              className={styles.emotionIcon}
-            />
-            <span className={styles.emotionText}>{emotionData.label}</span>
+      {/* Frame 79 - 전체 일기 상세 영역 */}
+      <div className={styles.diaryDetailWrapper}>
+        {/* detail-title: 1168 * 84 */}
+        <div className={styles.detailTitle}>
+          <div className={styles.titleSection}>
+            <h1 className={styles.title}>{mockData.title}</h1>
           </div>
-          <div className={styles.dateInfo}>
-            <span className={styles.dateText}>{mockData.createdAt}</span>
-            <span className={styles.dateLabel}>{labels.dateLabel}</span>
+          <div className={styles.emotionAndDate}>
+            <div className={styles.emotionInfo}>
+              <Image
+                src={emotionData.imageSmall}
+                alt={emotionData.label}
+                width={32}
+                height={32}
+                className={styles.emotionIcon}
+              />
+              <span className={styles.emotionText}>{emotionData.label}</span>
+            </div>
+            <div className={styles.dateInfo}>
+              <span className={styles.dateText}>{mockData.createdAt}</span>
+              <span className={styles.dateLabel}>{labels.dateLabel}</span>
+            </div>
           </div>
         </div>
-      </div>
-      
-      {/* 24px gap */}
-      <div className={styles.gap24}></div>
-      
-      {/* detail-content: 1168 * 169 */}
-      <div className={styles.detailContent}>
-        <div className={styles.contentArea}>
-          <h2 className={styles.contentLabel}>{labels.content}</h2>
-          <p className={styles.contentText}>{mockData.content}</p>
+        
+        {/* 24px gap */}
+        <div className={styles.gap24}></div>
+        
+        {/* detail-content: 1168 * 169 */}
+        <div className={styles.detailContent}>
+          <div className={styles.contentArea}>
+            <h2 className={styles.contentLabel}>{labels.content}</h2>
+            <p className={styles.contentText}>{mockData.content}</p>
+          </div>
+          <div className={styles.copyButtonArea}>
+            <button 
+              className={styles.copyButton}
+              onClick={handleCopyContent}
+            >
+              <Image
+                src={icons.copy}
+                alt="복사"
+                width={24}
+                height={24}
+              />
+              <span className={styles.copyButtonText}>{labels.copyButton}</span>
+            </button>
+          </div>
         </div>
-        <div className={styles.copyButtonArea}>
-          <button 
-            className={styles.copyButton}
-            onClick={handleCopyContent}
-          >
-            <Image
-              src={icons.copy}
-              alt="복사"
-              width={24}
-              height={24}
-            />
-            <span className={styles.copyButtonText}>{labels.copyButton}</span>
-          </button>
-        </div>
-      </div>
-      
-      {/* 24px gap */}
-      <div className={styles.gap24}></div>
-      
-      {/* detail-footer: 1168 * 56 */}
-      <div className={styles.detailFooter}>
-        <div className={styles.buttonGroup}>
-          <Button
-            {...buttonProps.edit}
-            onClick={handleEdit}
-            className={styles.editButton}
-          >
-            {labels.editButton}
-          </Button>
-          <Button
-            {...buttonProps.delete}
-            onClick={handleDelete}
-            className={styles.deleteButton}
-          >
-            {labels.deleteButton}
-          </Button>
+        
+        {/* 24px gap */}
+        <div className={styles.gap24}></div>
+        
+        {/* detail-footer: 1168 * 56 */}
+        <div className={styles.detailFooter}>
+          <div className={styles.buttonGroup}>
+            <Button
+              {...buttonProps.edit}
+              onClick={handleEdit}
+              className={styles.editButton}
+            >
+              {labels.editButton}
+            </Button>
+            <Button
+              {...buttonProps.delete}
+              onClick={handleDelete}
+              className={styles.deleteButton}
+            >
+              {labels.deleteButton}
+            </Button>
+          </div>
         </div>
       </div>
       
