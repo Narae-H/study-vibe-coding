@@ -81,51 +81,42 @@
   justify-content: center;
 }
 
-/* 일기 카드 그리드 */
+/* 일기 그리드 레이아웃 - 피그마 디자인에 따른 4열 그리드 */
 .diaryGrid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 274px);
   gap: 24px;
   width: 100%;
-  justify-content: flex-start;
+  max-width: 1168px;
 }
 
-/* 일기 카드 */
+/* 일기 카드 - 피그마 Frame 25/26/27/28 디자인 */
 .diaryCard {
   width: 274px;
   height: 296px;
   background-color: var(--background-primary);
   border-radius: 16px;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  cursor: pointer;
 }
 
-.diaryCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-/* 카드 이미지 컨테이너 */
-.cardImageContainer {
+/* 이미지 컨테이너 - 피그마 Frame 47/46/45/41 */
+.imageContainer {
   position: relative;
   width: 274px;
   height: 208px;
-  overflow: hidden;
   border-radius: 16px 16px 0 0;
+  overflow: hidden;
 }
 
-/* 카드 이미지 */
-.cardImage {
+/* 일기 이미지 */
+.diaryImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 16px 16px 0 0;
 }
 
-/* 삭제 버튼 */
+/* 삭제 버튼 - 피그마 close icon */
 .deleteButton {
   position: absolute;
   top: 12px;
@@ -134,69 +125,65 @@
   height: 24px;
   background-color: var(--background-primary);
   border: none;
-  border-radius: 50%;
-  cursor: pointer;
+  border-radius: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease;
+  cursor: pointer;
 }
 
-.deleteButton:hover {
-  background-color: var(--background-secondary);
-}
-
-/* 카드 콘텐츠 */
+/* 카드 콘텐츠 영역 - 피그마 Frame 26 */
 .cardContent {
-  padding: 8px;
+  padding: 16px 8px;
   height: 88px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 8px;
 }
 
-/* 카드 메타 정보 (감정, 날짜) */
-.cardMeta {
+/* 메타 정보 (감정 + 날짜) - 피그마 Frame 27 */
+.metaInfo {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 24px;
 }
 
-/* 감정 텍스트 */
+/* 감정 텍스트 - 피그마 감정별 컬러 적용 */
 .emotionText {
   font-family: var(--typo-subtitle-01-family);
   font-weight: var(--typo-subtitle-01-weight);
   font-size: var(--typo-subtitle-01-size);
   line-height: var(--typo-subtitle-01-height);
-  letter-spacing: var(--typo-subtitle-01-spacing);
+  letter-spacing: -0.14px;
 }
 
-/* 날짜 텍스트 */
+/* 날짜 텍스트 - 피그마 "2024. 03. 12" */
 .dateText {
   font-family: var(--typo-body-02-s-family);
   font-weight: var(--typo-body-02-s-weight);
   font-size: var(--typo-body-02-s-size);
   line-height: var(--typo-body-02-s-height);
-  letter-spacing: var(--typo-body-02-s-spacing);
+  letter-spacing: -0.14px;
   color: var(--text-secondary);
 }
 
-/* 카드 제목 */
-.cardTitle {
+/* 제목 컨테이너 - 피그마 Frame 24 */
+.titleContainer {
   height: 24px;
   display: flex;
   align-items: center;
 }
 
-/* 제목 텍스트 */
-.titleText {
+/* 카드 제목 - 피그마 타이틀 텍스트 */
+.cardTitle {
   font-family: var(--typo-title-01-family);
   font-weight: var(--typo-title-01-weight);
   font-size: var(--typo-title-01-size);
   line-height: var(--typo-title-01-height);
-  letter-spacing: var(--typo-title-01-spacing);
+  letter-spacing: -0.18px;
   color: var(--text-primary);
+  margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

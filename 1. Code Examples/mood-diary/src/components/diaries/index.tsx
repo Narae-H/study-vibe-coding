@@ -8,15 +8,6 @@ import { Searchbar } from '@/commons/components/searchbar';
 import { Button } from '@/commons/components/button';
 import { EmotionType, EMOTION_DATA } from '@/commons/constants/enum';
 
-// 일기 데이터 인터페이스
-interface DiaryEntry {
-  id: string;
-  title: string;
-  date: string;
-  emotion: EmotionType;
-  imageUrl: string;
-}
-
 // 필터 옵션 데이터
 const filterOptions: SelectOption[] = [
   { value: 'all', label: '전체' },
@@ -27,137 +18,145 @@ const filterOptions: SelectOption[] = [
   { value: 'etc', label: '기타' },
 ];
 
-// Mock 일기 데이터
-const mockDiaryEntries: DiaryEntry[] = [
+// 일기 데이터 인터페이스
+interface DiaryEntry {
+  id: string;
+  emotion: EmotionType;
+  date: string;
+  title: string;
+  image: string;
+}
+
+// Mock 데이터 생성
+const mockDiaries: DiaryEntry[] = [
   {
     id: '1',
-    title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.SAD,
-    imageUrl: '/images/dog-1.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.',
+    image: EMOTION_DATA[EmotionType.SAD].imageMedium
   },
   {
     id: '2',
-    title: '타이틀 영역 입니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.SURPRISE,
-    imageUrl: '/images/dog-2.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다.',
+    image: EMOTION_DATA[EmotionType.SURPRISE].imageMedium
   },
   {
     id: '3',
-    title: '타이틀 영역 입니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.ANGRY,
-    imageUrl: '/images/dog-3.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다.',
+    image: EMOTION_DATA[EmotionType.ANGRY].imageMedium
   },
   {
     id: '4',
-    title: '타이틀 영역 입니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.HAPPY,
-    imageUrl: '/images/dog-4.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다.',
+    image: EMOTION_DATA[EmotionType.HAPPY].imageMedium
   },
   {
     id: '5',
-    title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.ETC,
-    imageUrl: '/images/dog-5.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.',
+    image: EMOTION_DATA[EmotionType.ETC].imageMedium
   },
   {
     id: '6',
-    title: '타이틀 영역 입니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.SURPRISE,
-    imageUrl: '/images/dog-6.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다.',
+    image: EMOTION_DATA[EmotionType.SURPRISE].imageMedium
   },
   {
     id: '7',
-    title: '타이틀 영역 입니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.ANGRY,
-    imageUrl: '/images/dog-7.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다.',
+    image: EMOTION_DATA[EmotionType.ANGRY].imageMedium
   },
   {
     id: '8',
-    title: '타이틀 영역 입니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.HAPPY,
-    imageUrl: '/images/dog-8.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다.',
+    image: EMOTION_DATA[EmotionType.HAPPY].imageMedium
   },
   {
     id: '9',
-    title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.SAD,
-    imageUrl: '/images/dog-9.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.',
+    image: EMOTION_DATA[EmotionType.SAD].imageMedium
   },
   {
     id: '10',
-    title: '타이틀 영역 입니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.SURPRISE,
-    imageUrl: '/images/dog-10.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다.',
+    image: EMOTION_DATA[EmotionType.SURPRISE].imageMedium
   },
   {
     id: '11',
-    title: '타이틀 영역 입니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.ANGRY,
-    imageUrl: '/images/dog-1.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다.',
+    image: EMOTION_DATA[EmotionType.ANGRY].imageMedium
   },
   {
     id: '12',
-    title: '타이틀 영역 입니다.',
-    date: '2024. 03. 12',
     emotion: EmotionType.HAPPY,
-    imageUrl: '/images/dog-2.jpg',
+    date: '2024. 03. 12',
+    title: '타이틀 영역 입니다.',
+    image: EMOTION_DATA[EmotionType.HAPPY].imageMedium
   },
 ];
 
 /**
  * 일기 카드 컴포넌트
  * 
- * 개별 일기 항목을 카드 형태로 표시합니다.
+ * 개별 일기 항목을 표시하는 카드 컴포넌트입니다.
+ * 피그마 디자인에 따라 이미지, 감정, 날짜, 제목을 표시합니다.
  * 
- * @param {DiaryEntry} entry - 일기 데이터
+ * @param {DiaryEntry} diary - 일기 데이터
  * @returns {JSX.Element} 일기 카드 컴포넌트
  */
-function DiaryCard({ entry }: { entry: DiaryEntry }): JSX.Element {
-  // 감정 데이터 가져오기
-  const emotionData = EMOTION_DATA[entry.emotion];
+function DiaryCard({ diary }: { diary: DiaryEntry }): JSX.Element {
+  const emotionData = EMOTION_DATA[diary.emotion];
 
   /**
-   * 카드 클릭 핸들러
+   * 일기 카드 클릭 핸들러
    */
   const handleCardClick = () => {
     // TODO: 일기 상세 페이지로 이동
-    console.log('일기 카드 클릭:', entry.id);
+    console.log('일기 카드 클릭:', diary.id);
   };
 
   /**
    * 삭제 버튼 클릭 핸들러
-   * @param {React.MouseEvent} event - 클릭 이벤트
    */
-  const handleDeleteClick = (event: React.MouseEvent) => {
-    event.stopPropagation(); // 카드 클릭 이벤트 방지
-    // TODO: 일기 삭제 확인 모달 표시
-    console.log('일기 삭제 클릭:', entry.id);
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // 카드 클릭 이벤트 방지
+    // TODO: 일기 삭제 로직
+    console.log('일기 삭제:', diary.id);
   };
 
   return (
     <div className={styles.diaryCard} onClick={handleCardClick}>
       {/* 이미지 영역 */}
-      <div className={styles.cardImageContainer}>
+      <div className={styles.imageContainer}>
         <Image
-          src={entry.imageUrl}
-          alt={entry.title}
+          src={diary.image}
+          alt={diary.title}
           width={274}
           height={208}
-          className={styles.cardImage}
+          className={styles.diaryImage}
         />
         {/* 삭제 버튼 */}
-        <button
+        <button 
           className={styles.deleteButton}
           onClick={handleDeleteClick}
           aria-label="일기 삭제"
@@ -171,22 +170,22 @@ function DiaryCard({ entry }: { entry: DiaryEntry }): JSX.Element {
         </button>
       </div>
 
-      {/* 텍스트 영역 */}
+      {/* 콘텐츠 영역 */}
       <div className={styles.cardContent}>
         {/* 감정과 날짜 */}
-        <div className={styles.cardMeta}>
+        <div className={styles.metaInfo}>
           <span 
             className={styles.emotionText}
             style={{ color: emotionData.color }}
           >
             {emotionData.label}
           </span>
-          <span className={styles.dateText}>{entry.date}</span>
+          <span className={styles.dateText}>{diary.date}</span>
         </div>
-        
+
         {/* 제목 */}
-        <div className={styles.cardTitle}>
-          <span className={styles.titleText}>{entry.title}</span>
+        <div className={styles.titleContainer}>
+          <h3 className={styles.cardTitle}>{diary.title}</h3>
         </div>
       </div>
     </div>
@@ -290,8 +289,8 @@ export default function Diaries(): JSX.Element {
       {/* Main */}
       <div className={styles.main}>
         <div className={styles.diaryGrid}>
-          {mockDiaryEntries.map((entry) => (
-            <DiaryCard key={entry.id} entry={entry} />
+          {mockDiaries.map((diary) => (
+            <DiaryCard key={diary.id} diary={diary} />
           ))}
         </div>
       </div>
