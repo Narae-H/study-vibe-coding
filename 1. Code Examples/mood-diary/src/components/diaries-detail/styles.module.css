@@ -4,33 +4,32 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 1168px;
+  width: 1168px;
   margin: 0 auto;
 }
 
 /* Gap 영역들 */
 .gap64 {
-  width: 1168px;
+  width: 100%;
   height: 64px;
   background-color: var(--background-secondary);
 }
 
 .gap24 {
-  width: 1168px;
+  width: 100%;
   height: 24px;
   background-color: var(--background-secondary);
 }
 
 .gap16 {
-  width: 1168px;
+  width: 100%;
   height: 16px;
   background-color: var(--background-secondary);
 }
 
 /* 컨텐츠 영역들 */
 .detailTitle {
-  width: 1168px;
+  width: 100%;
   height: 84px;
   background-color: var(--background-tertiary);
   display: flex;
@@ -43,7 +42,7 @@
 }
 
 .detailContent {
-  width: 1168px;
+  width: 100%;
   height: 169px;
   background-color: var(--background-tertiary);
   display: flex;
@@ -56,7 +55,7 @@
 }
 
 .detailFooter {
-  width: 1168px;
+  width: 100%;
   height: 56px;
   background-color: var(--background-tertiary);
   display: flex;
@@ -69,7 +68,7 @@
 }
 
 .retrospectInput {
-  width: 1168px;
+  width: 100%;
   height: 85px;
   background-color: var(--background-tertiary);
   display: flex;
@@ -82,7 +81,7 @@
 }
 
 .retrospectList {
-  width: 1168px;
+  width: 100%;
   height: 72px;
   background-color: var(--background-tertiary);
   display: flex;
