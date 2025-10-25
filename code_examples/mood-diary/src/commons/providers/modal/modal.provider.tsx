@@ -59,7 +59,7 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
             
             {/* 모달 컨텐츠 - max-w-md, w-full 제거됨 */}
             <div
-              className="relative z-10 bg-white rounded-lg shadow-xl p-6 transition-transform"
+              className="relative z-10 bg-white rounded-lg shadow-xl transition-transform"
               onClick={(e) => e.stopPropagation()}
             >
               {modalContent}
