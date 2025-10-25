@@ -8,6 +8,7 @@ import { Searchbar } from '@/commons/components/searchbar';
 import { Button } from '@/commons/components/button';
 import { Pagination } from '@/commons/components/pagination';
 import { EmotionType, EMOTION_DATA } from '@/commons/constants/enum';
+import { useDiaryModalLink } from './hooks/index.link.modal.hook';
 
 // 필터 옵션 데이터
 const filterOptions: SelectOption[] = [
@@ -205,6 +206,9 @@ function DiaryCard({ diary }: { diary: DiaryEntry }): JSX.Element {
  * @returns {JSX.Element} 일기 목록 와이어프레임 컴포넌트
  */
 export default function Diaries(): JSX.Element {
+  // 모달 훅 사용
+  const { openDiaryModal } = useDiaryModalLink();
+  
   // 검색 상태 관리
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -233,8 +237,8 @@ export default function Diaries(): JSX.Element {
    * 일기쓰기 버튼 클릭 핸들러
    */
   const handleWriteDiary = () => {
-    // TODO: 일기 작성 페이지로 이동
-    console.log('일기쓰기 버튼 클릭');
+    // 일기 작성 모달 열기
+    openDiaryModal();
   };
 
   /**
@@ -248,7 +252,7 @@ export default function Diaries(): JSX.Element {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="diaries-container">
       {/* Gap */}
       <div className={styles.gap32} />
       

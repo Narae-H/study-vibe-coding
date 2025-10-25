@@ -5,6 +5,7 @@ import styles from './styles.module.css';
 import { Input } from '../../commons/components/input';
 import { Button } from '../../commons/components/button';
 import { EmotionType, EMOTION_DATA } from '../../commons/constants/enum';
+import { useModal } from '../../commons/providers/modal/modal.provider';
 
 /**
  * 일기 작성 페이지 컴포넌트
@@ -16,6 +17,9 @@ import { EmotionType, EMOTION_DATA } from '../../commons/constants/enum';
  * - 닫기/등록하기 버튼
  */
 const DiariesNew: React.FC = () => {
+  // 모달 훅 사용
+  const { closeModal } = useModal();
+  
   // 선택된 감정 상태
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionType | null>(EmotionType.HAPPY);
   // 제목 입력 상태
@@ -34,8 +38,8 @@ const DiariesNew: React.FC = () => {
    * 닫기 버튼 핸들러
    */
   const handleClose = () => {
-    // 닫기 로직 구현
-    console.log('닫기 버튼 클릭');
+    // 모달 닫기
+    closeModal();
   };
 
   /**
@@ -48,6 +52,9 @@ const DiariesNew: React.FC = () => {
       title,
       content
     });
+    
+    // 등록 후 모달 닫기
+    closeModal();
   };
 
   return (
