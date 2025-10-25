@@ -1,5 +1,6 @@
-/* 전체 컨테이너 */
+/* Layout Container Base Styles */
 .container {
+  /* Layout */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,15 +8,17 @@
   min-height: 100vh;
 }
 
-/* Header */
+/* Header Section Styles */
 .header {
-  width: 1168px;
-  height: 60px;
+  /* Layout */
   display: flex;
   align-items: center;
+  width: 1168px;
+  height: 60px;
 }
 
 .logo {
+  /* Layout */
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -23,15 +26,23 @@
   max-width: 200px;
   height: 40px;
   flex-shrink: 0;
+  
+  /* Interaction */
+  cursor: pointer;
 }
 
 .logoText {
+  /* Typography */
   font-family: var(--typo-title-01-family);
   font-weight: var(--typo-title-01-weight);
   font-size: var(--typo-title-01-size);
   line-height: 16px;
   letter-spacing: -0.18px;
+  
+  /* Colors */
   color: var(--gray-black);
+  
+  /* Text Overflow */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -60,12 +71,13 @@
   object-fit: cover;
 }
 
-/* Navigation */
+/* Navigation Section Styles */
 .navigation {
-  width: 1168px;
-  height: 48px;
+  /* Layout */
   display: flex;
   align-items: center;
+  width: 1168px;
+  height: 48px;
 }
 
 .tabContainer {
@@ -74,26 +86,37 @@
 }
 
 .tab {
+  /* Layout */
   display: flex;
   align-items: center;
   justify-content: center;
   height: 48px;
   padding: 0 8px;
-  cursor: pointer;
+  
+  /* Typography */
   font-family: var(--typo-headline-01-family);
   font-size: var(--typo-headline-01-size);
   line-height: var(--typo-headline-01-height);
   letter-spacing: var(--typo-headline-01-spacing);
+  
+  /* Interaction */
+  cursor: pointer;
 }
 
 .tabActive {
+  /* Typography */
   font-weight: var(--typo-headline-01-weight);
+  
+  /* Colors */
   color: var(--gray-black);
   border-bottom: 1px solid var(--gray-black);
 }
 
 .tabInactive {
+  /* Typography */
   font-weight: 500;
+  
+  /* Colors */
   color: var(--gray-60);
 }
 
