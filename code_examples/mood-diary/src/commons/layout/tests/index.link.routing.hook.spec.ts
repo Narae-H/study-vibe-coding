@@ -3,9 +3,10 @@ import { test, expect, type Page } from '@playwright/test';
 test.describe('Layout Link Routing Hook', () => {
   /**
    * 페이지 로드 완료를 확인하는 헬퍼 함수
+   * timeout: 400ms (500ms 미만 요구사항 준수)
    */
   const waitForPageLoad = async (page: Page) => {
-    await page.waitForSelector('[data-testid="layout-container"]', { timeout: 500 });
+    await page.waitForSelector('[data-testid="layout-container"]', { timeout: 400 });
   };
 
   test.beforeEach(async ({ page }) => {
