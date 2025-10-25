@@ -122,4 +122,48 @@ test.describe('Layout Link Routing Hook', () => {
     await expect(page.locator('[data-testid="nav-diaries"]')).toBeVisible();
     await expect(page.locator('[data-testid="nav-pictures"]')).toBeVisible();
   });
+
+  test('루트 경로(/)에서 링크 동작 확인', async ({ page }) => {
+    // 루트 경로로 이동
+    await page.goto('/');
+    await waitForPageLoad(page);
+    
+    // 루트 경로에서 일기보관함이 활성 상태인지 확인
+    const diariesTab = page.locator('[data-testid="nav-diaries"]');
+    await expect(diariesTab).toHaveClass(/tabActive/);
+    
+    // 사진보관함은 비활성 상태인지 확인
+    const picturesTab = page.locator('[data-testid="nav-pictures"]');
+    await expect(picturesTab).toHaveClass(/tabInactive/);
+    
+    // 로고 클릭이 즉시 정상 작동하는지 확인
+    const logo = page.locator('[data-testid="layout-logo"]');
+    await logo.click();
+    await expect(page).toHaveURL('/diaries');
+    
+    // 일기보관함 탭 클릭이 즉시 정상 작동하는지 확인
+    await page.goto('/');
+    await waitForPageLoad(page);
+    await diariesTab.click();
+    await expect(page).toHaveURL('/diaries');
+  });
+
+  test('SSR 초기 로드 시 즉시 클릭 동작 확인', async ({ page }) => {
+    // 루트 경로로 이동 (SSR 상황 시뮬레이션)
+    await page.goto('/');
+    await waitForPageLoad(page);
+    
+    // 요소들이 존재하고 cursor: pointer가 적용되었는지 확인
+    const logo = page.locator('[data-testid="layout-logo"]');
+    const diariesTab = page.locator('[data-testid="nav-diaries"]');
+    
+    await expect(logo).toBeVisible();
+    await expect(diariesTab).toBeVisible();
+    await expect(logo).toHaveCSS('cursor', 'pointer');
+    await expect(diariesTab).toHaveCSS('cursor', 'pointer');
+    
+    // 즉시 클릭이 정상 작동하는지 확인 (라우터 준비 대기 없음)
+    await logo.click();
+    await expect(page).toHaveURL('/diaries');
+  });
 });
