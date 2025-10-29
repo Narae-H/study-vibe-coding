@@ -1,0 +1,148 @@
+/* Modal Base Styles */
+.modal {
+  /* Layout - Figma에서 확인한 크기 */
+  width: 480px;
+  padding: 24px;
+  
+  /* Figma에서 확인한 cornerRadius: 24 */
+  border-radius: 24px;
+  
+  /* Box Shadow */
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.12);
+  
+  /* Display - flexbox만 사용 */
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Modal Variants - Background */
+.modal.theme-light {
+  /* Figma에서 확인한 white 배경 */
+  background-color: #ffffff;
+}
+
+.modal.theme-dark {
+  /* 다크 모드 배경 */
+  background-color: #1c1c1c;
+}
+
+/* Content Area */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Title Styles */
+.title {
+  /* Figma에서 확인한 타이포그래피: Pretendard Variable, Bold, 700, 24px */
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+  text-align: center;
+  margin: 0;
+}
+
+/* Title Variant - Info (Light) */
+.title.title-variant-info.title-theme-light {
+  /* Figma에서 확인한 검은색 텍스트 */
+  color: #000000;
+}
+
+/* Title Variant - Info (Dark) */
+.title.title-variant-info.title-theme-dark {
+  color: #ffffff;
+}
+
+/* Title Variant - Danger (Light) */
+.title.title-variant-danger.title-theme-light {
+  /* Danger 상태는 red 색상 사용 */
+  color: #f03851;
+}
+
+/* Title Variant - Danger (Dark) */
+.title.title-variant-danger.title-theme-dark {
+  color: #f4677a;
+}
+
+/* Description Styles */
+.description {
+  /* Figma에서 확인한 타이포그래피: Pretendard Variable, Medium, 500, 20px */
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  text-align: center;
+  margin: 0;
+}
+
+/* Description Theme - Light */
+.description.description-theme-light {
+  /* Figma에서 확인한 #333333 텍스트 */
+  color: #333333;
+}
+
+/* Description Theme - Dark */
+.description.description-theme-dark {
+  color: #ababab;
+}
+
+/* Button Area */
+.buttonArea {
+  display: flex;
+  align-items: center;
+}
+
+/* Single Button Area - Full Width */
+.buttonArea.buttonArea-single {
+  justify-content: stretch;
+}
+
+/* Dual Button Area - Side by Side */
+.buttonArea.buttonArea-dual {
+  justify-content: center;
+  gap: 21px;
+}
+
+/* Single Button - Full Width */
+.singleButton {
+  width: 432px;
+}
+
+/* Dual Buttons - Fixed Width */
+.dualButton {
+  width: 104px;
+}
+
+/* Responsive Design */
+@media (max-width: 560px) {
+  .modal {
+    width: calc(100vw - 40px);
+    max-width: 480px;
+  }
+  
+  .singleButton {
+    width: 100%;
+  }
+  
+  .buttonArea.buttonArea-dual {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .dualButton {
+    flex: 1;
+    max-width: 180px;
+  }
+}
+
+/* Accessibility */
+.modal:focus {
+  outline: 2px solid #3a5cf3;
+  outline-offset: 2px;
+}
+
