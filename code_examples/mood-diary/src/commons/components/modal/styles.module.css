@@ -1,8 +1,11 @@
-/* Modal Base Styles */
+/* Modal Component Styles - 피그마 기반 variant 시스템 */
+
+/* Base Modal Styles */
 .modal {
-  /* Layout - Figma에서 확인한 크기 */
+  /* Layout - Figma에서 확인한 크기 (padding 포함 480px) */
   width: 480px;
   padding: 24px;
+  box-sizing: border-box;
   
   /* Figma에서 확인한 cornerRadius: 24 */
   border-radius: 24px;
@@ -108,12 +111,12 @@
   gap: 21px;
 }
 
-/* Single Button - Full Width */
+/* Single Button - Full Width (480px - 48px padding = 432px) */
 .singleButton {
-  width: 432px;
+  width: 100%;
 }
 
-/* Dual Buttons - Fixed Width */
+/* Dual Buttons - Fixed Width (Figma에서 확인한 크기: 104px) */
 .dualButton {
   width: 104px;
 }

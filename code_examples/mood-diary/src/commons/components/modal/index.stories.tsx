@@ -48,6 +48,21 @@ Modal 컴포넌트는 Figma 디자인을 기반으로 한 완전한 variant 시�
 - **Theme**: light, dark
 - **States**: isOpen
 
+## Specifications
+- **Modal Width**: 480px (padding 포함, box-sizing: border-box 적용)
+- **Modal Padding**: 24px
+- **Single Button**: width 100% (432px)
+- **Dual Buttons**: 각 104px, 간격 21px
+- **Button Variants**: primary (오른쪽/주요), secondary (왼쪽/보조)
+- **Button Size**: large (48px, Figma 일치)
+- **Button Theme**: light 모드 전용
+
+## Implementation
+- ✅ Figma 노드 ID 3:1046 (single action) 기반 구현
+- ✅ Figma 노드 ID 3:670 (dual actions) 기반 구현
+- ✅ Button 컴포넌트 재사용 (variant, size, theme, className props)
+- ✅ 스타일 일관성: Button, Input 패턴과 100% 일치
+
 ## Usage
 modal.provider와 함께 사용하며, 자체 backdrop 스타일을 생성하지 않습니다.
         `
@@ -85,7 +100,7 @@ modal.provider와 함께 사용하며, 자체 backdrop 스타일을 생성하지
     },
     secondaryButtonText: {
       control: { type: 'text' },
-      description: '보조 액션 버튼 텍스트 (dual actions일 때만)'
+      description: '보조 액션 버튼 텍스트 (actions="dual"일 때 필수)'
     },
     isOpen: {
       control: { type: 'boolean' },

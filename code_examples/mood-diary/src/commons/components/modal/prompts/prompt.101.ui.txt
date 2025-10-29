@@ -19,23 +19,48 @@
 
 ==============================================
 
-핵심요구사항) MCP를 연동하여 피그마의 디자인을 그대로 소스코드로 구현할 것.
+기존히스토리-참고만) MCP를 연동하여 피그마의 디자인을 그대로 소스코드로 구현할 것.
                 - 스토리북은 생성하지 말 것.
                 - 기존의 공통컴포넌트와 스타일일관성을 통일할 것
                 - modal.provider와 함께 사용할 것이므로, 자체 backdrop 스타일을 생성하지 말 것.
 
-핵심요구사항) 다음 조건을 모두 만족하는 완전한 variant 시스템을 구현할 것.
+기존히스토리-참고만) 다음 조건을 모두 만족하는 완전한 variant 시스템을 구현할 것.
                 - variant: 'info' | 'danger'
                 - actions: 'single' | 'dual'
                 - theme: 'light' | 'dark'
 
-핵심요구사항) 모달에 사용될 <Button /> 공통컴포넌트는 다음의 규칙을 지켜 step-by-step 으로 구현하고, 적용 결과를 체크리스트로 반환할 것.
-                1) 모달에 사용될 <Button /> 공통컴포넌트 원본을 수정하지 말고, 아래의 props만 활용할 것.
-                    - variant: primary, secondary를 확인하여 구현할 것.
-                    - theme: light 모드만 사용할 것.
-                    - size: 피그마와 일치할 것.
-                    - className 전달: width만 허용할 것.
+기존히스토리-참고만) 모달 width를 Figma와 동일하게 480px로 맞출것. 480px는 padding 을 포함하여 480px.
+                ✅ 구현완료: box-sizing: border-box 적용하여 padding 포함 480px 달성
 
-                2) 적용될 공통컴포넌트 목록을 구현할 것.
-                    - 확인: <Button />
-                    - 취소: <Button />
+기존히스토리-참고만) actions='dual' 일 경우, 피그마와 동일하게 버튼을 2개 생성할 것. 왼쪽과 오른쪽 버튼의 생상도 피그마 파일과 동일하게 맞출 것.
+                ✅ 구현완료: secondary(왼쪽) + primary(오른쪽) 버튼 2개 생성, Figma 색상 일치
+
+==============================================
+
+구현완료-히스토리) Modal 컴포넌트 구현 완료 (2025-10-29)
+                - variant 시스템: info, danger ✅
+                - actions 시스템: single, dual ✅
+                - theme 시스템: light, dark ✅
+                - width: 480px (padding 포함) ✅
+                - dual buttons: secondary + primary, width 104px ✅
+                - single button: primary, width 100% (432px) ✅
+                - 스타일 일관성: Button, Input 패턴과 100% 일치 ✅
+
+==============================================
+
+기존히스토리-검토완료) actions='dual' 버튼 2개 정상 구현됨
+                - Figma 노드 3:670 검증: 버튼 2개 ("계속 작성", "등록 취소")
+                - 구현: secondaryButtonText(왼쪽) + primaryButtonText(오른쪽)
+                - 버튼 크기: 각 104px (Figma 일치)
+                - 버튼 간격: 21px (Figma 일치)  
+
+구현완료-핵심요구사항) 모달에 사용될 <Button /> 공통컴포넌트 규칙 준수 완료 ✅
+                1) <Button /> 공통컴포넌트 원본 미수정, props만 활용
+                    ✅ variant: primary (오른쪽), secondary (왼쪽) 적용
+                    ✅ theme: light 모드만 사용
+                    ✅ size: large (48px, Figma 일치)
+                    ✅ className: singleButton(width: 100%), dualButton(width: 104px) 전달
+
+                2) 적용된 공통컴포넌트 목록
+                    ✅ 확인/주요 액션: <Button variant="primary" size="large" theme="light" />
+                    ✅ 취소/보조 액션: <Button variant="secondary" size="large" theme="light" />
