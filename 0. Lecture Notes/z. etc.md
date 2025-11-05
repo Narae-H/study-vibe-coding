@@ -92,6 +92,141 @@
   - 이를 방지하기 위해 **MCP Read-Only 모드**를 사용  
   - 이 옵션을 활성화하면 **조회만 가능**하도록 제한 가능
 
+<br/>
+
+# 2025/11/05 라이브 내용 정리: `MCP`
+MCP란?
+- Model Context Protocol
+- AI가 사용하는 도구
+- 접속형 백엔드 API 서버 ex. 피그마 접속 Supabase 접속
+- 에디터 외부용
+
+MCP 종류
+1) 완전 바이브 코딩 MCP
+- AI 기획
+- AI 디자인
+- AI 개발 
+  - PRD 문서 작성
+  - 레퍼런스 디자인 테마 분석
+  - 타스크 리스트 작성
+- ex. 테스트 마스터 MCP, Playwright MCP
+
+2) 개발 실무 바이브 코딩 MCP
+- 준비된 기획
+- 준비된 피그마 디자인
+- 요구사항과 똑같이 개발
+- ex. 수파베이스 MCP, 피그마 MCP(Cursor-talk-tp Figma MCP, 공식 Figma MCP)
+
+3) 업무용 MCP
+- ex. 노션 MPC, 슬랙 MCP
+
+나만의 MCP 만들기
+- 참고 링크: https://modelcontextprotocol.io/docs/getting-started/intro
+
+
+1) 프로젝트 생성
+```bash
+npm init -y
+```
+
+2) `package.json` 필요 없는거 삭제하고 아래와 같이 필요한 것만 남기기
+- 현재는 테스트만 하기 위한 것으로 진짜 필요한 것만 남김
+```json
+{
+ "type": "module"
+}
+```
+
+3) MCP 디펜던시 설치
+```bash
+npm install @modelcontextprotocol/sdk 
+```
+
+4) root 바로 밑에 `server.js` 생성하고 아래와 같이 코드 작성
+```js
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+
+// 1. 서버 이름과 정보 입력하여 등록
+const server = new McpServer({
+  name: "나만의 MCP 테스트",
+  version: "1.0.0",
+  capabilities: {
+    resources: {},
+    tools: {},
+  },
+});
+
+// 2. API를 이용하여 필요한 기능 구현
+server.tool(
+  "get_table",      // AI가 호출할 함수 이름. 영문과 언더스코어(_)로만 작성  
+  "테이블 데이터 조회", // 이 설명을 기반으로 AI가 get_table이라는 함수를 호출함.  만약 이 설명이 없다면 AI는 이 함수를 호출하지 않음. 따라서, 정확한 설명이 중요
+  { // 매개변수 정의
+  },
+  () => { // 결과 값 정의
+    
+    // API 연결
+
+    // 데이터 가공
+    
+    return {
+      content: [
+        {
+          type: "text", // AI 한테 전달할 때 형식 정의. 아래와 같이 문구를 전달할 것이므로 text로 정의
+          text: "Users, Orders, Products 테이블이 있습니다." // AI에게 전달할 결과
+        },
+      ],
+    };
+  }
+)
+
+// 3. 서버 실행
+const transport = new StdioServerTransport();
+server.connect(transport);
+```
+
+5) 만든 MCP 등록
+- Cursor에서 `settings`로 이동
+- 왼쪽 메뉴에서 `Tools & MCP` 선택
+- `New MCP Server` 선택
+- 아래와 같이 추가
+```json
+{
+  "mcpServers": {
+    "TalkToFigma": {
+      "command": "bunx",
+      "args": [
+        "cursor-talk-to-figma-mcp@latest"
+      ]
+    },
+    "MyMCP": {
+      "command": "node",
+      "args": [
+        "D:/vscode/personal/study-vibe-coding/mcp_server_test/server.js" // 상대경로가 아닌 절대 경로 적기
+      ]
+    }
+  }
+}
+```
+
+6) MCP 테스트
+- Setttings > Tools & MCP 이동
+- MyMCP를 Enable 하기
+- 챗팅창에 명령
+```
+MyMCP 이용해서 테이블 어떤게 있나 확인해줘
+```
+- 그럼, MyMCP에서 get_tables를 호출하고 기존에 작성했던 결과 값을 보여줌
+// 실제 테스트 해본 내용
+```
+결과: MyMCP에 등록된 테이블은 다음과 같습니다.
+- Users
+- Orders
+- Products
+필요하시면 특정 테이블의 스키마나 데이터 샘플도 조회해드릴게요. 어느 테이블을 볼까요?
+```
+
+
 
 
 -----
