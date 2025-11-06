@@ -42,15 +42,24 @@ test.describe('Diaries Modal Link Hook', () => {
     // 모달이 열렸는지 확인
     await expect(page.locator('[data-testid="diary-modal"]')).toBeVisible();
 
-    // 등록하기 버튼이 보이는지 확인
+    // 등록하기 버튼이 보이는지 확인 (초기에는 비활성화 상태)
     const submitButton = page.getByRole('button', { name: '등록하기' });
     await expect(submitButton).toBeVisible();
+    await expect(submitButton).toBeDisabled();
     
-    // 등록하기 버튼을 클릭하면 모달이 닫혀야 함
+    // 유효한 데이터 입력하여 버튼 활성화
+    await page.getByLabel('행복해요').check();
+    await page.getByPlaceholder('제목을 입력합니다.').fill('테스트 제목');
+    await page.getByPlaceholder('내용을 입력합니다.').fill('테스트 내용');
+    
+    // 등록하기 버튼이 활성화되었는지 확인
+    await expect(submitButton).toBeEnabled();
+    
+    // 등록하기 버튼을 클릭하면 성공 모달이 나타나야 함
     await submitButton.click();
 
-    // 모달이 닫혀야 함
-    await expect(page.locator('[data-testid="diary-modal"]')).not.toBeVisible({ timeout: 400 });
+    // 성공 모달 확인
+    await expect(page.locator('[data-testid="submit-success-modal"]')).toBeVisible({ timeout: 400 });
   });
 
   test('모달 내 닫기 버튼 클릭시 등록취소 확인 후 모달이 닫혀야 한다', async ({ page }) => {

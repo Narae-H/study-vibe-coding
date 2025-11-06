@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback } from 'react';
-import { useModal } from '../../../commons/providers/modal/modal.provider';
-import { Modal } from '../../../commons/components/modal';
+import { useModal } from '@/commons/providers/modal/modal.provider';
+import { Modal } from '@/commons/components/modal';
 
 /**
  * 일기쓰기 모달의 닫기 버튼 동작을 관리하는 커스텀 훅
