@@ -1,3 +1,5 @@
+'use client';
+
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 /**
@@ -15,6 +17,19 @@ export interface DogImage {
   id: string;
   src: string;
   alt: string;
+}
+
+/**
+ * useDogImages 훅 반환 타입
+ */
+export interface UseDogImagesReturn {
+  dogImages: DogImage[];
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+  fetchNextPage: () => void;
+  hasNextPage: boolean | undefined;
+  isFetchingNextPage: boolean;
 }
 
 /**
@@ -47,7 +62,17 @@ const fetchDogImages = async (pageParam: number = 0): Promise<DogImage[]> => {
 /**
  * 강아지 사진 목록 조회 훅 (무한 스크롤 지원)
  * 
- * @returns {object} 강아지 이미지 목록, 로딩 상태, 에러, 다음 페이지 로드 함수 등
+ * Dog CEO API를 사용하여 강아지 이미지를 조회하고,
+ * 무한 스크롤을 통해 추가 이미지를 로드합니다.
+ * 
+ * @returns 강아지 이미지 목록, 로딩 상태, 에러, 다음 페이지 로드 함수 등
+ * - dogImages: UI 표시용 강아지 이미지 배열
+ * - isLoading: 초기 로딩 상태
+ * - isError: 에러 발생 여부
+ * - error: 에러 객체 (에러가 없으면 null)
+ * - fetchNextPage: 다음 페이지 로드 함수
+ * - hasNextPage: 다음 페이지 존재 여부
+ * - isFetchingNextPage: 추가 페이지 로딩 상태
  * 
  * @example
  * ```tsx
@@ -62,7 +87,7 @@ const fetchDogImages = async (pageParam: number = 0): Promise<DogImage[]> => {
  * } = useDogImages();
  * ```
  */
-export const useDogImages = () => {
+export const useDogImages = (): UseDogImagesReturn => {
   const {
     data,
     isLoading,

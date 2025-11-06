@@ -2,12 +2,16 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Selectbox } from '@/commons/components/selectbox';
+
+import { Selectbox, SelectOption } from '@/commons/components/selectbox';
 import { useDogImages } from './hooks/index.binding.hook';
 import styles from './styles.module.css';
 
-// Mock 데이터 - 필터 옵션 (SelectBox 컴포넌트용)
-const filterOptions = [
+/**
+ * 필터 옵션 데이터
+ * 강아지 사진 필터링을 위한 선택 옵션 배열
+ */
+const filterOptions: SelectOption[] = [
   { value: 'all', label: '전체' },
   { value: 'happy', label: '행복한' },
   { value: 'sad', label: '슬픈' },
@@ -19,16 +23,24 @@ const filterOptions = [
  * Pictures 컴포넌트
  * 
  * Figma 디자인을 기반으로 한 완전한 강아지 사진 갤러리를 제공합니다.
+ * Dog CEO API를 사용하여 실제 강아지 이미지를 표시하고,
+ * 무한 스크롤을 통해 추가 이미지를 자동으로 로드합니다.
+ * 
+ * 주요 기능:
  * - Filter Area: SelectBox 컴포넌트 적용 (120x48px)
  * - Main Content: 강아지 사진 그리드 레이아웃 (640x640px 각 이미지)
- * - API: dog.ceo API를 사용하여 실제 강아지 이미지 표시
+ * - API 연동: dog.ceo API를 사용하여 실제 강아지 이미지 표시
  * - 무한 스크롤: 마지막 2개 이미지 남았을 때 추가 로드
+ * - 로딩 상태: 스플래시 스크린 애니메이션
+ * - 에러 처리: 사용자 친화적인 에러 메시지
+ * 
+ * @returns 강아지 사진 갤러리 컴포넌트
  */
 export const Pictures: React.FC = () => {
-  // 현재 선택된 필터 상태 관리
-  const [selectedFilter, setSelectedFilter] = useState('all');
+  // 필터 상태 관리
+  const [selectedFilter, setSelectedFilter] = useState<string>('all');
   
-  // 강아지 이미지 API 훅 사용
+  // 강아지 이미지 데이터 바인딩 훅 사용
   const { 
     dogImages, 
     isLoading, 
@@ -39,22 +51,25 @@ export const Pictures: React.FC = () => {
     isFetchingNextPage
   } = useDogImages();
   
-  // 무한 스크롤을 위한 Intersection Observer
+  // 무한 스크롤을 위한 Intersection Observer Refs
   const observerRef = useRef<IntersectionObserver | null>(null);
   const lastImageRef = useRef<HTMLDivElement | null>(null);
 
   /**
    * 필터 변경 핸들러
    * 
-   * @param value 선택된 필터 값
+   * @param value - 선택된 필터 값
    */
-  const handleFilterChange = (value: string) => {
+  const handleFilterChange = (value: string): void => {
     setSelectedFilter(value);
+    // TODO: 필터링 로직 구현
   };
 
   /**
-   * 무한 스크롤 구현
-   * 마지막에서 2번째 이미지가 보이면 다음 페이지 로드
+   * 무한 스크롤 구현 Effect
+   * 
+   * Intersection Observer를 사용하여 마지막에서 2번째 이미지가 
+   * 화면에 보이면 자동으로 다음 페이지를 로드합니다.
    */
   useEffect(() => {
     // 로딩 중이거나 다음 페이지가 없으면 실행하지 않음
@@ -92,9 +107,13 @@ export const Pictures: React.FC = () => {
   }, [dogImages, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage]);
 
   /**
-   * 스플래시 스크린 렌더링 (로딩 중)
+   * 스플래시 스크린 렌더링
+   * 
+   * 로딩 중 표시되는 6개의 스플래시 스크린을 렌더링합니다.
+   * 
+   * @returns 스플래시 스크린 배열
    */
-  const renderSplashScreens = () => {
+  const renderSplashScreens = (): JSX.Element[] => {
     return Array.from({ length: 6 }, (_, index) => (
       <div 
         key={`splash-${index}`} 
@@ -106,8 +125,12 @@ export const Pictures: React.FC = () => {
 
   /**
    * 에러 메시지 렌더링
+   * 
+   * API 요청 실패 시 표시되는 에러 메시지를 렌더링합니다.
+   * 
+   * @returns 에러 메시지 컴포넌트
    */
-  const renderError = () => {
+  const renderError = (): JSX.Element => {
     return (
       <div className={styles.errorMessage} data-testid="error-message">
         <p>강아지 이미지를 불러오는데 실패했습니다.</p>
@@ -118,10 +141,10 @@ export const Pictures: React.FC = () => {
 
   return (
     <div className={styles.container} data-testid="pictures-container">
-      {/* Top Gap Area */}
+      {/* Gap */}
       <div className={styles.gapTop}></div>
       
-      {/* Filter Section */}
+      {/* Filter */}
       <div className={styles.filter}>
         <Selectbox
           variant="primary"
@@ -135,10 +158,10 @@ export const Pictures: React.FC = () => {
         />
       </div>
       
-      {/* Middle Gap Area */}
+      {/* Gap */}
       <div className={styles.gapMiddle}></div>
       
-      {/* Main Content Area */}
+      {/* Main */}
       <div className={styles.main}>
         <div className={styles.imageGrid}>
           {/* 에러 상태 */}
@@ -176,7 +199,7 @@ export const Pictures: React.FC = () => {
         </div>
       </div>
       
-      {/* Bottom Gap Area */}
+      {/* Gap */}
       <div className={styles.gapBottom}></div>
     </div>
   );

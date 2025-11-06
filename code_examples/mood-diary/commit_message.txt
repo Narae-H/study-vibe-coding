@@ -1,8 +1,10 @@
-feat: 중첩 모달을 지원하는 modal provider stack 구현
+style: Pictures 컴포넌트 코드 스타일 일관성 개선
 
-- 모달 스택을 통한 중첩 모달 관리 시스템 추가
-- 각 모달별 독립적인 backdrop 레이어 구현
-- 모달 열림 시 body 스크롤 자동 제어 기능
-- 개별 모달 또는 전체 모달 닫기 기능 제공
-- CSS Module 사용으로 스타일 일관성 확보
-- JSDoc 주석으로 코드 문서화 완료
+- 훅 파일에 'use client' 선언 추가
+- 명시적 반환 타입 인터페이스 정의 (UseDogImagesReturn)
+- SelectOption 타입 명시적 선언
+- JSDoc 주석 상세화 및 일관성 개선
+- 함수 반환 타입 명시 (void, JSX.Element 등)
+- import 구문 그룹화 개선
+- 주석 스타일 통일 (/* Gap */ 등)
+- 기존 컴포넌트(Diaries, DiariesDetail)와 스타일 일관성 확보
