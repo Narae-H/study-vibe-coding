@@ -1,0 +1,91 @@
+/* Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 1168px;
+  margin: 0 auto;
+}
+
+/* Gap Areas - Top */
+.gapTop {
+  display: flex;
+  width: 1168px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #ccc;
+  background-color: #f0f0f0;
+}
+
+.gapTop::after {
+  content: 'Gap Area (1168 x 32)';
+  font-size: 12px;
+  color: #999;
+}
+
+/* Filter Section */
+.filter {
+  display: flex;
+  width: 1168px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #b3d9e6;
+  background-color: #e8f4f8;
+}
+
+.filterContent {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+/* Gap Areas - Middle */
+.gapMiddle {
+  display: flex;
+  width: 1168px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #ccc;
+  background-color: #f0f0f0;
+}
+
+.gapMiddle::after {
+  content: 'Gap Area (1168 x 42)';
+  font-size: 12px;
+  color: #999;
+}
+
+/* Main Content Area */
+.main {
+  display: flex;
+  width: 1168px;
+  min-height: 200px;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.mainContent {
+  font-weight: 500;
+  color: #34495e;
+}
+
+/* Gap Areas - Bottom */
+.gapBottom {
+  display: flex;
+  width: 1168px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #ccc;
+  background-color: #f0f0f0;
+}
+
+.gapBottom::after {
+  content: 'Gap Area (1168 x 40)';
+  font-size: 12px;
+  color: #999;
+}
