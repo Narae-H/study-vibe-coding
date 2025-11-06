@@ -12,9 +12,7 @@ interface PageProps {
 }
 
 const DiaryDetailPage: React.FC<PageProps> = ({ params }) => {
-  // TODO: params.id를 활용한 데이터 페칭 구현 예정
-  console.log('Diary ID:', params.id);
-  return <DiariesDetail />;
+  return <DiariesDetail id={params.id} />;
 };
 
 export default DiaryDetailPage;

@@ -5,7 +5,15 @@ import Image from 'next/image';
 import { Button } from '@/commons/components/button';
 import { Input } from '@/commons/components/input';
 import { EmotionType, EMOTION_DATA } from '@/commons/constants/enum';
+import { useBinding } from './hooks/index.binding.hook';
 import styles from './styles.module.css';
+
+/**
+ * 컴포넌트 Props 인터페이스
+ */
+interface DiariesDetailProps {
+  id: string;
+}
 
 /**
  * 일기 상세 데이터 인터페이스
@@ -104,10 +112,23 @@ const COMPONENT_CONFIG = {
  * 일기 상세 페이지 컴포넌트
  * Figma 디자인을 기반으로 구현된 UI - @01-common.mdc 룰 적용
  */
-const DiariesDetail: React.FC = () => {
+const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
+  // 실제 데이터 바인딩
+  const { diary } = useBinding(id);
+  
   // 구조화된 데이터 사용
-  const { mockData, mockRetrospects, buttonProps, inputProps, icons, labels } = COMPONENT_CONFIG;
-  const emotionData = EMOTION_DATA[mockData.emotion];
+  const { mockRetrospects, buttonProps, inputProps, icons, labels } = COMPONENT_CONFIG;
+  
+  // 실제 데이터가 있으면 사용, 없으면 기본값 사용
+  const currentData = diary || {
+    id: '',
+    title: '',
+    content: '',
+    emotion: EmotionType.HAPPY,
+    createdAt: ''
+  };
+  
+  const emotionData = EMOTION_DATA[currentData.emotion];
   
   // 회고 입력 상태 관리
   const [retrospectInput, setRetrospectInput] = useState<string>('');
@@ -117,8 +138,10 @@ const DiariesDetail: React.FC = () => {
    * 내용 복사 핸들러
    */
   const handleCopyContent = () => {
-    navigator.clipboard.writeText(mockData.content);
-    // TODO: 복사 완료 알림 추가
+    if (currentData.content) {
+      navigator.clipboard.writeText(currentData.content);
+      // TODO: 복사 완료 알림 추가
+    }
   };
 
   /**
@@ -173,7 +196,7 @@ const DiariesDetail: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="diary-detail-container">
       {/* 64px gap */}
       <div className={styles.gap64}></div>
       
@@ -182,7 +205,7 @@ const DiariesDetail: React.FC = () => {
         {/* detail-title: 1168 * 84 */}
         <div className={styles.detailTitle}>
           <div className={styles.titleSection}>
-            <h1 className={styles.title}>{mockData.title}</h1>
+            <h1 className={styles.title} data-testid="diary-title">{currentData.title || '제목 없음'}</h1>
           </div>
           <div className={styles.emotionAndDate}>
             <div className={styles.emotionInfo}>
@@ -192,11 +215,12 @@ const DiariesDetail: React.FC = () => {
                 width={32}
                 height={32}
                 className={styles.emotionIcon}
+                data-testid="diary-emotion-icon"
               />
-              <span className={styles.emotionText}>{emotionData.label}</span>
+              <span className={styles.emotionText} data-testid="diary-emotion-text">{emotionData.label}</span>
             </div>
             <div className={styles.dateInfo}>
-              <span className={styles.dateText}>{mockData.createdAt}</span>
+              <span className={styles.dateText} data-testid="diary-created-at">{currentData.createdAt || '날짜 없음'}</span>
               <span className={styles.dateLabel}>{labels.dateLabel}</span>
             </div>
           </div>
@@ -209,7 +233,7 @@ const DiariesDetail: React.FC = () => {
         <div className={styles.detailContent}>
           <div className={styles.contentArea}>
             <h2 className={styles.contentLabel}>{labels.content}</h2>
-            <p className={styles.contentText}>{mockData.content}</p>
+            <p className={styles.contentText} data-testid="diary-content">{currentData.content || '내용이 없습니다.'}</p>
           </div>
           <div className={styles.copyButtonArea}>
             <button 
