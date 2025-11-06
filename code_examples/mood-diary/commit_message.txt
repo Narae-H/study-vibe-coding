@@ -1,10 +1,16 @@
-style: Pictures 컴포넌트 코드 스타일 일관성 개선
+test: Pictures 컴포넌트 테스트 커버리지 및 품질 개선
 
-- 훅 파일에 'use client' 선언 추가
-- 명시적 반환 타입 인터페이스 정의 (UseDogImagesReturn)
-- SelectOption 타입 명시적 선언
-- JSDoc 주석 상세화 및 일관성 개선
-- 함수 반환 타입 명시 (void, JSX.Element 등)
-- import 구문 그룹화 개선
-- 주석 스타일 통일 (/* Gap */ 등)
-- 기존 컴포넌트(Diaries, DiariesDetail)와 스타일 일관성 확보
+- Given-When-Then 패턴 적용으로 테스트 가독성 향상
+- 헬퍼 함수 추가 (waitForPageLoad)
+- 테스트 케이스 3개 추가 (총 7개)
+  1. 로딩 완료 후 스플래시 스크린 사라짐 검증
+  2. 이미지 alt 속성 접근성 검증
+  3. 연속 무한 스크롤 테스트
+- 스플래시 스크린 CSS 상세 검증 강화
+  - border-radius (24px)
+  - 크기 (640x640px)
+  - 애니메이션 적용 확인
+- 무한 스크롤 검증 강화 (추가된 이미지도 dog.ceo 포함 확인)
+- 에러 시나리오 검증 강화 (이미지 미표시 확인)
+- 기존 Diaries 컴포넌트 테스트 패턴 적용
+- Page 타입 import 추가
