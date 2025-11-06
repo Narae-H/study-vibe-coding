@@ -2,17 +2,16 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 import { Selectbox, SelectOption } from '@/commons/components/selectbox';
 import { Searchbar } from '@/commons/components/searchbar';
 import { Button } from '@/commons/components/button';
 import { Pagination } from '@/commons/components/pagination';
 import { EMOTION_DATA } from '@/commons/constants/enum';
-import { URL_PATH } from '@/commons/constants/url';
 
 import { useDiaryModalLink } from './hooks/index.link.modal.hook';
 import { useDiaryBinding, DiaryEntry } from './hooks/index.binding.hook';
+import { useDiaryLinkRouting } from './hooks/index.link.routing.hook';
 import styles from './styles.module.css';
 
 /**
@@ -40,14 +39,14 @@ const filterOptions: SelectOption[] = [
  */
 const DiaryCard = ({ diary }: { diary: DiaryEntry }): JSX.Element => {
   const emotionData = EMOTION_DATA[diary.emotion];
-  const router = useRouter();
+  const { handleDiaryCardClick, handleDeleteButtonClick } = useDiaryLinkRouting();
 
   /**
    * 일기 카드 클릭 핸들러
-   * URL 상수를 사용하여 일기 상세 페이지로 이동
+   * 새로운 링크 라우팅 훅을 사용하여 상세 페이지로 이동
    */
   const handleCardClick = () => {
-    router.push(URL_PATH.DIARIES.DETAIL(diary.id));
+    handleDiaryCardClick(diary.id);
   };
 
   /**
@@ -55,9 +54,7 @@ const DiaryCard = ({ diary }: { diary: DiaryEntry }): JSX.Element => {
    * @param e - 마우스 클릭 이벤트 (카드 클릭 이벤트 전파 방지)
    */
   const handleDeleteClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 카드 클릭 이벤트 방지
-    // TODO: 일기 삭제 로직
-    console.log('일기 삭제:', diary.id);
+    handleDeleteButtonClick(e, diary.id);
   };
 
   return (
