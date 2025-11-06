@@ -95,84 +95,93 @@
 <br/>
 
 # 2025/11/05 라이브 내용 정리: `MCP`
-MCP란?
-- Model Context Protocol
-- AI가 사용하는 도구
-- 접속형 백엔드 API 서버 ex. 피그마 접속 Supabase 접속
-- 에디터 외부용
 
-MCP 종류
-1) 완전 바이브 코딩 MCP
-- AI 기획
-- AI 디자인
-- AI 개발 
+## MCP란?
+- **Model Context Protocol**의 약자  
+- AI가 **외부 도구나 서비스(API)** 와 연결하기 위한 **표준화된 프로토콜**
+- 쉽게 말해, AI가 “피그마”, “Supabase”, “노션”, “슬랙” 등에 **접속할 수 있게 해주는 인터페이스**
+- 주로 **에디터 외부용 백엔드 API 서버** 형태로 동작   
+
+> 예:  
+> - AI가 피그마 디자인 파일을 직접 열고 수정할 수 있음  
+> - AI가 Supabase 데이터베이스에 직접 접근해 데이터를 조회할 수 있음  
+
+
+## MCP 종류
+### 1. 완전 바이브 코딩 MCP
+- AI가 기획부터 개발까지 **모든 단계를 주도**
   - PRD 문서 작성
   - 레퍼런스 디자인 테마 분석
   - 타스크 리스트 작성
-- ex. 테스트 마스터 MCP, Playwright MCP
+- 예시:
+  - 타스크 마스터 MCP
+  - Playwright MCP
 
-2) 개발 실무 바이브 코딩 MCP
-- 준비된 기획
-- 준비된 피그마 디자인
-- 요구사항과 똑같이 개발
-- ex. 수파베이스 MCP, 피그마 MCP(Cursor-talk-tp Figma MCP, 공식 Figma MCP)
+### 2. 개발 실무 바이브 코딩 MCP
+- 이미 기획과 디자인이 준비되어 있는 상황에서
+- AI가 요구사항대로 **정확히 개발만 수행**
+- 예시:
+  - Supabase MCP
+  - Figma MCP(Cursor-talk-tp Figma MCP / 공식 Figma MCP)
 
-3) 업무용 MCP
-- ex. 노션 MPC, 슬랙 MCP
+### 3. 업무용 MCP
+- 기존 협업 툴에 연결해 실무 효율을 높임
+- 예시: 
+  - 노션 MCP
+  - 슬랙 MCP
 
-나만의 MCP 만들기
-- 참고 링크: https://modelcontextprotocol.io/docs/getting-started/intro
 
+## 나만의 MCP 만들기
+- 참고 문서: [MCP 공식 사이트](https://modelcontextprotocol.io/docs/getting-started/intro)
 
-1) 프로젝트 생성
+### 1. 프로젝트 생성
 ```bash
 npm init -y
 ```
 
-2) `package.json` 필요 없는거 삭제하고 아래와 같이 필요한 것만 남기기
-- 현재는 테스트만 하기 위한 것으로 진짜 필요한 것만 남김
+### 2. `package.json` 최소화
+- 테스트용으로 불필요한 항목을 제거하고 아래만 남김
 ```json
 {
  "type": "module"
 }
 ```
 
-3) MCP 디펜던시 설치
+### 3. MCP SDK 설치
 ```bash
 npm install @modelcontextprotocol/sdk 
 ```
 
-4) root 바로 밑에 `server.js` 생성하고 아래와 같이 코드 작성
+### 4. `server.js` 작성 
+- 루트 디렉토리에 `server.js` 파일을 생성하고 아래 코드 작성
+
 ```js
+// MCP 서버 관련 클래스 import
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 
-// 1. 서버 이름과 정보 입력하여 등록
+// 1. 서버 인스턴스 생성 및 기본 정보 등록
 const server = new McpServer({
-  name: "나만의 MCP 테스트",
-  version: "1.0.0",
+  name: "나만의 MCP 테스트", // MCP 이름
+  version: "1.0.0",       // 버전 정보
   capabilities: {
-    resources: {},
-    tools: {},
+    resources: {},        // 리소스 (ex. DB, 파일 등)
+    tools: {},            // 툴 (AI가 호출할 함수들)
   },
 });
 
-// 2. API를 이용하여 필요한 기능 구현
+// 2. MCP에서 사용할 함수(tool) 등록
 server.tool(
-  "get_table",      // AI가 호출할 함수 이름. 영문과 언더스코어(_)로만 작성  
-  "테이블 데이터 조회", // 이 설명을 기반으로 AI가 get_table이라는 함수를 호출함.  만약 이 설명이 없다면 AI는 이 함수를 호출하지 않음. 따라서, 정확한 설명이 중요
-  { // 매개변수 정의
-  },
-  () => { // 결과 값 정의
-    
-    // API 연결
-
-    // 데이터 가공
-    
+  "get_table",      // AI가 호출할 함수 이름 (영문+언더스코어 권장)
+  "테이블 데이터 조회", // AI가 어떤 상황에서 호출해야 하는지 설명 (이 설명이 없으면 AI가 호출하지 않음) 
+  {},               // 매개변수 정의 (여기서는 없음)
+  () => {           // 함수 실행 결과 정의
+    // 실제로는 API 호출 또는 DB 연결 가능
+    // 여기서는 예시로 문자열 반환
     return {
       content: [
         {
-          type: "text", // AI 한테 전달할 때 형식 정의. 아래와 같이 문구를 전달할 것이므로 text로 정의
+          type: "text",                                  // 결과의 데이터 타입 (텍스트, 이미지 등)
           text: "Users, Orders, Products 테이블이 있습니다." // AI에게 전달할 결과
         },
       ],
@@ -180,51 +189,53 @@ server.tool(
   }
 )
 
-// 3. 서버 실행
+// 3. 서버 실행 (표준 입출력 방식으로 통신)
 const transport = new StdioServerTransport();
 server.connect(transport);
 ```
+> `server.tool()` 등록 시 **함수 이름**과 **설명**이 중요
 
-5) 만든 MCP 등록
-- Cursor에서 `settings`로 이동
-- 왼쪽 메뉴에서 `Tools & MCP` 선택
-- `New MCP Server` 선택
-- 아래와 같이 추가
+### 5. MCP 등록 (Cursor 설정)
+- Cursor → `Settings` → `Tools & MCP` → `New MCP Server` 선택 후 아래와 같이 등록
+
 ```json
 {
   "mcpServers": {
-    "TalkToFigma": {
+    "TalkToFigma": { // 기존에 있던 MCP
       "command": "bunx",
       "args": [
         "cursor-talk-to-figma-mcp@latest"
       ]
     },
-    "MyMCP": {
+    "MyMCP": {       // 새로 등록할 MCP
       "command": "node",
       "args": [
-        "D:/vscode/personal/study-vibe-coding/mcp_server_test/server.js" // 상대경로가 아닌 절대 경로 적기
+        "D:/vscode/personal/study-vibe-coding/mcp_server_test/server.js" 
       ]
     }
   }
 }
 ```
+> ⚠️ args 경로는 반드시 **절대 경로**로 작성해야 함
 
-6) MCP 테스트
-- Setttings > Tools & MCP 이동
-- MyMCP를 Enable 하기
-- 챗팅창에 명령
-```
-MyMCP 이용해서 테이블 어떤게 있나 확인해줘
-```
-- 그럼, MyMCP에서 get_tables를 호출하고 기존에 작성했던 결과 값을 보여줌
-// 실제 테스트 해본 내용
-```
-결과: MyMCP에 등록된 테이블은 다음과 같습니다.
-- Users
-- Orders
-- Products
-필요하시면 특정 테이블의 스키마나 데이터 샘플도 조회해드릴게요. 어느 테이블을 볼까요?
-```
+
+### 6. MCP 테스트
+1. Cursor에서 `Settings` → `Tools & MCP` → `MyMCP` → `Enable`
+
+2.  채팅창에 명령어 입력   
+    ```
+    MyMCP 이용해서 테이블 어떤게 있나 확인해줘
+    ```
+3. 결과 예시 그럼, MyMCP에서 get_tables를 호출하고 기존에 작성했던 결과 값을 보여줌
+    ```
+    결과: MyMCP에 등록된 테이블은 다음과 같습니다.
+    - Users
+    - Orders
+    - Products
+    필요하시면 특정 테이블의 스키마나 데이터 샘플도 조회해드릴게요. 어느 테이블을 볼까요?
+    ```
+
+
 
 
 
