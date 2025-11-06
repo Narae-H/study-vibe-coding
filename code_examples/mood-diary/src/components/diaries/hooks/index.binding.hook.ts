@@ -118,9 +118,8 @@ export const useDiaryBinding = () => {
         })
         .map(transformDiaryData)
         .sort((a, b) => {
-          // createdAt 기준으로 내림차순 정렬 (최신순)
-          return new Date(b.date.replace(/\. /g, '-')).getTime() - 
-                 new Date(a.date.replace(/\. /g, '-')).getTime();
+          // id 기준으로 오름차순 정렬
+          return Number(a.id) - Number(b.id);
         });
 
       setDiaries(transformedDiaries);

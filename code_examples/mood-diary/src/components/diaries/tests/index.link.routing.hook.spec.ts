@@ -74,7 +74,7 @@ test.describe('Diaries Link Routing Hook', () => {
 
   test('삭제 버튼 클릭시 페이지 이동하지 않아야 함', async ({ page }) => {
     // 첫 번째 카드의 삭제 버튼 클릭
-    const deleteButton = page.locator('[data-testid="diary-card"]').first().locator('.deleteButton').first();
+    const deleteButton = page.locator('[data-testid="diary-card"]').first().locator('[data-testid="diary-delete-button"]').first();
     await expect(deleteButton).toBeVisible();
     
     // 현재 URL 저장
@@ -100,18 +100,18 @@ test.describe('Diaries Link Routing Hook', () => {
   });
 
   test('로컬스토리지에 일기 데이터가 없을 때 빈 상태 표시', async ({ page }) => {
-    // 로컬스토리지 클리어
-    await page.evaluate(() => {
-      localStorage.removeItem('diaries');
+    // 빈 배열로 다시 초기화
+    await page.addInitScript(() => {
+      localStorage.setItem('diaries', JSON.stringify([]));
     });
     
-    // 페이지 새로고침
-    await page.reload();
+    // 페이지 다시 로드
+    await page.goto('/diaries');
     await waitForPageLoad(page);
     
     // 빈 상태 메시지 확인
-    await expect(page.locator('.emptyContainer')).toBeVisible();
-    await expect(page.locator('.emptyContainer')).toContainText('아직 작성한 일기가 없습니다');
+    await expect(page.locator('[data-testid="empty-container"]')).toBeVisible();
+    await expect(page.locator('[data-testid="empty-container"]')).toContainText('아직 작성한 일기가 없습니다');
   });
 
   test('일기 데이터가 정상적으로 표시되어야 함', async ({ page }) => {

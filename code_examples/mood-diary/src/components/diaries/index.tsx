@@ -71,6 +71,7 @@ const DiaryCard = ({ diary }: { diary: DiaryEntry }): JSX.Element => {
             className={styles.deleteButton}
             onClick={handleDeleteClick}
             aria-label="일기 삭제"
+            data-testid="diary-delete-button"
           >
             <Image
               src="/icons/close_outline_light_m.svg"
@@ -245,7 +246,7 @@ const Diaries = (): JSX.Element => {
           </div>
         ) : diaries.length === 0 ? (
           // 빈 상태 표시
-          <div className={styles.emptyContainer}>
+          <div className={styles.emptyContainer} data-testid="empty-container">
             <p>아직 작성한 일기가 없습니다.</p>
             <p>첫 번째 일기를 작성해보세요!</p>
           </div>
