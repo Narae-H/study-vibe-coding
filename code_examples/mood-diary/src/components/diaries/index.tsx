@@ -2,15 +2,23 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import styles from './styles.module.css';
+import { useRouter } from 'next/navigation';
+
 import { Selectbox, SelectOption } from '@/commons/components/selectbox';
 import { Searchbar } from '@/commons/components/searchbar';
 import { Button } from '@/commons/components/button';
 import { Pagination } from '@/commons/components/pagination';
-import { EmotionType, EMOTION_DATA } from '@/commons/constants/enum';
-import { useDiaryModalLink } from './hooks/index.link.modal.hook';
+import { EMOTION_DATA } from '@/commons/constants/enum';
+import { URL_PATH } from '@/commons/constants/url';
 
-// 필터 옵션 데이터
+import { useDiaryModalLink } from './hooks/index.link.modal.hook';
+import { useDiaryBinding, DiaryEntry } from './hooks/index.binding.hook';
+import styles from './styles.module.css';
+
+/**
+ * 필터 옵션 데이터
+ * 감정별 필터링을 위한 선택 옵션 배열
+ */
 const filterOptions: SelectOption[] = [
   { value: 'all', label: '전체' },
   { value: 'happy', label: '기쁨' },
@@ -20,102 +28,6 @@ const filterOptions: SelectOption[] = [
   { value: 'etc', label: '기타' },
 ];
 
-// 일기 데이터 인터페이스
-interface DiaryEntry {
-  id: string;
-  emotion: EmotionType;
-  date: string;
-  title: string;
-  image: string;
-}
-
-// Mock 데이터 생성
-const mockDiaries: DiaryEntry[] = [
-  {
-    id: '1',
-    emotion: EmotionType.SAD,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.',
-    image: EMOTION_DATA[EmotionType.SAD].imageMedium
-  },
-  {
-    id: '2',
-    emotion: EmotionType.SURPRISE,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다.',
-    image: EMOTION_DATA[EmotionType.SURPRISE].imageMedium
-  },
-  {
-    id: '3',
-    emotion: EmotionType.ANGRY,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다.',
-    image: EMOTION_DATA[EmotionType.ANGRY].imageMedium
-  },
-  {
-    id: '4',
-    emotion: EmotionType.HAPPY,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다.',
-    image: EMOTION_DATA[EmotionType.HAPPY].imageMedium
-  },
-  {
-    id: '5',
-    emotion: EmotionType.ETC,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.',
-    image: EMOTION_DATA[EmotionType.ETC].imageMedium
-  },
-  {
-    id: '6',
-    emotion: EmotionType.SURPRISE,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다.',
-    image: EMOTION_DATA[EmotionType.SURPRISE].imageMedium
-  },
-  {
-    id: '7',
-    emotion: EmotionType.ANGRY,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다.',
-    image: EMOTION_DATA[EmotionType.ANGRY].imageMedium
-  },
-  {
-    id: '8',
-    emotion: EmotionType.HAPPY,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다.',
-    image: EMOTION_DATA[EmotionType.HAPPY].imageMedium
-  },
-  {
-    id: '9',
-    emotion: EmotionType.SAD,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.',
-    image: EMOTION_DATA[EmotionType.SAD].imageMedium
-  },
-  {
-    id: '10',
-    emotion: EmotionType.SURPRISE,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다.',
-    image: EMOTION_DATA[EmotionType.SURPRISE].imageMedium
-  },
-  {
-    id: '11',
-    emotion: EmotionType.ANGRY,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다.',
-    image: EMOTION_DATA[EmotionType.ANGRY].imageMedium
-  },
-  {
-    id: '12',
-    emotion: EmotionType.HAPPY,
-    date: '2024. 03. 12',
-    title: '타이틀 영역 입니다.',
-    image: EMOTION_DATA[EmotionType.HAPPY].imageMedium
-  },
-];
 
 /**
  * 일기 카드 컴포넌트
@@ -123,22 +35,24 @@ const mockDiaries: DiaryEntry[] = [
  * 개별 일기 항목을 표시하는 카드 컴포넌트입니다.
  * 피그마 디자인에 따라 이미지, 감정, 날짜, 제목을 표시합니다.
  * 
- * @param {DiaryEntry} diary - 일기 데이터
- * @returns {JSX.Element} 일기 카드 컴포넌트
+ * @param diary - 일기 데이터
+ * @returns 일기 카드 컴포넌트
  */
-function DiaryCard({ diary }: { diary: DiaryEntry }): JSX.Element {
+const DiaryCard = ({ diary }: { diary: DiaryEntry }): JSX.Element => {
   const emotionData = EMOTION_DATA[diary.emotion];
+  const router = useRouter();
 
   /**
    * 일기 카드 클릭 핸들러
+   * URL 상수를 사용하여 일기 상세 페이지로 이동
    */
   const handleCardClick = () => {
-    // TODO: 일기 상세 페이지로 이동
-    console.log('일기 카드 클릭:', diary.id);
+    router.push(URL_PATH.DIARIES.DETAIL(diary.id));
   };
 
   /**
    * 삭제 버튼 클릭 핸들러
+   * @param e - 마우스 클릭 이벤트 (카드 클릭 이벤트 전파 방지)
    */
   const handleDeleteClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // 카드 클릭 이벤트 방지
@@ -147,7 +61,11 @@ function DiaryCard({ diary }: { diary: DiaryEntry }): JSX.Element {
   };
 
   return (
-    <div className={styles.diaryCard} onClick={handleCardClick}>
+    <div 
+      className={styles.diaryCard} 
+      onClick={handleCardClick}
+      data-testid="diary-card"
+    >
       {/* 이미지 영역 */}
       <div className={styles.imageContainer}>
         {/* 삭제 버튼 - 이미지 위에 겹침 */}
@@ -172,6 +90,7 @@ function DiaryCard({ diary }: { diary: DiaryEntry }): JSX.Element {
           width={274}
           height={208}
           className={styles.diaryImage}
+          data-testid="diary-image"
         />
       </div>
 
@@ -182,20 +101,21 @@ function DiaryCard({ diary }: { diary: DiaryEntry }): JSX.Element {
           <span 
             className={styles.emotionText}
             style={{ color: emotionData.color }}
+            data-testid="diary-emotion"
           >
             {emotionData.label}
           </span>
-          <span className={styles.dateText}>{diary.date}</span>
+          <span className={styles.dateText} data-testid="diary-date">{diary.date}</span>
         </div>
 
         {/* 제목 */}
         <div className={styles.titleContainer}>
-          <h3 className={styles.cardTitle}>{diary.title}</h3>
+          <h3 className={styles.cardTitle} data-testid="diary-title">{diary.title}</h3>
         </div>
       </div>
     </div>
   );
-}
+};
 
 /**
  * Diaries 컴포넌트
@@ -203,11 +123,14 @@ function DiaryCard({ diary }: { diary: DiaryEntry }): JSX.Element {
  * 일기 목록 페이지의 와이어프레임 구조를 구현합니다.
  * 검색, 메인 콘텐츠, 페이지네이션 영역으로 구성되어 있습니다.
  * 
- * @returns {JSX.Element} 일기 목록 와이어프레임 컴포넌트
+ * @returns 일기 목록 와이어프레임 컴포넌트
  */
-export default function Diaries(): JSX.Element {
+const Diaries = (): JSX.Element => {
   // 모달 훅 사용
   const { openDiaryModal } = useDiaryModalLink();
+  
+  // 일기 데이터 바인딩 훅 사용
+  const { diaries, loading, error, refresh } = useDiaryBinding();
   
   // 검색 상태 관리
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
@@ -235,15 +158,15 @@ export default function Diaries(): JSX.Element {
 
   /**
    * 일기쓰기 버튼 클릭 핸들러
+   * 일기 작성 모달을 엽니다
    */
   const handleWriteDiary = () => {
-    // 일기 작성 모달 열기
     openDiaryModal();
   };
 
   /**
    * 페이지 변경 핸들러
-   * @param {number} page - 변경될 페이지 번호
+   * @param page - 변경될 페이지 번호
    */
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -310,11 +233,33 @@ export default function Diaries(): JSX.Element {
       
       {/* Main */}
       <div className={styles.main}>
-        <div className={styles.diaryGrid}>
-          {mockDiaries.map((diary) => (
-            <DiaryCard key={diary.id} diary={diary} />
-          ))}
-        </div>
+        {loading ? (
+          // 로딩 상태 표시
+          <div className={styles.loadingContainer}>
+            <p>일기를 불러오는 중...</p>
+          </div>
+        ) : error ? (
+          // 에러 상태 표시
+          <div className={styles.errorContainer}>
+            <p>{error}</p>
+            <button onClick={refresh} className={styles.retryButton}>
+              다시 시도
+            </button>
+          </div>
+        ) : diaries.length === 0 ? (
+          // 빈 상태 표시
+          <div className={styles.emptyContainer}>
+            <p>아직 작성한 일기가 없습니다.</p>
+            <p>첫 번째 일기를 작성해보세요!</p>
+          </div>
+        ) : (
+          // 일기 데이터 표시
+          <div className={styles.diaryGrid}>
+            {diaries.map((diary) => (
+              <DiaryCard key={diary.id} diary={diary} />
+            ))}
+          </div>
+        )}
       </div>
       
       {/* Gap */}
@@ -338,4 +283,6 @@ export default function Diaries(): JSX.Element {
       <div className={styles.gap40} />
     </div>
   );
-}
+};
+
+export default Diaries;

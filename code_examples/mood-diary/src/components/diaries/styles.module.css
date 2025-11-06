@@ -218,3 +218,83 @@
 .paginationComponent {
   width: 288px; /* 피그마 디자인과 일치 */
 }
+
+/* 로딩 상태 컨테이너 - 데이터 로딩 중 표시 */
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 400px;
+  color: var(--text-secondary);
+  font-family: var(--typo-body-01-family);
+  font-weight: var(--typo-body-01-weight);
+  font-size: var(--typo-body-01-size);
+  line-height: var(--typo-body-01-height);
+}
+
+/* 에러 상태 컨테이너 - 데이터 로딩 실패 시 표시 */
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 400px;
+  gap: 16px;
+}
+
+.errorContainer p {
+  color: var(--text-secondary);
+  font-family: var(--typo-body-01-family);
+  font-weight: var(--typo-body-01-weight);
+  font-size: var(--typo-body-01-size);
+  line-height: var(--typo-body-01-height);
+  margin: 0;
+}
+
+/* 재시도 버튼 */
+.retryButton {
+  padding: 8px 16px;
+  background-color: var(--primary-60);
+  color: var(--background-primary);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--typo-subtitle-01-family);
+  font-weight: var(--typo-subtitle-01-weight);
+  font-size: var(--typo-subtitle-01-size);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.retryButton:hover {
+  background-color: var(--primary-70);
+}
+
+/* 빈 상태 컨테이너 - 일기 데이터가 없을 때 표시 */
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 400px;
+  gap: 8px;
+  text-align: center;
+}
+
+.emptyContainer p {
+  color: var(--text-secondary);
+  font-family: var(--typo-body-01-family);
+  font-weight: var(--typo-body-01-weight);
+  font-size: var(--typo-body-01-size);
+  line-height: var(--typo-body-01-height);
+  margin: 0;
+}
+
+.emptyContainer p:first-child {
+  color: var(--text-primary);
+  font-family: var(--typo-title-01-family);
+  font-weight: var(--typo-title-01-weight);
+  font-size: var(--typo-title-01-size);
+}
