@@ -5,35 +5,34 @@ import Link from 'next/link';
 
 import { Input } from '@/commons/components/input';
 import { Button } from '@/commons/components/button';
+import { useSignupForm } from './hooks/index.form.hook';
 
 import styles from './styles.module.css';
 
 /**
  * 회원가입 컴포넌트
  * 
- * 피그마 디자인을 기반으로 구현된 회원가입 폼을 제공합니다.
- * - 이름, 이메일, 비밀번호, 비밀번호 재입력 필드
- * - 회원가입 버튼
- * - 로그인 페이지로 이동하는 링크
- * - 반응형 디자인 지원
- * - 모던하고 세련된 UI/UX
+ * Figma 디자인을 기반으로 구현된 회원가입 폼을 제공합니다.
+ * React Hook Form과 Zod 검증, TanStack Query를 활용한 완전한 회원가입 시스템입니다.
  * 
  * 주요 기능:
- * - Input 컴포넌트를 활용한 폼 필드
- * - Button 컴포넌트를 활용한 제출 버튼
- * - CSS 변수 토큰을 활용한 일관된 스타일링
- * - 접근성을 고려한 레이블과 ID 연결
+ * - 실시간 폼 검증
+ * - 모든 필드 입력 시 버튼 활성화
+ * - 회원가입 API 호출
+ * - 성공/실패 모달 표시
+ * - 로그인 페이지 리다이렉트
  * 
- * @returns 회원가입 폼 컴포넌트
+ * @returns {React.FC} 회원가입 폼 컴포넌트
  */
 export const AuthSignup: React.FC = () => {
-  /**
-   * 회원가입 폼 렌더링
-   * 
-   * 헤더, 폼 필드, 제출 버튼, 로그인 링크 순서로 구성됩니다.
-   * 모든 입력 필드는 공통 Input 컴포넌트를 사용하며,
-   * 제출 버튼은 공통 Button 컴포넌트를 사용합니다.
-   */
+  const {
+    register,
+    handleSubmit,
+    errors,
+    isSubmitEnabled,
+    isLoading
+  } = useSignupForm();
+
   return (
     <div className={styles.container}>
       <div className={styles.formWrapper}>
@@ -46,7 +45,7 @@ export const AuthSignup: React.FC = () => {
         </div>
 
         {/* 메인 폼 섹션 - 입력 필드들과 제출 버튼 */}
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit} data-testid="signup-form">
           {/* 이름 입력 필드 */}
           <div className={styles.fieldGroup}>
             <label className={styles.label} htmlFor="name">
@@ -60,7 +59,14 @@ export const AuthSignup: React.FC = () => {
               theme="light"
               size="medium"
               className={styles.input}
+              data-testid="signup-name-input"
+              {...register('name')}
             />
+            {errors.name && (
+              <span className={styles.errorMessage} data-testid="signup-name-error">
+                {errors.name.message}
+              </span>
+            )}
           </div>
 
           {/* 이메일 입력 필드 */}
@@ -76,7 +82,14 @@ export const AuthSignup: React.FC = () => {
               theme="light"
               size="medium"
               className={styles.input}
+              data-testid="signup-email-input"
+              {...register('email')}
             />
+            {errors.email && (
+              <span className={styles.errorMessage} data-testid="signup-email-error">
+                {errors.email.message}
+              </span>
+            )}
           </div>
 
           {/* 비밀번호 입력 필드 */}
@@ -92,23 +105,37 @@ export const AuthSignup: React.FC = () => {
               theme="light"
               size="medium"
               className={styles.input}
+              data-testid="signup-password-input"
+              {...register('password')}
             />
+            {errors.password && (
+              <span className={styles.errorMessage} data-testid="signup-password-error">
+                {errors.password.message}
+              </span>
+            )}
           </div>
 
           {/* 비밀번호 재입력 필드 */}
           <div className={styles.fieldGroup}>
-            <label className={styles.label} htmlFor="confirmPassword">
+            <label className={styles.label} htmlFor="passwordConfirm">
               비밀번호 재입력
             </label>
             <Input
-              id="confirmPassword"
+              id="passwordConfirm"
               type="password"
               placeholder="비밀번호를 다시 입력해주세요"
               variant="primary"
               theme="light"
               size="medium"
               className={styles.input}
+              data-testid="signup-password-confirm-input"
+              {...register('passwordConfirm')}
             />
+            {errors.passwordConfirm && (
+              <span className={styles.errorMessage} data-testid="signup-password-confirm-error">
+                {errors.passwordConfirm.message}
+              </span>
+            )}
           </div>
 
           {/* 회원가입 제출 버튼 */}
@@ -118,8 +145,10 @@ export const AuthSignup: React.FC = () => {
             theme="light"
             size="medium"
             className={styles.submitButton}
+            disabled={!isSubmitEnabled || isLoading}
+            data-testid="signup-submit-button"
           >
-            회원가입
+            {isLoading ? '가입 중...' : '회원가입'}
           </Button>
         </form>
 

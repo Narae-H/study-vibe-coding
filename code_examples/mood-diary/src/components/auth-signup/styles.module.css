@@ -129,6 +129,18 @@
   text-decoration: underline;
 }
 
+/* 에러 메시지 - 폼 검증 오류 메시지 스타일 */
+.errorMessage {
+  font-family: var(--typo-body-03-family);
+  font-weight: var(--typo-body-03-weight);
+  font-size: var(--typo-body-03-size);
+  line-height: var(--typo-body-03-height);
+  letter-spacing: var(--typo-body-03-spacing);
+  color: var(--danger);
+  margin-top: 4px;
+  display: block;
+}
+
 /* 반응형 디자인 - 모바일 환경 최적화 (640px 이하) */
 @media (max-width: 640px) {
   /* 컨테이너 패딩 축소 */

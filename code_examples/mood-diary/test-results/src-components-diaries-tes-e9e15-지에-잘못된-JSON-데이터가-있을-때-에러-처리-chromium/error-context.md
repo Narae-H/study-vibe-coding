@@ -1,0 +1,64 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5] [cursor=pointer]: 민지의 다이어리
+    - img "배너 이미지" [ref=e8]
+    - navigation [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12] [cursor=pointer]: 일기보관함
+        - generic [ref=e13] [cursor=pointer]: 사진보관함
+    - main [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e18]:
+          - generic [ref=e19]:
+            - button "전체 dropdown" [ref=e21] [cursor=pointer]:
+              - generic [ref=e22]: 전체
+              - img "dropdown" [ref=e24]
+            - generic [ref=e25]:
+              - img "search" [ref=e27]
+              - textbox "검색어를 입력해 주세요." [ref=e28]
+          - button "plus 일기쓰기" [ref=e29] [cursor=pointer]:
+            - img "plus" [ref=e31]
+            - text: 일기쓰기
+        - generic [ref=e34]:
+          - generic [ref=e35] [cursor=pointer]:
+            - generic [ref=e36]:
+              - button "일기 삭제" [ref=e38]:
+                - img "삭제" [ref=e39]
+              - img "행복한 하루" [ref=e40]
+            - generic [ref=e41]:
+              - generic [ref=e42]:
+                - generic [ref=e43]: 행복해요
+                - generic [ref=e44]: 2024. 03. 12
+              - heading "행복한 하루" [level=3] [ref=e46]
+          - generic [ref=e47] [cursor=pointer]:
+            - generic [ref=e48]:
+              - button "일기 삭제" [ref=e50]:
+                - img "삭제" [ref=e51]
+              - img "슬픈 하루" [ref=e52]
+            - generic [ref=e53]:
+              - generic [ref=e54]:
+                - generic [ref=e55]: 슬퍼요
+                - generic [ref=e56]: 2024. 03. 13
+              - heading "슬픈 하루" [level=3] [ref=e58]
+        - generic [ref=e61]:
+          - button "이전 페이지" [disabled] [ref=e62]:
+            - img "이전" [ref=e63]
+          - generic [ref=e64]:
+            - button "페이지 1" [ref=e65] [cursor=pointer]: "1"
+            - button "페이지 2" [ref=e66] [cursor=pointer]: "2"
+            - button "페이지 3" [ref=e67] [cursor=pointer]: "3"
+            - button "페이지 4" [ref=e68] [cursor=pointer]: "4"
+            - button "페이지 5" [ref=e69] [cursor=pointer]: "5"
+          - button "다음 페이지" [ref=e70] [cursor=pointer]:
+            - img "다음" [ref=e71]
+    - contentinfo [ref=e73]:
+      - generic [ref=e74]:
+        - generic [ref=e75]: 민지의 다이어리
+        - generic [ref=e76]: "대표 : {name}"
+        - generic [ref=e77]: "Copyright © 2024. {name} Co., Ltd."
+  - alert [ref=e78]
+```
