@@ -1,0 +1,154 @@
+/**
+ * Auth Signup Component Styles
+ * 
+ * 회원가입 페이지의 폼 스타일을 정의합니다.
+ * 모던하고 세련된 디자인으로 사용자 경험을 향상시킵니다.
+ * CSS 변수 토큰을 활용하여 일관된 디자인 시스템을 유지합니다.
+ */
+
+/* 메인 컨테이너 - 전체 화면 중앙 정렬 */
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-primary);
+  padding: 20px;
+}
+
+/* 폼 래퍼 - 회원가입 폼 컨테이너 (최대 480px) */
+.formWrapper {
+  width: 100%;
+  max-width: 480px;
+  background: var(--background-primary);
+  border-radius: 24px;
+  border: 1px solid var(--border-secondary);
+  padding: 48px 40px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* 헤더 섹션 - 제목과 부제목 영역 */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* 메인 제목 - Web Headline 02 타이포그래피 사용 */
+.title {
+  font-family: var(--typo-web-headline-02-family);
+  font-weight: var(--typo-web-headline-02-weight);
+  font-size: var(--typo-web-headline-02-size);
+  line-height: var(--typo-web-headline-02-height);
+  letter-spacing: var(--typo-web-headline-02-spacing);
+  color: var(--text-primary);
+  margin: 0 0 12px 0;
+}
+
+/* 부제목 - Body 01 타이포그래피 사용 */
+.subtitle {
+  font-family: var(--typo-body-01-family);
+  font-weight: var(--typo-body-01-weight);
+  font-size: var(--typo-body-01-size);
+  line-height: var(--typo-body-01-height);
+  letter-spacing: var(--typo-body-01-spacing);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* 폼 섹션 - 입력 필드들을 세로로 배치 */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+/* 필드 그룹 - 라벨과 입력 필드를 묶는 컨테이너 */
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 입력 필드 라벨 - Subtitle 01 타이포그래피 사용 */
+.label {
+  font-family: var(--typo-subtitle-01-family);
+  font-weight: var(--typo-subtitle-01-weight);
+  font-size: var(--typo-subtitle-01-size);
+  line-height: var(--typo-subtitle-01-height);
+  letter-spacing: var(--typo-subtitle-01-spacing);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Input 컴포넌트 래퍼 - 전체 너비 사용 */
+.input {
+  width: 100%;
+}
+
+/* 회원가입 제출 버튼 - 전체 너비, 상단 마진 */
+.submitButton {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* 로그인 링크 섹션 - 하단 로그인 페이지 이동 영역 */
+.loginLink {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* 로그인 안내 텍스트 - Body 02 S 타이포그래피 사용 */
+.loginText {
+  font-family: var(--typo-body-02-s-family);
+  font-weight: var(--typo-body-02-s-weight);
+  font-size: var(--typo-body-02-s-size);
+  line-height: var(--typo-body-02-s-height);
+  letter-spacing: var(--typo-body-02-s-spacing);
+  color: var(--text-secondary);
+}
+
+/* 로그인 링크 텍스트 - 호버 효과가 있는 링크 스타일 */
+.loginLinkText {
+  font-family: var(--typo-body-02-s-family);
+  font-weight: 600;
+  font-size: var(--typo-body-02-s-size);
+  line-height: var(--typo-body-02-s-height);
+  letter-spacing: var(--typo-body-02-s-spacing);
+  color: var(--primary);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+/* 로그인 링크 호버 상태 - 색상 변화와 밑줄 표시 */
+.loginLinkText:hover {
+  color: var(--primary-light);
+  text-decoration: underline;
+}
+
+/* 반응형 디자인 - 모바일 환경 최적화 (640px 이하) */
+@media (max-width: 640px) {
+  /* 컨테이너 패딩 축소 */
+  .container {
+    padding: 16px;
+  }
+  
+  /* 폼 래퍼 패딩과 모서리 반지름 조정 */
+  .formWrapper {
+    padding: 32px 24px;
+    border-radius: 16px;
+  }
+  
+  /* 폼 필드 간격 축소 */
+  .form {
+    gap: 20px;
+  }
+  
+  /* 필드 그룹 간격 축소 */
+  .fieldGroup {
+    gap: 6px;
+  }
+}
