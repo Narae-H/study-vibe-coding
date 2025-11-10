@@ -1,7 +1,7 @@
 /**
- * Auth Signup Component Styles
+ * Auth Login Component Styles
  * 
- * 회원가입 페이지의 폼 스타일을 정의합니다.
+ * 로그인 페이지의 폼 스타일을 정의합니다.
  * 모던하고 세련된 디자인으로 사용자 경험을 향상시킵니다.
  * CSS 변수 토큰을 활용하여 일관된 디자인 시스템을 유지합니다.
  */
@@ -16,7 +16,7 @@
   padding: 20px;
 }
 
-/* 폼 래퍼 - 회원가입 폼 컨테이너 (최대 480px) */
+/* 폼 래퍼 - 로그인 폼 컨테이너 (최대 480px) */
 .formWrapper {
   width: 100%;
   max-width: 480px;
@@ -86,14 +86,14 @@
   width: 100%;
 }
 
-/* 회원가입 제출 버튼 - 전체 너비, 상단 마진 */
+/* 로그인 제출 버튼 - 전체 너비, 상단 마진 */
 .submitButton {
   width: 100%;
   margin-top: 8px;
 }
 
-/* 로그인 링크 섹션 - 하단 로그인 페이지 이동 영역 */
-.loginLink {
+/* 회원가입 링크 섹션 - 하단 회원가입 페이지 이동 영역 */
+.signupLink {
   text-align: center;
   display: flex;
   align-items: center;
@@ -101,8 +101,8 @@
   gap: 8px;
 }
 
-/* 로그인 안내 텍스트 - Body 02 S 타이포그래피 사용 */
-.loginText {
+/* 회원가입 안내 텍스트 - Body 02 S 타이포그래피 사용 */
+.signupText {
   font-family: var(--typo-body-02-s-family);
   font-weight: var(--typo-body-02-s-weight);
   font-size: var(--typo-body-02-s-size);
@@ -111,8 +111,8 @@
   color: var(--text-secondary);
 }
 
-/* 로그인 링크 텍스트 - 호버 효과가 있는 링크 스타일 */
-.loginLinkText {
+/* 회원가입 링크 텍스트 - 호버 효과가 있는 링크 스타일 */
+.signupLinkText {
   font-family: var(--typo-body-02-s-family);
   font-weight: 600;
   font-size: var(--typo-body-02-s-size);
@@ -122,22 +122,10 @@
   text-decoration: none;
 }
 
-/* 로그인 링크 호버 상태 - 색상 변화와 밑줄 표시 */
-.loginLinkText:hover {
+/* 회원가입 링크 호버 상태 - 색상 변화와 밑줄 표시 */
+.signupLinkText:hover {
   color: var(--primary-light);
   text-decoration: underline;
-}
-
-/* 에러 메시지 - 폼 검증 오류 메시지 스타일 */
-.errorMessage {
-  font-family: var(--typo-body-03-family);
-  font-weight: var(--typo-body-03-weight);
-  font-size: var(--typo-body-03-size);
-  line-height: var(--typo-body-03-height);
-  letter-spacing: var(--typo-body-03-spacing);
-  color: var(--error);
-  margin-top: 4px;
-  display: block;
 }
 
 /* 반응형 디자인 - 모바일 환경 최적화 (640px 이하) */
@@ -163,3 +151,4 @@
     gap: 6px;
   }
 }
+
