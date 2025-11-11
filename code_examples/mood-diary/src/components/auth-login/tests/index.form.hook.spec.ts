@@ -97,11 +97,11 @@ test.describe('로그인 폼 기능 테스트', () => {
       
       // accessToken이 정상적으로 반환되는지 확인
       expect(loginResponseData).toBeDefined();
-      expect(loginResponseData.data).toBeDefined();
-      expect(loginResponseData.data.loginUser).toBeDefined();
-      expect(loginResponseData.data.loginUser.accessToken).toBeDefined();
-      expect(typeof loginResponseData.data.loginUser.accessToken).toBe('string');
-      expect(loginResponseData.data.loginUser.accessToken.length).toBeGreaterThan(0);
+      expect(loginResponseData?.data).toBeDefined();
+      expect(loginResponseData?.data?.loginUser).toBeDefined();
+      expect(loginResponseData?.data?.loginUser?.accessToken).toBeDefined();
+      expect(typeof loginResponseData?.data?.loginUser?.accessToken).toBe('string');
+      expect(loginResponseData?.data?.loginUser?.accessToken?.length).toBeGreaterThan(0);
       
       // fetchUserLoggedIn API 응답 대기
       let userResponseData: { data?: { fetchUserLoggedIn?: { _id?: string; name?: string } } } | null = null;
@@ -115,14 +115,14 @@ test.describe('로그인 폼 기능 테스트', () => {
       
       // _id와 name이 정상적으로 반환되는지 확인
       expect(userResponseData).toBeDefined();
-      expect(userResponseData.data).toBeDefined();
-      expect(userResponseData.data.fetchUserLoggedIn).toBeDefined();
-      expect(userResponseData.data.fetchUserLoggedIn._id).toBeDefined();
-      expect(typeof userResponseData.data.fetchUserLoggedIn._id).toBe('string');
-      expect(userResponseData.data.fetchUserLoggedIn._id.length).toBeGreaterThan(0);
-      expect(userResponseData.data.fetchUserLoggedIn.name).toBeDefined();
-      expect(typeof userResponseData.data.fetchUserLoggedIn.name).toBe('string');
-      expect(userResponseData.data.fetchUserLoggedIn.name.length).toBeGreaterThan(0);
+      expect(userResponseData?.data).toBeDefined();
+      expect(userResponseData?.data?.fetchUserLoggedIn).toBeDefined();
+      expect(userResponseData?.data?.fetchUserLoggedIn?._id).toBeDefined();
+      expect(typeof userResponseData?.data?.fetchUserLoggedIn?._id).toBe('string');
+      expect(userResponseData?.data?.fetchUserLoggedIn?._id?.length).toBeGreaterThan(0);
+      expect(userResponseData?.data?.fetchUserLoggedIn?.name).toBeDefined();
+      expect(typeof userResponseData?.data?.fetchUserLoggedIn?.name).toBe('string');
+      expect(userResponseData?.data?.fetchUserLoggedIn?.name?.length).toBeGreaterThan(0);
       
       // 성공 모달이 표시되는지 확인
       await expect(page.locator('[data-testid="login-success-modal"]')).toBeVisible();
@@ -134,10 +134,10 @@ test.describe('로그인 폼 기능 테스트', () => {
       const user = userString ? JSON.parse(userString) : null;
       
       expect(accessToken).toBeDefined();
-      expect(accessToken).toBe(loginResponseData.data.loginUser.accessToken);
+      expect(accessToken).toBe(loginResponseData?.data?.loginUser?.accessToken);
       expect(user).toBeDefined();
-      expect(user._id).toBe(userResponseData.data.fetchUserLoggedIn._id);
-      expect(user.name).toBe(userResponseData.data.fetchUserLoggedIn.name);
+      expect(user._id).toBe(userResponseData?.data?.fetchUserLoggedIn?._id);
+      expect(user.name).toBe(userResponseData?.data?.fetchUserLoggedIn?.name);
       
       // 모달의 확인 버튼 클릭
       await page.click('[data-testid="login-success-modal"] button');
