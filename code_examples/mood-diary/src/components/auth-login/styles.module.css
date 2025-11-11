@@ -86,6 +86,18 @@
   width: 100%;
 }
 
+/* 에러 메시지 - 폼 검증 오류 메시지 스타일 */
+.errorMessage {
+  font-family: var(--typo-body-03-family);
+  font-weight: var(--typo-body-03-weight);
+  font-size: var(--typo-body-03-size);
+  line-height: var(--typo-body-03-height);
+  letter-spacing: var(--typo-body-03-spacing);
+  color: var(--error);
+  margin-top: 4px;
+  display: block;
+}
+
 /* 로그인 제출 버튼 - 전체 너비, 상단 마진 */
 .submitButton {
   width: 100%;

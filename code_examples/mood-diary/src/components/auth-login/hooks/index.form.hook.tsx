@@ -1,0 +1,340 @@
+'use client';
+
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { z } from 'zod';
+
+import { useModal } from '@/commons/providers/modal/modal.provider';
+import { Modal } from '@/commons/components/modal';
+import { URL_PATH } from '@/commons/constants/url';
+
+/**
+ * 로그인 폼 검증 스키마
+ */
+const loginSchema = z.object({
+  email: z.string().email('올바른 이메일 형식을 입력해주세요').refine((email) => email.includes('@'), {
+    message: '이메일에 @가 포함되어야 합니다'
+  }),
+  password: z.string().min(1, '비밀번호는 최소 1글자 이상이어야 합니다')
+});
+
+/**
+ * 로그인 폼 데이터 타입
+ */
+export type LoginFormData = z.infer<typeof loginSchema>;
+
+/**
+ * 로그인 API 요청 데이터 타입
+ */
+export interface LoginUserInput {
+  /**
+   * 사용자 이메일
+   */
+  email: string;
+  
+  /**
+   * 사용자 비밀번호
+   */
+  password: string;
+}
+
+/**
+ * 로그인 API 응답 데이터 타입
+ */
+export interface LoginUserResponse {
+  /**
+   * 액세스 토큰
+   */
+  accessToken: string;
+}
+
+/**
+ * 사용자 정보 조회 API 응답 데이터 타입
+ */
+export interface FetchUserLoggedInResponse {
+  /**
+   * 사용자 ID
+   */
+  _id: string;
+  
+  /**
+   * 사용자 이름
+   */
+  name: string;
+}
+
+/**
+ * GraphQL 에러 타입
+ */
+export interface GraphQLError {
+  /**
+   * 에러 메시지
+   */
+  message: string;
+  
+  /**
+   * 에러 확장 정보
+   */
+  extensions?: {
+    /**
+     * 에러 코드
+     */
+    code?: string;
+  };
+}
+
+/**
+ * 로그인 폼 훅 반환 타입
+ */
+export interface UseLoginFormReturn {
+  /**
+   * React Hook Form register 함수
+   */
+  register: ReturnType<typeof useForm<LoginFormData>>['register'];
+  
+  /**
+   * 폼 제출 핸들러
+   */
+  handleSubmit: () => void;
+  
+  /**
+   * 폼 검증 에러
+   */
+  errors: ReturnType<typeof useForm<LoginFormData>>['formState']['errors'];
+  
+  /**
+   * 제출 버튼 활성화 여부
+   */
+  isSubmitEnabled: boolean;
+  
+  /**
+   * 로딩 상태 여부
+   */
+  isLoading: boolean;
+  
+  /**
+   * 폼 값들
+   */
+  formValues: LoginFormData;
+  
+  /**
+   * 폼 유효성 여부
+   */
+  isValid: boolean;
+  
+  /**
+   * 모든 필드 입력 여부
+   */
+  isAllFieldsFilled: boolean;
+}
+
+/**
+ * 로그인 API 호출 함수
+ */
+const loginUser = async (input: LoginUserInput): Promise<LoginUserResponse> => {
+  const query = `
+    mutation loginUser($email: String!, $password: String!) {
+      loginUser(email: $email, password: $password) {
+        accessToken
+      }
+    }
+  `;
+
+  const response = await fetch('https://main-practice.codebootcamp.co.kr/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query,
+      variables: {
+        email: input.email,
+        password: input.password
+      }
+    })
+  });
+
+  const result = await response.json();
+
+  if (result.errors) {
+    const error = result.errors[0] as GraphQLError;
+    throw new Error(error.message || '로그인에 실패했습니다');
+  }
+
+  return result.data.loginUser;
+};
+
+/**
+ * 사용자 정보 조회 API 호출 함수
+ */
+const fetchUserLoggedIn = async (accessToken: string): Promise<FetchUserLoggedInResponse> => {
+  const query = `
+    query {
+      fetchUserLoggedIn {
+        _id
+        name
+      }
+    }
+  `;
+
+  const response = await fetch('https://main-practice.codebootcamp.co.kr/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      query
+    })
+  });
+
+  const result = await response.json();
+
+  if (result.errors) {
+    const error = result.errors[0] as GraphQLError;
+    throw new Error(error.message || '사용자 정보 조회에 실패했습니다');
+  }
+
+  return result.data.fetchUserLoggedIn;
+};
+
+/**
+ * 로그인 폼 훅
+ * 
+ * React Hook Form과 TanStack Query를 사용하여 로그인 폼의 상태 관리와 
+ * API 통신을 처리하는 커스텀 훅입니다.
+ * 
+ * 주요 기능:
+ * - 폼 상태 관리 및 검증
+ * - 로그인 API 호출
+ * - 사용자 정보 조회 API 호출
+ * - 로컬스토리지에 토큰 및 사용자 정보 저장
+ * - 성공/실패 모달 처리
+ * - 페이지 리다이렉트
+ * 
+ * @returns {UseLoginFormReturn} 폼 관리에 필요한 상태와 함수들
+ */
+export const useLoginForm = (): UseLoginFormReturn => {
+  const router = useRouter();
+  const { openModal, closeAllModals } = useModal();
+
+  // React Hook Form 설정
+  const form = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: ''
+    },
+    mode: 'onChange'
+  });
+
+  const { handleSubmit, formState, watch, register } = form;
+  const { isValid, errors } = formState;
+
+  // 모든 필드가 입력되었는지 확인
+  const formValues = watch();
+  const isAllFieldsFilled = Object.values(formValues).every(value => value.trim() !== '');
+  const isSubmitEnabled = isValid && isAllFieldsFilled;
+
+  // 로그인 API 뮤테이션
+  const loginMutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: async (data: LoginUserResponse) => {
+      try {
+        // accessToken을 로컬스토리지에 저장
+        localStorage.setItem('accessToken', data.accessToken);
+
+        // 사용자 정보 조회
+        const user = await fetchUserLoggedIn(data.accessToken);
+
+        // 사용자 정보를 로컬스토리지에 저장
+        localStorage.setItem('user', JSON.stringify({
+          _id: user._id,
+          name: user.name
+        }));
+
+        // 성공 모달 표시
+        openModal(
+          <Modal
+            variant="info"
+            actions="single"
+            title="로그인 완료"
+            description="로그인이 성공적으로 완료되었습니다. 일기 목록 페이지로 이동합니다."
+            primaryButtonText="확인"
+            onPrimaryClick={() => {
+              closeAllModals();
+              router.push(URL_PATH.DIARIES.LIST);
+            }}
+            data-testid="login-success-modal"
+          />
+        );
+      } catch (error) {
+        // 사용자 정보 조회 실패 시 실패 모달 표시
+        openModal(
+          <Modal
+            variant="danger"
+            actions="single"
+            title="로그인 실패"
+            description={error instanceof Error ? error.message : '사용자 정보 조회 중 오류가 발생했습니다.'}
+            primaryButtonText="확인"
+            onPrimaryClick={() => {
+              closeAllModals();
+            }}
+            data-testid="login-error-modal"
+          />
+        );
+      }
+    },
+    onError: (error: Error) => {
+      // 로그인 실패 모달 표시
+      openModal(
+        <Modal
+          variant="danger"
+          actions="single"
+          title="로그인 실패"
+          description={error.message || '로그인 중 오류가 발생했습니다. 다시 시도해주세요.'}
+          primaryButtonText="확인"
+          onPrimaryClick={() => {
+            closeAllModals();
+          }}
+          data-testid="login-error-modal"
+        />
+      );
+    }
+  });
+
+  // 폼 제출 핸들러
+  const onSubmit = (data: LoginFormData) => {
+    const loginUserInput: LoginUserInput = {
+      email: data.email,
+      password: data.password
+    };
+
+    loginMutation.mutate(loginUserInput);
+  };
+
+  return {
+    // Form methods
+    register,
+    handleSubmit: handleSubmit(onSubmit),
+    errors,
+    
+    // Form state
+    isSubmitEnabled,
+    isLoading: loginMutation.isPending,
+    
+    // Field values (for controlled components)
+    formValues,
+    
+    // Additional utilities
+    isValid,
+    isAllFieldsFilled
+  };
+};
+
+// 기본 export
+export default useLoginForm;
+
