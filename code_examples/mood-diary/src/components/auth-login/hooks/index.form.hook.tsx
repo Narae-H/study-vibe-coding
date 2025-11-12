@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
@@ -218,7 +217,6 @@ const fetchUserLoggedIn = async (accessToken: string): Promise<FetchUserLoggedIn
  * @returns {UseLoginFormReturn} 폼 관리에 필요한 상태와 함수들
  */
 export const useLoginForm = (): UseLoginFormReturn => {
-  const router = useRouter();
   const { openModal, closeAllModals } = useModal();
 
   // React Hook Form 설정
@@ -266,7 +264,8 @@ export const useLoginForm = (): UseLoginFormReturn => {
             primaryButtonText="확인"
             onPrimaryClick={() => {
               closeAllModals();
-              router.push(URL_PATH.DIARIES.LIST);
+              // AuthProvider가 localStorage를 다시 읽도록 페이지 완전 새로고침
+              window.location.href = URL_PATH.DIARIES.LIST;
             }}
             data-testid="login-success-modal"
           />

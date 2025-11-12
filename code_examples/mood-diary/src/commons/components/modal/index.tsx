@@ -163,6 +163,7 @@ export const Modal: React.FC<ModalProps> = ({
             theme="light"
             onClick={onSecondaryClick}
             className={styles.dualButton}
+            data-testid="modal-secondary-button"
           >
             {secondaryButtonText}
           </Button>
@@ -173,6 +174,7 @@ export const Modal: React.FC<ModalProps> = ({
           theme="light"
           onClick={onPrimaryClick}
           className={actions === 'dual' ? styles.dualButton : styles.singleButton}
+          data-testid="modal-primary-button"
         >
           {primaryButtonText}
         </Button>

@@ -1,3 +1,5 @@
+'use client';
+
 import { useRouter, usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { URL_PATH } from '../../constants/url';

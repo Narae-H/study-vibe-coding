@@ -3,7 +3,7 @@
 
 ==============================================
 
-조건-커서룰) 아래의 커서룰을 적용하여 작업하고, 이 작업이 끝나면 해당 rules 적용 결과를 체크리스트로 반환할 것.
+조건-커서룰) 아래의 커서룰(경로: **.cursor/rules/**)을 적용하여 작업하고, 이 작업이 끝나면 해당 rules 적용 결과를 체크리스트로 반환할 것.
             - @01-common.mdc
             - @04-func.mdc
 
@@ -39,9 +39,12 @@
             5) 테스트시나리오(로그인유저)
                 1. 비회원으로 /auth/login에 접속하여 페이지 로드 확인
                 2. 로그인시도
-                    - email: a@c.com
-                    - password: 1234qwer
+                    - email: test3@gmail.com
+                    - password: test123!
                 3. 로그인 성공 후, 완료 모달 클릭하여 /diaries 페이지 로드 확인
+                    - 3-1. API 호출 성공 시 accessToken,user를 localStorage에 저장하고 내부 state(setUser, setToken 등)도 업데이트
+                    - 3-2. AuthProvider 마운트 시 localStorage의 token, user를 읽어 초기 state를 세팅 확인
+                    - 3-3. 로그인 성공 후, /diaries 페이지로 이동하면 헤더 우측에 유저 정보와 로그아웃 버튼 노출 여부 확인
                 4. layout에서 유저이름, 로그아웃버튼 노출여부 확인
                 6. 로그아웃버튼 클릭하여 /auth/login 페이지 로드 확인
                 8. /diaries에 접속하여 페이지 로드 확인

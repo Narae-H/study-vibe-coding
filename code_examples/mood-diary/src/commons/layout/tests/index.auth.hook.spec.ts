@@ -84,23 +84,75 @@ test.describe('Layout Auth Hook', () => {
       await expect(container).toBeVisible();
     });
 
+    test('로그인 성공 시 localStorage와 state 동기화 확인', async ({ page }) => {
+      // 1. /auth/login 페이지 접속
+      await page.goto('/auth/login');
+      await waitForPageLoad(page);
+
+      // 로그인 전 localStorage 비어있는지 확인
+      const beforeLogin = await page.evaluate(() => ({
+        token: localStorage.getItem('accessToken'),
+        user: localStorage.getItem('user')
+      }));
+      expect(beforeLogin.token).toBeNull();
+      expect(beforeLogin.user).toBeNull();
+
+      // 2. 로그인 시도
+      await page.locator('[data-testid="login-email-input"]').fill('test3@gmail.com');
+      await page.locator('[data-testid="login-password-input"]').fill('test123!');
+      await page.locator('[data-testid="login-submit-button"]').click();
+
+      // 3-1. API 호출 성공 시 accessToken과 user가 localStorage에 저장되었는지 확인
+      // 성공 모달이 나타날 때까지 대기
+      const modalButton = page.locator('[data-testid="modal-primary-button"]');
+      await expect(modalButton).toBeVisible();
+
+      const afterLogin = await page.evaluate(() => ({
+        token: localStorage.getItem('accessToken'),
+        user: localStorage.getItem('user')
+      }));
+      expect(afterLogin.token).toBeTruthy();
+      expect(afterLogin.user).toBeTruthy();
+
+      // user 데이터 구조 확인
+      const userData = JSON.parse(afterLogin.user!);
+      expect(userData).toHaveProperty('_id');
+      expect(userData).toHaveProperty('name');
+
+      // 모달 닫기
+      await modalButton.click();
+      await expect(page).toHaveURL('/diaries');
+
+      // 3-2. AuthProvider 마운트 시 localStorage를 읽어 초기 state 세팅 확인
+      // 페이지 새로고침하여 AuthProvider가 다시 마운트되도록 함
+      await page.reload();
+      await waitForPageLoad(page);
+
+      // 새로고침 후에도 로그인 상태 유지 확인 (AuthProvider가 localStorage에서 읽어옴)
+      const userName = page.locator('[data-testid="user-name"]');
+      const logoutButton = page.locator('[data-testid="logout-button"]');
+      
+      // 3-3. 로그인 성공 후 /diaries 페이지 헤더 부분에 유저 정보와 로그아웃 버튼 노출 여부 확인
+      await expect(userName).toBeVisible();
+      await expect(logoutButton).toBeVisible();
+    });
+
     test('로그인 성공 후 layout에서 유저이름, 로그아웃버튼 노출여부 확인 및 로그아웃', async ({ page }) => {
       // 1. /auth/login 페이지 접속
       await page.goto('/auth/login');
       await waitForPageLoad(page);
 
       // 2. 로그인 시도
-      const emailInput = page.locator('input[name="email"]');
-      const passwordInput = page.locator('input[name="password"]');
-      const submitButton = page.locator('button[type="submit"]');
+      const emailInput = page.locator('[data-testid="login-email-input"]');
+      const passwordInput = page.locator('[data-testid="login-password-input"]');
+      const submitButton = page.locator('[data-testid="login-submit-button"]');
 
-      await emailInput.fill('a@c.com');
-      await passwordInput.fill('1234qwer');
+      await emailInput.fill('test3@gmail.com');
+      await passwordInput.fill('test123!');
       await submitButton.click();
 
       // 3. 로그인 성공 후 완료 모달 클릭하여 /diaries 페이지 로드 확인
-      // Modal의 "확인" 버튼을 텍스트로 찾기
-      const modalButton = page.locator('button:has-text("확인")');
+      const modalButton = page.locator('[data-testid="modal-primary-button"]');
       await modalButton.click();
       
       await expect(page).toHaveURL('/diaries');
