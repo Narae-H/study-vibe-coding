@@ -129,3 +129,5 @@ test.describe('일기 상세 페이지 데이터 바인딩', () => {
     await expect(contentElement).toBeVisible();
   });
 });
+
+
