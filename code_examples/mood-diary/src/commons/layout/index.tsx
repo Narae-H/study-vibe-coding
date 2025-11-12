@@ -7,6 +7,7 @@ import { Button } from '@/commons/components/button';
 
 import { useLinkRouting } from './hooks/index.link.routing.hook';
 import { useArea } from './hooks/index.area.hook';
+import { useAuthStatus } from './hooks/index.auth.hook';
 import styles from './styles.module.css';
 
 interface LayoutProps {
@@ -30,6 +31,13 @@ export default function Layout({ children }: LayoutProps) {
     showFooter,
   } = useArea();
 
+  const {
+    handleLogin,
+    handleLogout,
+    isLoggedIn,
+    user,
+  } = useAuthStatus();
+
   return (
     <div className={styles.container} data-testid="layout-container">
       {/* Header */}
@@ -47,15 +55,34 @@ export default function Layout({ children }: LayoutProps) {
           
           {/* Auth Status - 로그인 상태 UI (우측 정렬) */}
           <div className={styles.authStatus} data-testid="auth-status">
-            <span className={styles.userName}>민지님</span>
-            <Button
-              variant="secondary"
-              size="medium"
-              theme="light"
-              className={styles.logoutButton}
-            >
-              로그아웃
-            </Button>
+            {isLoggedIn ? (
+              <>
+                <span className={styles.userName} data-testid="user-name">
+                  {user?.name}님
+                </span>
+                <Button
+                  variant="secondary"
+                  size="medium"
+                  theme="light"
+                  className={styles.logoutButton}
+                  onClick={handleLogout}
+                  data-testid="logout-button"
+                >
+                  로그아웃
+                </Button>
+              </>
+            ) : (
+              <Button
+                variant="secondary"
+                size="medium"
+                theme="light"
+                className={styles.loginButton}
+                onClick={handleLogin}
+                data-testid="login-button"
+              >
+                로그인
+              </Button>
+            )}
           </div>
         </header>
       )}
