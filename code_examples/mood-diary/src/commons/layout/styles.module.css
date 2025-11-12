@@ -13,6 +13,7 @@
   /* Layout */
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 1168px;
   height: 60px;
 }
@@ -46,6 +47,38 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Auth Status - 인증 상태 UI */
+.authStatus {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 48px;
+  margin-left: auto;
+}
+
+.userName {
+  /* Typography */
+  font-family: var(--typo-subtitle-01-family);
+  font-weight: var(--typo-subtitle-01-weight);
+  font-size: var(--typo-subtitle-01-size);
+  line-height: var(--typo-subtitle-01-height);
+  letter-spacing: -0.14px;
+  
+  /* Colors */
+  color: var(--text-primary);
+  
+  /* Layout */
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logoutButton {
+  /* Width 제한 (프롬프트 요구사항: className은 width만 허용) */
+  width: 100px;
 }
 
 /* Gap */

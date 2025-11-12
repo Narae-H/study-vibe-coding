@@ -2,9 +2,12 @@
 
 import React from 'react';
 import Image from 'next/image';
-import styles from './styles.module.css';
+
+import { Button } from '@/commons/components/button';
+
 import { useLinkRouting } from './hooks/index.link.routing.hook';
 import { useArea } from './hooks/index.area.hook';
+import styles from './styles.module.css';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -41,6 +44,19 @@ export default function Layout({ children }: LayoutProps) {
               <span className={styles.logoText}>민지의 다이어리</span>
             </div>
           )}
+          
+          {/* Auth Status - 로그인 상태 UI (우측 정렬) */}
+          <div className={styles.authStatus} data-testid="auth-status">
+            <span className={styles.userName}>민지님</span>
+            <Button
+              variant="secondary"
+              size="medium"
+              theme="light"
+              className={styles.logoutButton}
+            >
+              로그아웃
+            </Button>
+          </div>
         </header>
       )}
 
