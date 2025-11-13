@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 // import localFont from "next/font/local";
 import "./globals.css";
 import { AuthProvider } from "@/commons/providers/auth/auth.provider";
-import { AuthGuard } from "@/commons/providers/auth/auth.guard";
 import { ModalProvider } from "@/commons/providers/modal/modal.provider";
 import { NextThemesProvider } from "@/commons/providers/next-themes/next-themes.provider";
 import { ReactQueryProvider } from "@/commons/providers/react-query/react-query.provider";
@@ -35,11 +34,9 @@ export default function RootLayout({
           <ReactQueryProvider>
             <NextThemesProvider>
               <ModalProvider>
-                <AuthGuard>
-                  <Layout>
-                    {children}
-                  </Layout>
-                </AuthGuard>
+                <Layout>
+                  {children}
+                </Layout>
               </ModalProvider>
             </NextThemesProvider>
           </ReactQueryProvider>
