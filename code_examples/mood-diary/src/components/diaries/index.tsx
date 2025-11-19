@@ -13,19 +13,20 @@ import { useDiaryModalLink } from './hooks/index.link.modal.hook';
 import { useDiaryBinding, DiaryEntry } from './hooks/index.binding.hook';
 import { useDiaryLinkRouting } from './hooks/index.link.routing.hook';
 import { useDiarySearch } from './hooks/index.search.hook';
+import { useDiaryFilter } from './hooks/index.filter.hook';
 import styles from './styles.module.css';
 
 /**
  * 필터 옵션 데이터
  * 감정별 필터링을 위한 선택 옵션 배열
+ * enum.ts의 EmotionType과 EMOTION_DATA를 기반으로 생성
  */
 const filterOptions: SelectOption[] = [
   { value: 'all', label: '전체' },
-  { value: 'happy', label: '기쁨' },
-  { value: 'sad', label: '슬픔' },
-  { value: 'angry', label: '화남' },
-  { value: 'surprise', label: '놀람' },
-  { value: 'etc', label: '기타' },
+  { value: 'HAPPY', label: EMOTION_DATA.HAPPY.label },
+  { value: 'SAD', label: EMOTION_DATA.SAD.label },
+  { value: 'SURPRISE', label: EMOTION_DATA.SURPRISE.label },
+  { value: 'ANGRY', label: EMOTION_DATA.ANGRY.label },
 ];
 
 
@@ -131,29 +132,25 @@ const Diaries = (): JSX.Element => {
   // 일기 데이터 바인딩 훅 사용
   const { diaries, loading, error, refresh } = useDiaryBinding();
   
-  // 검색 훅 사용
+  // 검색 훅 사용 - 먼저 검색 필터링
   const {
-    filteredDiaries,
+    filteredDiaries: searchedDiaries,
     searchQuery,
     handleSearchChange,
     handleSearch,
     handleKeyPress
   } = useDiarySearch(diaries);
   
-  // 필터 상태 관리
-  const [selectedFilter, setSelectedFilter] = useState<string>('all');
+  // 필터 훅 사용 - 검색 결과에 대해 감정 필터링
+  const {
+    filteredDiaries,
+    selectedFilter,
+    handleFilterChange
+  } = useDiaryFilter(searchedDiaries);
   
   // 페이지네이션 상태 관리
   const [currentPage, setCurrentPage] = useState<number>(1);
   const totalPages = 5;
-
-  /**
-   * 필터 변경 핸들러
-   * @param {string} value - 선택된 필터 값
-   */
-  const handleFilterChange = (value: string) => {
-    setSelectedFilter(value);
-  };
 
   /**
    * 일기쓰기 버튼 클릭 핸들러
@@ -192,6 +189,7 @@ const Diaries = (): JSX.Element => {
               value={selectedFilter}
               onChange={handleFilterChange}
               className={styles.filterSelect}
+              data-testid="filter-select"
             />
             
             {/* 검색바 래퍼 */}

@@ -7,6 +7,7 @@ import { Input } from '@/commons/components/input';
 import { EmotionType, EMOTION_DATA } from '@/commons/constants/enum';
 import { useBinding } from './hooks/index.binding.hook';
 import { useRetrospectForm } from './hooks/index.retrospect.form.hook';
+import { useRetrospectBinding } from './hooks/index.retrospect.binding.hook';
 import styles from './styles.module.css';
 
 /**
@@ -39,20 +40,6 @@ const COMPONENT_CONFIG = {
     emotion: EmotionType.HAPPY,
     createdAt: '2024. 07. 12'
   } as DiaryDetailData,
-  
-  // Mock 회고 데이터 그룹화
-  mockRetrospects: [
-    {
-      id: '1',
-      content: '3년이 지나고 다시 보니 이때가 그립다.',
-      createdAt: '2024. 09. 24'
-    },
-    {
-      id: '2', 
-      content: '3년이 지나고 다시 보니 이때가 그립다.',
-      createdAt: '2024. 09. 24'
-    }
-  ],
   
   // 버튼 설정 그룹화
   buttonProps: {
@@ -111,8 +98,11 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
   // 회고 폼 훅
   const { register, handleSubmit, isValid, watch } = useRetrospectForm(id);
   
+  // 회고 목록 바인딩
+  const { retrospects } = useRetrospectBinding(id);
+  
   // 구조화된 데이터 사용
-  const { mockRetrospects, buttonProps, inputProps, icons, labels } = COMPONENT_CONFIG;
+  const { buttonProps, inputProps, icons, labels } = COMPONENT_CONFIG;
   
   // 실제 데이터가 있으면 사용, 없으면 기본값 사용
   const currentData = diary || {
@@ -265,13 +255,13 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
       
       {/* retrospect-list: 1168 * auto */}
       <div className={styles.retrospectList}>
-        {mockRetrospects.map((retrospect, index) => (
-          <div key={retrospect.id}>
+        {retrospects.map((retrospect, index) => (
+          <div key={retrospect.id} data-testid="retrospect-item">
             <div className={styles.retrospectItem}>
-              <span className={styles.retrospectContent}>{retrospect.content}</span>
-              <span className={styles.retrospectDate}>[{retrospect.createdAt}]</span>
+              <span className={styles.retrospectContent} data-testid="retrospect-content">{retrospect.content}</span>
+              <span className={styles.retrospectDate} data-testid="retrospect-date">[{retrospect.createdAt}]</span>
             </div>
-            {index < mockRetrospects.length - 1 && <div className={styles.retrospectDivider}></div>}
+            {index < retrospects.length - 1 && <div className={styles.retrospectDivider}></div>}
           </div>
         ))}
       </div>
