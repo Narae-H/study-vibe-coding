@@ -1,30 +1,40 @@
-/* Pictures 컴포넌트 메인 컨테이너 - 1168px 고정 너비, 세로 레이아웃 */
+/* 
+ * Pictures 컴포넌트 메인 컨테이너 - 비율기반 반응형 디자인
+ * - 전체 가로: width 100%로 자동 축소
+ * - filter: 왼쪽 정렬 (max-width 없음)
+ * - main: 가운데 정렬 (max-width 있음)
+ * - 개별 아이템: 640x640px 고정값 유지
+ */
 .container {
   display: flex;
   flex-direction: column;
-  width: 1168px;
-  margin: 0 auto;
+  width: 100%;
+  align-items: flex-start;
 }
 
 /* 상단 여백 영역 - 32px 고정 높이 */
 .gapTop {
   display: flex;
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 32px;
   align-items: center;
   justify-content: center;
+  align-self: flex-start;
 }
 
-/* 필터 영역 - SelectBox 컴포넌트 배치 (48px 고정 높이) */
+/* 필터 영역 - SelectBox 컴포넌트 배치 (비율기반 반응형: 가로 100% 자동 축소, 높이 48px 고정, 왼쪽 정렬) */
 .filter {
   display: flex;
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 48px;
   align-items: center;
   justify-content: flex-start;
+  align-self: flex-start;
 }
 
-/* SelectBox 컴포넌트 너비 설정 - 피그마 디자인에 맞춰 120px */
+/* SelectBox 컴포넌트 너비 설정 - 피그마 디자인에 맞춰 120px 고정 */
 .filterSelect {
   width: 120px;
 }
@@ -32,38 +42,43 @@
 /* 중간 여백 영역 - 42px 고정 높이 */
 .gapMiddle {
   display: flex;
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 42px;
   align-items: center;
   justify-content: center;
+  align-self: center;
 }
 
-/* 메인 콘텐츠 영역 - 강아지 사진 그리드 컨테이너 */
+/* 메인 콘텐츠 영역 - 강아지 사진 그리드 컨테이너 (비율기반 반응형: 가로 100% 자동 축소, 가운데 정렬) */
 .main {
   display: flex;
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   justify-content: center;
+  align-self: center;
   flex-grow: 1;
 }
 
-/* 강아지 사진 그리드 레이아웃 - 세로 1열 배치, 20px 간격 */
+/* 강아지 사진 그리드 레이아웃 - 세로 1열 배치, 20px 간격 (비율기반 반응형: 가로 100% 자동 축소) */
 .imageGrid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
   width: 100%;
-  max-width: 640px;
+  justify-items: center;
 }
 
-/* 개별 이미지 아이템 컨테이너 - 동적 크기, 24px 라운드 코너 */
+/* 개별 이미지 아이템 컨테이너 - 고정 크기 640x640px, 24px 라운드 코너 */
 .imageItem {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 640px;
+  height: 640px;
   border-radius: 24px;
   overflow: hidden;
   background-color: var(--gray-10);
-  transition: width 0.3s ease, height 0.3s ease;
 }
 
 /* 강아지 이미지 스타일 - 컨테이너에 맞춰 크기 조정, object-fit cover */
@@ -77,22 +92,25 @@
 /* 하단 여백 영역 - 40px 고정 높이 */
 .gapBottom {
   display: flex;
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 40px;
   align-items: center;
   justify-content: center;
+  align-self: center;
 }
 
-/* 스플래시 스크린 - 로딩 중 표시되는 스켈레톤 */
+/* 스플래시 스크린 - 로딩 중 표시되는 스켈레톤, 고정 크기 640x640px */
 .splashScreen {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 640px;
+  height: 640px;
   border-radius: 24px;
   overflow: hidden;
   background-color: #d1d5db; /* 회색 배경 */
-  transition: width 0.3s ease, height 0.3s ease;
 }
 
 /* 스플래시 스크린 애니메이션 - 흰색 세로줄이 우측으로 30도 기울어져 이동 */
@@ -141,4 +159,16 @@
   font-size: 16px;
   font-weight: 500;
   text-align: center;
+}
+
+/* 반응형 디자인 - max-width보다 작아지는 경우 20px 패딩 추가 */
+@media (max-width: 1168px) {
+  .gapTop,
+  .filter,
+  .gapMiddle,
+  .main,
+  .gapBottom {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }

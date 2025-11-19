@@ -9,29 +9,31 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 /* 간격 영역들 - wireframe 요구사항에 따른 정확한 높이 */
 .gap32 {
-  width: 1168px;
+  width: 100%;
   height: 32px;
 }
 
 .gap42 {
-  width: 1168px;
+  width: 100%;
   height: 42px;
 }
 
 .gap40 {
-  width: 1168px;
+  width: 100%;
   height: 40px;
 }
 
-/* 검색 영역 - 48px 높이 */
+/* 검색 영역 - 48px 높이, 반응형 width: 100% */
 .search {
-  width: 1168px;
+  width: 100%;
   height: 48px;
   display: flex;
   align-items: center;
@@ -97,10 +99,9 @@
   margin-left: auto;
 }
 
-/* 메인 콘텐츠 영역 - 936px 높이 */
+/* 메인 콘텐츠 영역 - 반응형: 고정 높이 제거 */
 .main {
-  width: 1168px;
-  min-height: 936px;
+  width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -113,6 +114,31 @@
   gap: 24px;
   width: 100%;
   max-width: 1168px;
+}
+
+/* 반응형 디자인 - Main 영역: Grid Column 수 조절 */
+/* 3열 그리드: 870px (274*3 + 24*2) 이하 */
+@media (max-width: 1168px) {
+  .diaryGrid {
+    grid-template-columns: repeat(3, 274px);
+    max-width: 870px;
+  }
+}
+
+/* 2열 그리드: 572px (274*2 + 24*1) 이하 */
+@media (max-width: 870px) {
+  .diaryGrid {
+    grid-template-columns: repeat(2, 274px);
+    max-width: 572px;
+  }
+}
+
+/* 1열 그리드: 572px 이하 */
+@media (max-width: 572px) {
+  .diaryGrid {
+    grid-template-columns: repeat(1, 274px);
+    max-width: 274px;
+  }
 }
 
 /* 일기 카드 - 피그마 Frame 25/26/27/28 디자인 */
@@ -230,7 +256,7 @@
 
 /* 페이지네이션 영역 - 32px 높이 */
 .pagination {
-  width: 1168px;
+  width: 100%;
   height: 32px;
   display: flex;
   align-items: center;

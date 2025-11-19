@@ -8,9 +8,7 @@ import Pictures from '@/components/pictures';
  */
 const PicturesPage: React.FC = () => {
   return (
-    <div>
-      <Pictures />
-    </div>
+    <Pictures />
   );
 };
 

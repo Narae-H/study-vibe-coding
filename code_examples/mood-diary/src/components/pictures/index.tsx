@@ -37,7 +37,7 @@ const filterOptions: SelectOption[] = [
  */
 export const Pictures: React.FC = () => {
   // 필터 훅 사용
-  const { selectedFilter, imageSize, handleFilterChange } = useFilter();
+  const { selectedFilter, handleFilterChange } = useFilter();
   
   // 강아지 이미지 데이터 바인딩 훅 사용
   const { 
@@ -108,10 +108,6 @@ export const Pictures: React.FC = () => {
       <div 
         key={`splash-${index}`} 
         className={styles.splashScreen}
-        style={{
-          width: `${imageSize.width}px`,
-          height: `${imageSize.height}px`
-        }}
         data-testid="splash-screen"
       />
     ));
@@ -175,17 +171,13 @@ export const Pictures: React.FC = () => {
                 key={image.id} 
                 className={styles.imageItem}
                 ref={isSecondToLast ? lastImageRef : null}
-                style={{
-                  width: `${imageSize.width}px`,
-                  height: `${imageSize.height}px`
-                }}
                 data-testid="image-item"
               >
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  width={imageSize.width}
-                  height={imageSize.height}
+                  width={640}
+                  height={640}
                   className={styles.dogImage}
                   data-testid="dog-image"
                   unoptimized // 외부 이미지이므로 Next.js 최적화 비활성화
