@@ -1,22 +1,21 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 import { Selectbox, SelectOption } from '@/commons/components/selectbox';
 import { useDogImages } from './hooks/index.binding.hook';
+import { useFilter } from './hooks/index.filter.hook';
 import styles from './styles.module.css';
 
 /**
  * 필터 옵션 데이터
- * 강아지 사진 필터링을 위한 선택 옵션 배열
+ * 강아지 사진 크기 필터링을 위한 선택 옵션 배열
  */
 const filterOptions: SelectOption[] = [
-  { value: 'all', label: '전체' },
-  { value: 'happy', label: '행복한' },
-  { value: 'sad', label: '슬픈' },
-  { value: 'cute', label: '귀여운' },
-  { value: 'playful', label: '활발한' }
+  { value: 'default', label: '기본' },
+  { value: 'horizontal', label: '가로형' },
+  { value: 'vertical', label: '세로형' }
 ];
 
 /**
@@ -37,8 +36,8 @@ const filterOptions: SelectOption[] = [
  * @returns 강아지 사진 갤러리 컴포넌트
  */
 export const Pictures: React.FC = () => {
-  // 필터 상태 관리
-  const [selectedFilter, setSelectedFilter] = useState<string>('all');
+  // 필터 훅 사용
+  const { selectedFilter, imageSize, handleFilterChange } = useFilter();
   
   // 강아지 이미지 데이터 바인딩 훅 사용
   const { 
@@ -54,16 +53,6 @@ export const Pictures: React.FC = () => {
   // 무한 스크롤을 위한 Intersection Observer Refs
   const observerRef = useRef<IntersectionObserver | null>(null);
   const lastImageRef = useRef<HTMLDivElement | null>(null);
-
-  /**
-   * 필터 변경 핸들러
-   * 
-   * @param value - 선택된 필터 값
-   */
-  const handleFilterChange = (value: string): void => {
-    setSelectedFilter(value);
-    // TODO: 필터링 로직 구현
-  };
 
   /**
    * 무한 스크롤 구현 Effect
@@ -110,6 +99,7 @@ export const Pictures: React.FC = () => {
    * 스플래시 스크린 렌더링
    * 
    * 로딩 중 표시되는 6개의 스플래시 스크린을 렌더링합니다.
+   * 현재 선택된 필터의 이미지 크기에 맞춰 렌더링됩니다.
    * 
    * @returns 스플래시 스크린 배열
    */
@@ -118,6 +108,10 @@ export const Pictures: React.FC = () => {
       <div 
         key={`splash-${index}`} 
         className={styles.splashScreen}
+        style={{
+          width: `${imageSize.width}px`,
+          height: `${imageSize.height}px`
+        }}
         data-testid="splash-screen"
       />
     ));
@@ -155,6 +149,7 @@ export const Pictures: React.FC = () => {
           onChange={handleFilterChange}
           placeholder="기본"
           className={styles.filterSelect}
+          data-testid="filter-selectbox"
         />
       </div>
       
@@ -180,12 +175,17 @@ export const Pictures: React.FC = () => {
                 key={image.id} 
                 className={styles.imageItem}
                 ref={isSecondToLast ? lastImageRef : null}
+                style={{
+                  width: `${imageSize.width}px`,
+                  height: `${imageSize.height}px`
+                }}
+                data-testid="image-item"
               >
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  width={640}
-                  height={640}
+                  width={imageSize.width}
+                  height={imageSize.height}
                   className={styles.dogImage}
                   data-testid="dog-image"
                   unoptimized // 외부 이미지이므로 Next.js 최적화 비활성화

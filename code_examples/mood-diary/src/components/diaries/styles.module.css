@@ -59,10 +59,35 @@
   flex-shrink: 0;
 }
 
-/* 검색바 - 피그마 Frame 8: 고정 320px */
-.searchInput {
+/* 검색바 래퍼 - 검색바와 돋보기 버튼을 포함 */
+.searchbarWrapper {
+  position: relative;
   width: 320px;
   flex-shrink: 0;
+}
+
+/* 검색바 - 피그마 Frame 8: 고정 320px */
+.searchInput {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* 돋보기 버튼 - 검색바 내부 오른쪽에 위치 */
+.searchButton {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
 
 /* 일기쓰기 버튼 - 피그마 Frame 12 내 버튼: 110×48px, 오른쪽 정렬 */

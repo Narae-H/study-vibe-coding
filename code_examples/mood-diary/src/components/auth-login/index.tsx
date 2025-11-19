@@ -36,7 +36,7 @@ export const AuthLogin: React.FC = () => {
   } = useLoginForm();
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="login-container">
       <div className={styles.formWrapper}>
         {/* 헤더 섹션 - 제목과 부제목 */}
         <div className={styles.header}>

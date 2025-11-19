@@ -19,6 +19,10 @@ test.describe('DiariesNew Modal Close Hook', () => {
   };
 
   test.beforeEach(async ({ page }) => {
+    // 로그인 유저로 설정 (기본값)
+    await page.addInitScript(() => {
+      window.__TEST_BYPASS__ = true;
+    });
     // /diaries 페이지로 이동
     await page.goto('/diaries');
     // 페이지가 완전히 로드될 때까지 대기 (data-testid 기반)

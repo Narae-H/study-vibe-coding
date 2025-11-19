@@ -19,9 +19,12 @@ test.describe('Diaries Modal Link Hook', () => {
   test.describe('권한 분기 - 비로그인 유저', () => {
     test.beforeEach(async ({ page }) => {
       // 비로그인 유저를 시뮬레이션하기 위해 window.__TEST_BYPASS__를 false로 설정
-      await page.evaluate(() => {
+      await page.addInitScript(() => {
         window.__TEST_BYPASS__ = false;
       });
+      // 페이지 재로드하여 설정 적용
+      await page.goto('/diaries');
+      await waitForPageLoad(page);
     });
 
     test('일기쓰기 버튼 클릭 시 로그인요청모달이 노출되어야 한다', async ({ page }) => {
@@ -47,9 +50,12 @@ test.describe('Diaries Modal Link Hook', () => {
   test.describe('권한 분기 - 로그인 유저', () => {
     test.beforeEach(async ({ page }) => {
       // 로그인 유저를 시뮬레이션하기 위해 window.__TEST_BYPASS__를 true로 설정
-      await page.evaluate(() => {
+      await page.addInitScript(() => {
         window.__TEST_BYPASS__ = true;
       });
+      // 페이지 재로드하여 설정 적용
+      await page.goto('/diaries');
+      await waitForPageLoad(page);
     });
 
     test('일기쓰기 버튼 클릭 시 일기쓰기 페이지 모달이 노출되어야 한다', async ({ page }) => {
@@ -74,9 +80,12 @@ test.describe('Diaries Modal Link Hook', () => {
   test.describe('기본 모달 기능 (로그인 유저)', () => {
     test.beforeEach(async ({ page }) => {
       // 로그인 유저를 기본값으로 설정
-      await page.evaluate(() => {
+      await page.addInitScript(() => {
         window.__TEST_BYPASS__ = true;
       });
+      // 페이지 재로드하여 설정 적용
+      await page.goto('/diaries');
+      await waitForPageLoad(page);
     });
 
     test('일기쓰기 버튼 클릭시 모달이 열려야 한다', async ({ page }) => {

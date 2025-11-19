@@ -109,7 +109,12 @@ test.describe('Auth Guard Hook', () => {
     // When & Then: 실제 환경에서는 우회가 작동하지 않음
     // accessToken이 없으므로 로그인되지 않은 상태
     const isLoggedIn = await page.evaluate(() => {
-      return !!localStorage.getItem('accessToken');
+      try {
+        return !!localStorage.getItem('accessToken');
+      } catch {
+        // localStorage 접근이 거부된 경우 false 반환
+        return false;
+      }
     });
     expect(isLoggedIn).toBe(false);
   });

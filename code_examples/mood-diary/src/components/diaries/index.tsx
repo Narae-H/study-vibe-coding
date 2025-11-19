@@ -12,6 +12,7 @@ import { EMOTION_DATA } from '@/commons/constants/enum';
 import { useDiaryModalLink } from './hooks/index.link.modal.hook';
 import { useDiaryBinding, DiaryEntry } from './hooks/index.binding.hook';
 import { useDiaryLinkRouting } from './hooks/index.link.routing.hook';
+import { useDiarySearch } from './hooks/index.search.hook';
 import styles from './styles.module.css';
 
 /**
@@ -130,9 +131,17 @@ const Diaries = (): JSX.Element => {
   // 일기 데이터 바인딩 훅 사용
   const { diaries, loading, error, refresh } = useDiaryBinding();
   
-  // 검색 상태 관리
+  // 검색 훅 사용
+  const {
+    filteredDiaries,
+    searchQuery,
+    handleSearchChange,
+    handleSearch,
+    handleKeyPress
+  } = useDiarySearch(diaries);
+  
+  // 필터 상태 관리
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState<string>('');
   
   // 페이지네이션 상태 관리
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -144,14 +153,6 @@ const Diaries = (): JSX.Element => {
    */
   const handleFilterChange = (value: string) => {
     setSelectedFilter(value);
-  };
-
-  /**
-   * 검색어 변경 핸들러
-   * @param {React.ChangeEvent<HTMLInputElement>} event - 입력 이벤트
-   */
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
   };
 
   /**
@@ -193,15 +194,34 @@ const Diaries = (): JSX.Element => {
               className={styles.filterSelect}
             />
             
-            {/* 검색바 */}
-            <Searchbar
-              variant="primary"
-              size="medium"
-              theme="light"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className={styles.searchInput}
-            />
+            {/* 검색바 래퍼 */}
+            <div className={styles.searchbarWrapper}>
+              {/* 검색바 */}
+              <Searchbar
+                variant="primary"
+                size="medium"
+                theme="light"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                onKeyPress={handleKeyPress}
+                className={styles.searchInput}
+                data-testid="search-input"
+              />
+              {/* 돋보기 버튼 */}
+              <button
+                className={styles.searchButton}
+                onClick={handleSearch}
+                aria-label="검색"
+                data-testid="search-button"
+              >
+                <Image
+                  src="/icons/search_outline_light_m.svg"
+                  alt="search"
+                  width={24}
+                  height={24}
+                />
+              </button>
+            </div>
           </div>
           
           {/* 일기쓰기 버튼 */}
@@ -244,7 +264,7 @@ const Diaries = (): JSX.Element => {
               다시 시도
             </button>
           </div>
-        ) : diaries.length === 0 ? (
+        ) : filteredDiaries.length === 0 ? (
           // 빈 상태 표시
           <div className={styles.emptyContainer} data-testid="empty-container">
             <p>아직 작성한 일기가 없습니다.</p>
@@ -253,7 +273,7 @@ const Diaries = (): JSX.Element => {
         ) : (
           // 일기 데이터 표시
           <div className={styles.diaryGrid}>
-            {diaries.map((diary) => (
+            {filteredDiaries.map((diary) => (
               <DiaryCard key={diary.id} diary={diary} />
             ))}
           </div>

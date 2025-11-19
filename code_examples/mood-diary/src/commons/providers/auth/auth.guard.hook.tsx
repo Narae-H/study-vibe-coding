@@ -72,11 +72,11 @@ export const useAuthGuard = (): UseAuthGuardReturn => {
    * - window.__TEST_BYPASS__가 false면 검사 수행 (비로그인 유저)
    * - window.__TEST_BYPASS__가 undefined 또는 true면 검사 패스 (로그인 유저)
    */
-  const shouldBypassAuth = () => {
+  const shouldBypassAuth = useCallback(() => {
     if (typeof window === 'undefined') return false;
     if (!isTestEnv) return false; // 실제 환경에서는 항상 검사
     return window.__TEST_BYPASS__ !== false; // false가 아니면 우회 (기본값: 로그인 유저)
-  };
+  }, [isTestEnv]);
 
   /**
    * 로그인 모달 표시

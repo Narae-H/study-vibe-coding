@@ -55,16 +55,15 @@
   max-width: 640px;
 }
 
-/* 개별 이미지 아이템 컨테이너 - 640x640px, 24px 라운드 코너 */
+/* 개별 이미지 아이템 컨테이너 - 동적 크기, 24px 라운드 코너 */
 .imageItem {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 640px;
-  height: 640px;
   border-radius: 24px;
   overflow: hidden;
   background-color: var(--gray-10);
+  transition: width 0.3s ease, height 0.3s ease;
 }
 
 /* 강아지 이미지 스타일 - 컨테이너에 맞춰 크기 조정, object-fit cover */
@@ -90,11 +89,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 640px;
-  height: 640px;
   border-radius: 24px;
   overflow: hidden;
   background-color: #d1d5db; /* 회색 배경 */
+  transition: width 0.3s ease, height 0.3s ease;
 }
 
 /* 스플래시 스크린 애니메이션 - 흰색 세로줄이 우측으로 30도 기울어져 이동 */
@@ -133,7 +131,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 640px;
+  width: 100%;
+  max-width: 640px;
   min-height: 200px;
   padding: 40px;
   border-radius: 24px;

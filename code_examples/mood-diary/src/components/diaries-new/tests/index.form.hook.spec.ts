@@ -12,6 +12,10 @@ test.describe('DiariesNew Form Hook', () => {
   };
 
   test.beforeEach(async ({ page }) => {
+    // 로그인 유저로 설정 (기본값)
+    await page.addInitScript(() => {
+      window.__TEST_BYPASS__ = true;
+    });
     await page.goto('/diaries');
     await waitForPageLoad(page);
     // 각 테스트 시작 전 로컬스토리지 초기화

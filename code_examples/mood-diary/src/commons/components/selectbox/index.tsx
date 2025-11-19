@@ -64,6 +64,11 @@ export interface SelectboxProps {
    * 추가 CSS 클래스명
    */
   className?: string;
+  
+  /**
+   * 테스트용 data-testid
+   */
+  'data-testid'?: string;
 }
 
 /**
@@ -85,6 +90,7 @@ export const Selectbox: React.FC<SelectboxProps> = ({
   placeholder = '선택하세요',
   disabled = false,
   className,
+  'data-testid': dataTestId,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(controlledValue ?? defaultValue ?? '');
@@ -153,7 +159,7 @@ export const Selectbox: React.FC<SelectboxProps> = ({
   ].filter(Boolean).join(' ');
 
   return (
-    <div className={containerClasses} ref={containerRef}>
+    <div className={containerClasses} ref={containerRef} data-testid={dataTestId}>
       <button
         type="button"
         className={buttonClasses}
