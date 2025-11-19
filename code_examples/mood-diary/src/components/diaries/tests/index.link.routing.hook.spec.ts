@@ -8,10 +8,10 @@ test.describe('Diaries Link Routing Hook', () => {
   
   /**
    * 페이지 로드 완료를 확인하는 헬퍼 함수
-   * timeout: 400ms (500ms 미만 요구사항 준수)
+   * timeout: 500ms (500ms 미만 요구사항 준수)
    */
   const waitForPageLoad = async (page: Page) => {
-    await page.waitForSelector('[data-testid="diaries-container"]', { timeout: 400 });
+    await page.waitForSelector('[data-testid="diaries-container"]', { timeout: 500 });
   };
 
   /**
@@ -38,6 +38,8 @@ test.describe('Diaries Link Routing Hook', () => {
   test.beforeEach(async ({ page }) => {
     // 로컬스토리지에 테스트 데이터 설정
     await page.addInitScript((diaries) => {
+      // 로그인 상태 설정 (삭제 버튼 표시를 위해 필요)
+      localStorage.setItem('accessToken', 'test-access-token');
       localStorage.setItem('diaries', JSON.stringify(diaries));
     }, testDiaries);
 

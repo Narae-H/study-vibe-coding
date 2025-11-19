@@ -1,0 +1,168 @@
+/**
+ * DeleteModal Component Styles
+ * 
+ * Figma 디자인(노드ID: 62:2550)을 기반으로 한 일기 삭제 모달 스타일
+ */
+
+/* 모달 컨테이너 - Figma Frame 68 */
+.modal {
+  /* Layout - Figma: 480×200px */
+  width: 480px;
+  height: 200px;
+  
+  /* Background - Figma: #ffffff */
+  background-color: #ffffff;
+  
+  /* Border Radius - Figma: 24px */
+  border-radius: 24px;
+  
+  /* Flexbox Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  
+  /* Padding */
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* 텍스트 영역 - Figma Frame 69 */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+/* 제목 - Figma Text "일기 삭제" */
+.title {
+  /* Typography - Figma: Pretendard Variable, Bold, 700, 24px */
+  font-family: var(--typo-heading-01-family);
+  font-weight: var(--typo-heading-01-weight);
+  font-size: var(--typo-heading-01-size);
+  line-height: var(--typo-heading-01-height);
+  letter-spacing: -0.24px;
+  
+  /* Text Align */
+  text-align: center;
+  
+  /* Color - Figma: #000000 */
+  color: #000000;
+  
+  /* Reset */
+  margin: 0;
+}
+
+/* 설명 텍스트 - Figma Text "일기를 삭제 하시겠어요?" */
+.description {
+  /* Typography - Figma: Pretendard Variable, Medium, 500, 20px */
+  font-family: 'Pretendard Variable';
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  
+  /* Text Align */
+  text-align: center;
+  
+  /* Color - Figma: #333333 */
+  color: #333333;
+  
+  /* Reset */
+  margin: 0;
+}
+
+/* 버튼 영역 - Figma Frame "버튼 영역" */
+.buttonArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 21px;
+}
+
+/* 취소 버튼 - Figma Frame 버튼 (왼쪽) */
+.cancelButton {
+  /* Size - Figma: 104×48px */
+  width: 104px;
+  height: 48px;
+  
+  /* Background - Figma: #ffffff */
+  background-color: #ffffff;
+  
+  /* Border - Figma: 1px solid #000000 */
+  border: 1px solid #000000;
+  
+  /* Border Radius - Figma: 8px */
+  border-radius: 8px;
+  
+  /* Typography - Figma: Pretendard Variable, SemiBold, 600, 18px */
+  font-family: 'Pretendard Variable';
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  
+  /* Color - Figma: #1c1c1c */
+  color: #1c1c1c;
+  
+  /* Interaction */
+  cursor: pointer;
+  
+  /* Reset */
+  padding: 0;
+}
+
+/* 취소 버튼 호버 상태 */
+.cancelButton:hover {
+  background-color: #f2f2f2;
+}
+
+/* 취소 버튼 액티브 상태 */
+.cancelButton:active {
+  background-color: #e4e4e4;
+}
+
+/* 삭제 버튼 - Figma Frame 버튼 (오른쪽) */
+.deleteButton {
+  /* Size - Figma: 104×48px */
+  width: 104px;
+  height: 48px;
+  
+  /* Background - Figma: #000000 */
+  background-color: #000000;
+  
+  /* Border */
+  border: none;
+  
+  /* Border Radius - Figma: 8px */
+  border-radius: 8px;
+  
+  /* Typography - Figma: Pretendard Variable, SemiBold, 600, 18px */
+  font-family: 'Pretendard Variable';
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  
+  /* Color - Figma: #f2f2f2 */
+  color: #f2f2f2;
+  
+  /* Interaction */
+  cursor: pointer;
+  
+  /* Reset */
+  padding: 0;
+}
+
+/* 삭제 버튼 호버 상태 */
+.deleteButton:hover {
+  background-color: #1c1c1c;
+}
+
+/* 삭제 버튼 액티브 상태 */
+.deleteButton:active {
+  background-color: #333333;
+}
+

@@ -9,6 +9,9 @@ import { useBinding } from './hooks/index.binding.hook';
 import { useRetrospectForm } from './hooks/index.retrospect.form.hook';
 import { useRetrospectBinding } from './hooks/index.retrospect.binding.hook';
 import { useUpdate } from './hooks/index.update.hook';
+import { useDelete } from './hooks/index.delete.hook';
+import { useModal } from '@/commons/providers/modal/modal.provider';
+import { Modal } from '@/commons/components/modal';
 import styles from './styles.module.css';
 
 /**
@@ -118,6 +121,12 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
     watch: watchUpdate
   } = useUpdate(id, diary);
   
+  // 삭제 기능 훅
+  const { handleDeleteConfirm } = useDelete(id);
+  
+  // 모달 훅
+  const { openModal, closeModal } = useModal();
+  
   // 구조화된 데이터 사용
   const { buttonProps, inputProps, icons, labels } = COMPONENT_CONFIG;
   
@@ -160,8 +169,27 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
    * 삭제 버튼 핸들러
    */
   const handleDelete = () => {
-    // TODO: 삭제 확인 모달 표시
-    console.log('삭제 버튼 클릭');
+    // 삭제 확인 모달 열기
+    const modalId = openModal(
+      <div data-testid="delete-modal">
+        <h2 data-testid="delete-modal-title" style={{ display: 'none' }}>일기 삭제</h2>
+        <p data-testid="delete-modal-description" style={{ display: 'none' }}>일기를 삭제 하시겠어요?</p>
+        <Modal
+          variant="info"
+          actions="dual"
+          theme="light"
+          title="일기 삭제"
+          description="일기를 삭제 하시겠어요?"
+          primaryButtonText="삭제"
+          secondaryButtonText="취소"
+          onPrimaryClick={() => {
+            handleDeleteConfirm();
+            closeModal(modalId);
+          }}
+          onSecondaryClick={() => closeModal(modalId)}
+        />
+      </div>
+    );
   };
 
   return (
@@ -322,6 +350,7 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
               {...buttonProps.delete}
               onClick={handleDelete}
               className={styles.deleteButton}
+              data-testid="delete-button"
             >
               {labels.deleteButton}
             </Button>

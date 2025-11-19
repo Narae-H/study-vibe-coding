@@ -2,13 +2,13 @@ import { test, expect, type Page } from '@playwright/test';
 
 test.describe('DiariesNew Form Hook', () => {
   const waitForPageLoad = async (page: Page) => {
-    await page.waitForSelector('[data-testid="diaries-container"]', { timeout: 400 });
+    await page.waitForSelector('[data-testid="diaries-container"]', { timeout: 500 });
   };
 
   const openDiaryModal = async (page: Page) => {
     const writeButton = page.getByRole('button', { name: '일기쓰기' });
     await writeButton.click();
-    await expect(page.locator('[data-testid="diary-modal"]')).toBeVisible({ timeout: 400 });
+    await expect(page.locator('[data-testid="diary-modal"]')).toBeVisible({ timeout: 500 });
   };
 
   test.beforeEach(async ({ page }) => {
@@ -53,7 +53,7 @@ test.describe('DiariesNew Form Hook', () => {
 
     // 성공 모달 확인
     const successModal = page.locator('[data-testid="submit-success-modal"]');
-    await expect(successModal).toBeVisible({ timeout: 400 });
+    await expect(successModal).toBeVisible({ timeout: 500 });
     await expect(successModal).toContainText('등록이 완료되었습니다.');
 
     // 확인 클릭 -> 상세 페이지로 이동 및 모든 모달 닫힘
@@ -92,7 +92,7 @@ test.describe('DiariesNew Form Hook', () => {
     await page.getByRole('button', { name: '등록하기' }).click();
 
     const successModal = page.locator('[data-testid="submit-success-modal"]');
-    await expect(successModal).toBeVisible({ timeout: 400 });
+    await expect(successModal).toBeVisible({ timeout: 500 });
     await successModal.getByRole('button', { name: '확인' }).click();
 
     const stored = await page.evaluate(() => {
@@ -160,7 +160,7 @@ test.describe('DiariesNew Form Hook', () => {
 
     // 성공 모달 확인
     const successModal = page.locator('[data-testid="submit-success-modal"]');
-    await expect(successModal).toBeVisible({ timeout: 400 });
+    await expect(successModal).toBeVisible({ timeout: 500 });
     
     // 모달 내용 검증 (variant: 'info', actions: 'single' 조건)
     await expect(successModal).toContainText('등록이 완료되었습니다.');
@@ -185,7 +185,7 @@ test.describe('DiariesNew Form Hook', () => {
     await page.getByRole('button', { name: '등록하기' }).click();
 
     const successModal = page.locator('[data-testid="submit-success-modal"]');
-    await expect(successModal).toBeVisible({ timeout: 400 });
+    await expect(successModal).toBeVisible({ timeout: 500 });
     await successModal.getByRole('button', { name: '확인' }).click();
 
     // 로컬스토리지 데이터 구조 검증

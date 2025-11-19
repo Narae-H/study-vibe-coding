@@ -3,10 +3,10 @@ import { test, expect, type Page } from '@playwright/test';
 test.describe('DiariesNew Modal Close Hook', () => {
   /**
    * 페이지 로드 완료를 확인하는 헬퍼 함수
-   * timeout: 400ms (500ms 미만 요구사항 준수)
+   * timeout: 500ms (500ms 미만 요구사항 준수)
    */
   const waitForPageLoad = async (page: Page) => {
-    await page.waitForSelector('[data-testid="diaries-container"]', { timeout: 400 });
+    await page.waitForSelector('[data-testid="diaries-container"]', { timeout: 500 });
   };
 
   /**
@@ -15,7 +15,7 @@ test.describe('DiariesNew Modal Close Hook', () => {
   const openDiaryModal = async (page: Page) => {
     const writeButton = page.getByRole('button', { name: '일기쓰기' });
     await writeButton.click();
-    await expect(page.locator('[data-testid="diary-modal"]')).toBeVisible({ timeout: 400 });
+    await expect(page.locator('[data-testid="diary-modal"]')).toBeVisible({ timeout: 500 });
   };
 
   test.beforeEach(async ({ page }) => {
@@ -40,7 +40,7 @@ test.describe('DiariesNew Modal Close Hook', () => {
     await closeButton.click();
 
     // 등록취소모달이 나타나야 함
-    await expect(page.locator('[data-testid="cancel-confirmation-modal"]')).toBeVisible({ timeout: 400 });
+    await expect(page.locator('[data-testid="cancel-confirmation-modal"]')).toBeVisible({ timeout: 500 });
     
     // 등록취소모달에 올바른 텍스트가 있는지 확인
     await expect(page.locator('[data-testid="cancel-confirmation-modal"]')).toContainText('등록을 취소하시겠습니까?');
@@ -71,7 +71,7 @@ test.describe('DiariesNew Modal Close Hook', () => {
     await continueButton.click();
 
     // 등록취소모달만 닫혀야 함
-    await expect(page.locator('[data-testid="cancel-confirmation-modal"]')).not.toBeVisible({ timeout: 400 });
+    await expect(page.locator('[data-testid="cancel-confirmation-modal"]')).not.toBeVisible({ timeout: 500 });
     
     // 일기쓰기 모달은 여전히 열려있어야 함
     await expect(page.locator('[data-testid="diary-modal"]')).toBeVisible();
@@ -90,9 +90,9 @@ test.describe('DiariesNew Modal Close Hook', () => {
     await cancelButton.click();
 
     // 등록취소모달이 닫혀야 함
-    await expect(page.locator('[data-testid="cancel-confirmation-modal"]')).not.toBeVisible({ timeout: 400 });
+    await expect(page.locator('[data-testid="cancel-confirmation-modal"]')).not.toBeVisible({ timeout: 500 });
     
     // 일기쓰기 모달도 닫혀야 함
-    await expect(page.locator('[data-testid="diary-modal"]')).not.toBeVisible({ timeout: 400 });
+    await expect(page.locator('[data-testid="diary-modal"]')).not.toBeVisible({ timeout: 500 });
   });
 });

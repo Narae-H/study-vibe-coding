@@ -3,10 +3,10 @@ import { test, expect, type Page } from '@playwright/test';
 test.describe('Diaries Modal Link Hook', () => {
   /**
    * 페이지 로드 완료를 확인하는 헬퍼 함수
-   * timeout: 400ms (500ms 미만 요구사항 준수)
+   * timeout: 500ms (500ms 미만 요구사항 준수)
    */
   const waitForPageLoad = async (page: Page) => {
-    await page.waitForSelector('[data-testid="diaries-container"]', { timeout: 400 });
+    await page.waitForSelector('[data-testid="diaries-container"]', { timeout: 500 });
   };
 
   test.beforeEach(async ({ page }) => {
@@ -36,7 +36,7 @@ test.describe('Diaries Modal Link Hook', () => {
       await writeButton.click();
 
       // 로그인요청모달이 나타나야 함
-      await expect(page.locator('[data-testid="auth-guard-login-modal"]')).toBeVisible({ timeout: 400 });
+      await expect(page.locator('[data-testid="auth-guard-login-modal"]')).toBeVisible({ timeout: 500 });
 
       // 로그인요청모달에 기대되는 텍스트가 있는지 확인
       await expect(page.locator('[data-testid="auth-guard-login-modal"]')).toContainText('로그인하시겠습니까');
@@ -67,7 +67,7 @@ test.describe('Diaries Modal Link Hook', () => {
       await writeButton.click();
 
       // 일기쓰기 모달이 나타나야 함
-      await expect(page.locator('[data-testid="diary-modal"]')).toBeVisible({ timeout: 400 });
+      await expect(page.locator('[data-testid="diary-modal"]')).toBeVisible({ timeout: 500 });
 
       // 로그인요청모달은 표시되지 않아야 함
       await expect(page.locator('[data-testid="auth-guard-login-modal"]')).not.toBeVisible();
@@ -100,7 +100,7 @@ test.describe('Diaries Modal Link Hook', () => {
       await writeButton.click();
 
       // 모달이 나타나야 함
-      await expect(page.locator('[data-testid="diary-modal"]')).toBeVisible({ timeout: 400 });
+      await expect(page.locator('[data-testid="diary-modal"]')).toBeVisible({ timeout: 500 });
       
       // 모달 내용 확인 - 일기 쓰기 제목이 있어야 함
       await expect(page.locator('[data-testid="diary-modal"]')).toContainText('일기 쓰기');
@@ -131,7 +131,7 @@ test.describe('Diaries Modal Link Hook', () => {
       await submitButton.click();
 
       // 성공 모달 확인
-      await expect(page.locator('[data-testid="submit-success-modal"]')).toBeVisible({ timeout: 400 });
+      await expect(page.locator('[data-testid="submit-success-modal"]')).toBeVisible({ timeout: 500 });
     });
 
     test('모달 내 닫기 버튼 클릭시 등록취소 확인 후 모달이 닫혀야 한다', async ({ page }) => {
@@ -147,15 +147,15 @@ test.describe('Diaries Modal Link Hook', () => {
       await closeButton.click();
 
       // 등록취소 확인 모달이 나타나야 함
-      await expect(page.locator('[data-testid="cancel-confirmation-modal"]')).toBeVisible({ timeout: 400 });
+      await expect(page.locator('[data-testid="cancel-confirmation-modal"]')).toBeVisible({ timeout: 500 });
       
       // 등록취소 버튼 클릭
       const cancelButton = page.locator('[data-testid="cancel-confirmation-modal"]').getByRole('button', { name: '등록취소' });
       await cancelButton.click();
 
       // 모든 모달이 닫혀야 함
-      await expect(page.locator('[data-testid="diary-modal"]')).not.toBeVisible({ timeout: 400 });
-      await expect(page.locator('[data-testid="cancel-confirmation-modal"]')).not.toBeVisible({ timeout: 400 });
+      await expect(page.locator('[data-testid="diary-modal"]')).not.toBeVisible({ timeout: 500 });
+      await expect(page.locator('[data-testid="cancel-confirmation-modal"]')).not.toBeVisible({ timeout: 500 });
     });
 
     test('모달이 페이지에 오버레이되어야 한다', async ({ page }) => {

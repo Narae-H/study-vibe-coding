@@ -9,12 +9,14 @@ import { Button } from '@/commons/components/button';
 import { Pagination } from '@/commons/components/pagination';
 import { EMOTION_DATA } from '@/commons/constants/enum';
 
+import { useAuth } from '@/commons/providers/auth/auth.provider';
 import { useDiaryModalLink } from './hooks/index.link.modal.hook';
 import { useDiaryBinding, DiaryEntry } from './hooks/index.binding.hook';
 import { useDiaryLinkRouting } from './hooks/index.link.routing.hook';
 import { useDiarySearch } from './hooks/index.search.hook';
 import { useDiaryFilter } from './hooks/index.filter.hook';
 import { useDiaryPagination } from './hooks/index.pagination.hook';
+import { useDiaryDelete } from './hooks/index.delete.hook';
 import styles from './styles.module.css';
 
 /**
@@ -38,11 +40,21 @@ const filterOptions: SelectOption[] = [
  * 피그마 디자인에 따라 이미지, 감정, 날짜, 제목을 표시합니다.
  * 
  * @param diary - 일기 데이터
+ * @param isLoggedIn - 로그인 여부
+ * @param onDeleteClick - 삭제 버튼 클릭 핸들러
  * @returns 일기 카드 컴포넌트
  */
-const DiaryCard = ({ diary }: { diary: DiaryEntry }): JSX.Element => {
+const DiaryCard = ({ 
+  diary, 
+  isLoggedIn, 
+  onDeleteClick 
+}: { 
+  diary: DiaryEntry;
+  isLoggedIn: boolean;
+  onDeleteClick: (diaryId: number | string) => void;
+}): JSX.Element => {
   const emotionData = EMOTION_DATA[diary.emotion];
-  const { handleDiaryCardClick, handleDeleteButtonClick } = useDiaryLinkRouting();
+  const { handleDiaryCardClick } = useDiaryLinkRouting();
 
   /**
    * 일기 카드 클릭 핸들러
@@ -57,7 +69,8 @@ const DiaryCard = ({ diary }: { diary: DiaryEntry }): JSX.Element => {
    * @param e - 마우스 클릭 이벤트 (카드 클릭 이벤트 전파 방지)
    */
   const handleDeleteClick = (e: React.MouseEvent) => {
-    handleDeleteButtonClick(e, diary.id);
+    e.stopPropagation(); // 카드 클릭 이벤트 방지
+    onDeleteClick(diary.id);
   };
 
   return (
@@ -68,22 +81,24 @@ const DiaryCard = ({ diary }: { diary: DiaryEntry }): JSX.Element => {
     >
       {/* 이미지 영역 */}
       <div className={styles.imageContainer}>
-        {/* 삭제 버튼 - 이미지 위에 겹침 */}
-        <div className={styles.deleteButtonWrapper}>
-          <button 
-            className={styles.deleteButton}
-            onClick={handleDeleteClick}
-            aria-label="일기 삭제"
-            data-testid="diary-delete-button"
-          >
-            <Image
-              src="/icons/close_outline_light_m.svg"
-              alt="삭제"
-              width={24}
-              height={24}
-            />
-          </button>
-        </div>
+        {/* 삭제 버튼 - 로그인 유저에게만 표시 */}
+        {isLoggedIn && (
+          <div className={styles.deleteButtonWrapper}>
+            <button 
+              className={styles.deleteButton}
+              onClick={handleDeleteClick}
+              aria-label="일기 삭제"
+              data-testid="diary-delete-button"
+            >
+              <Image
+                src="/icons/close_outline_light_m.svg"
+                alt="삭제"
+                width={24}
+                height={24}
+              />
+            </button>
+          </div>
+        )}
         {/* 일기 이미지 */}
         <Image
           src={diary.image}
@@ -127,8 +142,14 @@ const DiaryCard = ({ diary }: { diary: DiaryEntry }): JSX.Element => {
  * @returns 일기 목록 와이어프레임 컴포넌트
  */
 const Diaries = (): JSX.Element => {
+  // 인증 상태 확인
+  const { isLoggedIn } = useAuth();
+  
   // 모달 훅 사용
   const { openDiaryModal } = useDiaryModalLink();
+  
+  // 일기 삭제 훅 사용
+  const { openDeleteModal } = useDiaryDelete();
   
   // 일기 데이터 바인딩 훅 사용
   const { diaries, loading, error, refresh } = useDiaryBinding();
@@ -267,7 +288,12 @@ const Diaries = (): JSX.Element => {
           // 일기 데이터 표시
           <div className={styles.diaryGrid}>
             {paginatedDiaries.map((diary) => (
-              <DiaryCard key={diary.id} diary={diary} />
+              <DiaryCard 
+                key={diary.id} 
+                diary={diary} 
+                isLoggedIn={isLoggedIn}
+                onDeleteClick={openDeleteModal}
+              />
             ))}
           </div>
         )}
