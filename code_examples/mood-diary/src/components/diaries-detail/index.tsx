@@ -8,6 +8,7 @@ import { EmotionType, EMOTION_DATA } from '@/commons/constants/enum';
 import { useBinding } from './hooks/index.binding.hook';
 import { useRetrospectForm } from './hooks/index.retrospect.form.hook';
 import { useRetrospectBinding } from './hooks/index.retrospect.binding.hook';
+import { useUpdate } from './hooks/index.update.hook';
 import styles from './styles.module.css';
 
 /**
@@ -96,10 +97,26 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
   const { diary } = useBinding(id);
   
   // 회고 폼 훅
-  const { register, handleSubmit, isValid, watch } = useRetrospectForm(id);
+  const { 
+    register: registerRetrospect, 
+    handleSubmit: handleRetrospectSubmit, 
+    isValid: isRetrospectValid, 
+    watch: watchRetrospect 
+  } = useRetrospectForm(id);
   
   // 회고 목록 바인딩
   const { retrospects } = useRetrospectBinding(id);
+  
+  // 수정 기능 훅
+  const {
+    isEditMode,
+    startEdit,
+    cancelEdit,
+    register: registerUpdate,
+    handleSubmit: handleUpdateSubmit,
+    isValid: isUpdateValid,
+    watch: watchUpdate
+  } = useUpdate(id, diary);
   
   // 구조화된 데이터 사용
   const { buttonProps, inputProps, icons, labels } = COMPONENT_CONFIG;
@@ -116,7 +133,11 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
   const emotionData = EMOTION_DATA[currentData.emotion];
   
   // 회고 입력 상태 관리 (watch를 통해 실시간 값 확인)
-  const retrospectInput = watch('content') || '';
+  const retrospectInput = watchRetrospect('content') || '';
+  
+  // 수정 폼 데이터 상태 관리
+  const updateTitle = watchUpdate('title') || '';
+  const updateContent = watchUpdate('content') || '';
 
   /**
    * 내용 복사 핸들러
@@ -132,8 +153,7 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
    * 수정 버튼 핸들러
    */
   const handleEdit = () => {
-    // TODO: 수정 페이지로 이동
-    console.log('수정 버튼 클릭');
+    startEdit();
   };
 
   /**
@@ -149,8 +169,92 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
       {/* 64px gap */}
       <div className={styles.gap64}></div>
       
-      {/* Frame 79 - 전체 일기 상세 영역 */}
-      <div className={styles.diaryDetailWrapper}>
+      {/* 수정 모드일 때 수정 UI 표시 (Figma 3:1224) */}
+      {isEditMode && (
+        <form className={styles.editModeContainer} onSubmit={handleUpdateSubmit} data-testid="edit-mode-container">
+          {/* 기분 선택 영역 */}
+          <div className={styles.emotionSelectionArea}>
+            <h2 className={styles.emotionSelectionLabel}>오늘 기분은 어땟나요?</h2>
+            <div className={styles.emotionRadioGroup} data-testid="emotion-radio-group">
+              {Object.values(EmotionType).map((emotionType) => {
+                const emotion = EMOTION_DATA[emotionType];
+                return (
+                  <label key={emotionType} className={styles.radioLabel}>
+                    <input
+                      type="radio"
+                      value={emotionType}
+                      {...registerUpdate('emotion')}
+                      className={styles.radioInput}
+                      data-testid={`emotion-radio-${emotionType}`}
+                    />
+                    <span className={styles.radioText}>{emotion.label}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 24px gap */}
+          <div className={styles.gap24}></div>
+
+          {/* 제목 입력 */}
+          <div className={styles.editFieldWrapper}>
+            <label className={styles.editFieldLabel}>제목</label>
+            <input
+              type="text"
+              {...registerUpdate('title')}
+              className={styles.editTitleInput}
+              data-testid="edit-title-input"
+            />
+          </div>
+
+          {/* 24px gap */}
+          <div className={styles.gap24}></div>
+
+          {/* 내용 입력 */}
+          <div className={styles.editFieldWrapper}>
+            <label className={styles.editFieldLabel}>내용</label>
+            <textarea
+              {...registerUpdate('content')}
+              className={styles.editContentTextarea}
+              data-testid="edit-content-textarea"
+            />
+          </div>
+
+          {/* 24px gap */}
+          <div className={styles.gap24}></div>
+
+          {/* 버튼 영역 */}
+          <div className={styles.editButtonArea}>
+            <Button
+              variant="secondary"
+              size="large"
+              theme="light"
+              type="button"
+              onClick={cancelEdit}
+              className={styles.cancelButton}
+              data-testid="cancel-button"
+            >
+              취소
+            </Button>
+            <Button
+              variant="primary"
+              size="large"
+              theme="light"
+              type="submit"
+              disabled={!isUpdateValid || !updateTitle.trim() || !updateContent.trim()}
+              className={styles.updateButton}
+              data-testid="update-button"
+            >
+              수정 하기
+            </Button>
+          </div>
+        </form>
+      )}
+
+      {/* 일반 모드일 때 일기 상세 영역 (Figma 3:1124) */}
+      {!isEditMode && (
+        <div className={styles.diaryDetailWrapper}>
         {/* detail-title: 1168 * 84 */}
         <div className={styles.detailTitle}>
           <div className={styles.titleSection}>
@@ -210,6 +314,7 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
               {...buttonProps.edit}
               onClick={handleEdit}
               className={styles.editButton}
+              data-testid="edit-button"
             >
               {labels.editButton}
             </Button>
@@ -222,31 +327,54 @@ const DiariesDetail: React.FC<DiariesDetailProps> = ({ id }) => {
             </Button>
           </div>
         </div>
-      </div>
+        </div>
+      )}
       
       {/* 24px gap */}
       <div className={styles.gap24}></div>
       
-      {/* retrospect-input: 1168 * 85 */}
-      <form className={styles.retrospectInput} onSubmit={handleSubmit}>
+      {/* retrospect-input: 1168 * 85 - 수정중일 때 비활성화 (Figma 3:1249) */}
+      <form className={styles.retrospectInput} onSubmit={handleRetrospectSubmit}>
         <h2 className={styles.retrospectLabel}>{labels.retrospectLabel}</h2>
         <div className={styles.retrospectInputArea}>
-          <Input
-            {...inputProps.retrospect}
-            {...register('content')}
-            placeholder={labels.retrospectPlaceholder}
-            className={styles.retrospectInputField}
-            data-testid="retrospect-input"
-          />
-          <Button
-            {...buttonProps.retrospectSubmit}
-            type="submit"
-            disabled={!isValid || !retrospectInput.trim()}
-            className={styles.retrospectSubmitButton}
-            data-testid="retrospect-submit-button"
-          >
-            {labels.retrospectSubmit}
-          </Button>
+          {isEditMode ? (
+            <>
+              {/* 수정중일 때 비활성화된 입력창 */}
+              <div className={styles.retrospectDisabledInput}>
+                <span className={styles.retrospectDisabledMessage} data-testid="retrospect-disabled-message">
+                  수정중일땐 회고를 작성할 수 없어요.
+                </span>
+              </div>
+              <Button
+                {...buttonProps.retrospectSubmit}
+                type="button"
+                disabled={true}
+                className={styles.retrospectSubmitButton}
+                data-testid="retrospect-submit-button"
+              >
+                {labels.retrospectSubmit}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Input
+                {...inputProps.retrospect}
+                {...registerRetrospect('content')}
+                placeholder={labels.retrospectPlaceholder}
+                className={styles.retrospectInputField}
+                data-testid="retrospect-input"
+              />
+              <Button
+                {...buttonProps.retrospectSubmit}
+                type="submit"
+                disabled={!isRetrospectValid || !retrospectInput.trim()}
+                className={styles.retrospectSubmitButton}
+                data-testid="retrospect-submit-button"
+              >
+                {labels.retrospectSubmit}
+              </Button>
+            </>
+          )}
         </div>
       </form>
       

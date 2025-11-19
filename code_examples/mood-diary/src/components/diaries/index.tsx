@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 
 import { Selectbox, SelectOption } from '@/commons/components/selectbox';
@@ -14,6 +14,7 @@ import { useDiaryBinding, DiaryEntry } from './hooks/index.binding.hook';
 import { useDiaryLinkRouting } from './hooks/index.link.routing.hook';
 import { useDiarySearch } from './hooks/index.search.hook';
 import { useDiaryFilter } from './hooks/index.filter.hook';
+import { useDiaryPagination } from './hooks/index.pagination.hook';
 import styles from './styles.module.css';
 
 /**
@@ -148,9 +149,13 @@ const Diaries = (): JSX.Element => {
     handleFilterChange
   } = useDiaryFilter(searchedDiaries);
   
-  // 페이지네이션 상태 관리
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const totalPages = 5;
+  // 페이지네이션 훅 사용 - 필터링된 결과를 페이지 단위로 분할
+  const {
+    paginatedDiaries,
+    currentPage,
+    totalPages,
+    handlePageChange
+  } = useDiaryPagination(filteredDiaries);
 
   /**
    * 일기쓰기 버튼 클릭 핸들러
@@ -158,16 +163,6 @@ const Diaries = (): JSX.Element => {
    */
   const handleWriteDiary = () => {
     openDiaryModal();
-  };
-
-  /**
-   * 페이지 변경 핸들러
-   * @param page - 변경될 페이지 번호
-   */
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    // TODO: 페이지에 따른 일기 목록 데이터 로딩
-    console.log('페이지 변경:', page);
   };
 
   return (
@@ -262,7 +257,7 @@ const Diaries = (): JSX.Element => {
               다시 시도
             </button>
           </div>
-        ) : filteredDiaries.length === 0 ? (
+        ) : paginatedDiaries.length === 0 ? (
           // 빈 상태 표시
           <div className={styles.emptyContainer} data-testid="empty-container">
             <p>아직 작성한 일기가 없습니다.</p>
@@ -271,7 +266,7 @@ const Diaries = (): JSX.Element => {
         ) : (
           // 일기 데이터 표시
           <div className={styles.diaryGrid}>
-            {filteredDiaries.map((diary) => (
+            {paginatedDiaries.map((diary) => (
               <DiaryCard key={diary.id} diary={diary} />
             ))}
           </div>
