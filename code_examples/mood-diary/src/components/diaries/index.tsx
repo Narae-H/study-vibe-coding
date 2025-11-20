@@ -90,16 +90,18 @@ const DiaryCard = ({
               aria-label="일기 삭제"
               data-testid="diary-delete-button"
             >
+              {/* 767px 이하: 20×20, 초과: 24×24 */}
               <Image
                 src="/icons/close_outline_light_m.svg"
                 alt="삭제"
                 width={24}
                 height={24}
+                className={styles.deleteIcon}
               />
             </button>
           </div>
         )}
-        {/* 일기 이미지 */}
+        {/* 일기 이미지 - 767px 이하: 152×116, 초과: 274×208 */}
         <Image
           src={diary.image}
           alt={diary.title}
@@ -107,6 +109,7 @@ const DiaryCard = ({
           height={208}
           className={styles.diaryImage}
           data-testid="diary-image"
+          sizes="(max-width: 767px) 152px, 274px"
         />
       </div>
 

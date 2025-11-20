@@ -31,44 +31,48 @@
   height: 40px;
 }
 
-/* 검색 영역 - 48px 높이, 반응형 width: 100% */
+/* 검색 영역 - 반응형 높이 */
 .search {
   width: 100%;
-  height: 48px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
-/* 검색 영역 내부 컨텐츠 */
+/* 검색 영역 내부 컨텐츠 - 데스크톱: 가로 배치, 모바일: 세로 배치 */
 .searchContent {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
   width: 100%;
+  max-width: 1168px;
 }
 
-/* SelectBox와 SearchBar 묶음 그룹 */
+/* SelectBox와 SearchBar 묶음 그룹 - 데스크톱: 가로 배치, 모바일: 세로 배치 */
 .searchGroup {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
+  flex: 1;
+  min-width: 0;
 }
 
-/* 필터 선택박스 - 피그마 Frame 12 내 드롭다운: 120×48px */
+/* 필터 선택박스 - 데스크톱: 120×48px, 모바일: 102×40px */
 .filterSelect {
   width: 120px;
   flex-shrink: 0;
 }
 
-/* 검색바 래퍼 - 검색바와 돋보기 버튼을 포함 */
+/* 검색바 래퍼 - 검색바와 돋보기 버튼을 포함, 데스크톱: 320px, 모바일: 100% */
 .searchbarWrapper {
   position: relative;
   width: 320px;
   flex-shrink: 0;
 }
 
-/* 검색바 - 피그마 Frame 8: 고정 320px */
+/* 검색바 */
 .searchInput {
   width: 100%;
   flex-shrink: 0;
@@ -92,11 +96,46 @@
   z-index: 1;
 }
 
-/* 일기쓰기 버튼 - 피그마 Frame 12 내 버튼: 110×48px, 오른쪽 정렬 */
+/* 일기쓰기 버튼 - 데스크톱: 110×48px, 모바일: 103×40px */
 .writeButton {
   width: 110px;
   flex-shrink: 0;
   margin-left: auto;
+}
+
+/* 767px 브레이크포인트: 모바일 스타일로 전환 */
+@media (max-width: 767px) {
+  .searchContent {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 auto;
+  }
+  
+  .searchGroup {
+    display: contents; /* 그룹 컨테이너 제거하고 자식들을 직접 searchContent에 배치 */
+  }
+  
+  /* 모바일: 검색바를 첫번째로 배치하고 전체 너비 차지 */
+  .searchbarWrapper {
+    width: 100%;
+    flex-basis: 100%;
+    order: -1;
+  }
+  
+  /* 모바일: 필터 선택박스 크기 조정 */
+  .filterSelect {
+    width: 102px;
+    flex-shrink: 0;
+    order: 0;
+  }
+  
+  /* 모바일: 일기쓰기 버튼 크기 조정 */
+  .writeButton {
+    width: 103px;
+    flex-shrink: 0;
+    margin-left: auto;
+    order: 0;
+  }
 }
 
 /* 메인 콘텐츠 영역 - 반응형: 고정 높이 제거 */
@@ -125,19 +164,28 @@
   }
 }
 
-/* 2열 그리드: 572px (274*2 + 24*1) 이하 */
-@media (max-width: 870px) {
+/* 767px 브레이크포인트: 2열 그리드 (152px × 2 + 16px gap = 320px) */
+@media (max-width: 767px) {
+  .diaryGrid {
+    grid-template-columns: repeat(2, 152px);
+    gap: 16px;
+    max-width: 320px;
+  }
+}
+
+/* 2열 그리드: 572px (274*2 + 24*1) 이하 - 767px 초과에만 적용 */
+@media (min-width: 768px) and (max-width: 870px) {
   .diaryGrid {
     grid-template-columns: repeat(2, 274px);
     max-width: 572px;
   }
 }
 
-/* 1열 그리드: 572px 이하 */
-@media (max-width: 572px) {
+/* 1열 그리드: 360px 이하 */
+@media (max-width: 360px) {
   .diaryGrid {
-    grid-template-columns: repeat(1, 274px);
-    max-width: 274px;
+    grid-template-columns: repeat(1, 152px);
+    max-width: 152px;
   }
 }
 
@@ -151,6 +199,14 @@
   cursor: pointer;
 }
 
+/* 767px 브레이크포인트: 카드 크기 변경 */
+@media (max-width: 767px) {
+  .diaryCard {
+    width: 152px;
+    height: 192px;
+  }
+}
+
 /* 이미지 컨테이너 - 피그마 Frame 47/46/45/41 */
 .imageContainer {
   width: 274px;
@@ -162,6 +218,14 @@
   grid-template-rows: 1fr;
 }
 
+/* 767px 브레이크포인트: 이미지 컨테이너 크기 변경 */
+@media (max-width: 767px) {
+  .imageContainer {
+    width: 152px;
+    height: 116px;
+  }
+}
+
 /* 삭제 버튼 래퍼 - 이미지 위에 겹침 (Figma: 오른쪽 상단 12px) */
 .deleteButtonWrapper {
   grid-column: 1;
@@ -171,6 +235,13 @@
   align-items: flex-start;
   padding: 12px;
   z-index: 2;
+}
+
+/* 767px 브레이크포인트: 삭제 버튼 래퍼 패딩 조정 */
+@media (max-width: 767px) {
+  .deleteButtonWrapper {
+    padding: 8px;
+  }
 }
 
 /* 일기 이미지 */
@@ -196,6 +267,20 @@
   cursor: pointer;
 }
 
+/* 767px 브레이크포인트: 삭제 버튼 크기 조정 */
+@media (max-width: 767px) {
+  .deleteButton {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* 삭제 아이콘 - 반응형 크기 조정 */
+.deleteIcon {
+  width: 100%;
+  height: 100%;
+}
+
 /* 카드 콘텐츠 영역 - 피그마 Frame 26 */
 .cardContent {
   padding: 16px 8px;
@@ -203,6 +288,15 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* 767px 브레이크포인트: 콘텐츠 영역 높이 변경 */
+@media (max-width: 767px) {
+  .cardContent {
+    padding: 8px;
+    height: 60px;
+    gap: 4px;
+  }
 }
 
 /* 메타 정보 (감정 + 날짜) - 피그마 Frame 27 */
@@ -213,6 +307,13 @@
   height: 24px;
 }
 
+/* 767px 브레이크포인트: 메타 정보 높이 조정 */
+@media (max-width: 767px) {
+  .metaInfo {
+    height: 16px;
+  }
+}
+
 /* 감정 텍스트 - 피그마 감정별 컬러 적용 */
 .emotionText {
   font-family: var(--typo-subtitle-01-family);
@@ -220,6 +321,17 @@
   font-size: var(--typo-subtitle-01-size);
   line-height: var(--typo-subtitle-01-height);
   letter-spacing: -0.14px;
+}
+
+/* 767px 브레이크포인트: 감정 텍스트 폰트 크기 조정 */
+@media (max-width: 767px) {
+  .emotionText {
+    font-family: var(--typo-body-02-s-family);
+    font-weight: var(--typo-body-02-s-weight);
+    font-size: var(--typo-body-02-s-size);
+    line-height: var(--typo-body-02-s-height);
+    letter-spacing: -0.12px;
+  }
 }
 
 /* 날짜 텍스트 - 피그마 "2024. 03. 12" */
@@ -232,11 +344,25 @@
   color: var(--text-secondary);
 }
 
+/* 767px 브레이크포인트: 날짜 텍스트 조정 */
+@media (max-width: 767px) {
+  .dateText {
+    letter-spacing: -0.12px;
+  }
+}
+
 /* 제목 컨테이너 - 피그마 Frame 24 */
 .titleContainer {
   height: 24px;
   display: flex;
   align-items: center;
+}
+
+/* 767px 브레이크포인트: 제목 컨테이너 높이 조정 */
+@media (max-width: 767px) {
+  .titleContainer {
+    height: 24px;
+  }
 }
 
 /* 카드 제목 - 피그마 타이틀 텍스트 */
@@ -252,6 +378,17 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
+}
+
+/* 767px 브레이크포인트: 카드 제목 폰트 크기 조정 */
+@media (max-width: 767px) {
+  .cardTitle {
+    font-family: var(--typo-subtitle-01-family);
+    font-weight: var(--typo-subtitle-01-weight);
+    font-size: var(--typo-subtitle-01-size);
+    line-height: var(--typo-subtitle-01-height);
+    letter-spacing: -0.14px;
+  }
 }
 
 /* 페이지네이션 영역 - 32px 높이 */

@@ -154,7 +154,7 @@ export const Pictures: React.FC = () => {
       
       {/* Main */}
       <div className={styles.main}>
-        <div className={styles.imageGrid}>
+        <div className={`${styles.imageGrid} ${styles[selectedFilter]}`}>
           {/* 에러 상태 */}
           {isError && renderError()}
           

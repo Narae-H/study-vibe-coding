@@ -50,10 +50,10 @@ const DiariesNew: React.FC = () => {
         <h1 className={styles.headerTitle}>일기 쓰기</h1>
       </div>
 
-      {/* gap: full * 40 */}
-      <div className={styles.gap40}></div>
+      {/* gap: full * 24 (피그마: header와 emotion-box 사이) */}
+      <div className={styles.gap24}></div>
 
-      {/* emotion-box: full * 64 */}
+      {/* emotion-box: full * 204 (피그마: 기분 선택 영역) */}
       <div className={styles.emotionBox}>
         <h2 className={styles.emotionTitle}>오늘 기분은 어땠나요?</h2>
         <div className={styles.emotionRadioGroup}>
@@ -76,10 +76,10 @@ const DiariesNew: React.FC = () => {
         </div>
       </div>
 
-      {/* gap: full * 40 */}
-      <div className={styles.gap40}></div>
+      {/* gap: full * 24 (피그마: emotion-box와 텍스트 영역 사이) */}
+      <div className={styles.gap24}></div>
 
-      {/* input-title: full * 76 */}
+      {/* input-title: full * 64 (피그마: Frame 64) */}
       <div className={styles.inputTitle}>
         <label className={styles.inputLabel}>제목</label>
         <Input
@@ -91,10 +91,10 @@ const DiariesNew: React.FC = () => {
         />
       </div>
 
-      {/* gap: full * 24 */}
-      <div className={styles.gap24}></div>
+      {/* gap: full * 16 (피그마: Frame 64와 Frame 65 사이) */}
+      <div className={styles.gap16}></div>
 
-      {/* input-content: full * 156 */}
+      {/* input-content: full * 152 (피그마: Frame 65) */}
       <div className={styles.inputContent}>
         <label className={styles.inputLabel}>내용</label>
         <textarea
@@ -104,10 +104,10 @@ const DiariesNew: React.FC = () => {
         />
       </div>
 
-      {/* gap: full * 40 */}
-      <div className={styles.gap40}></div>
+      {/* gap: full * 24 (피그마: 텍스트 영역과 버튼 영역 사이) */}
+      <div className={styles.gap24}></div>
 
-      {/* footer: full * 48 */}
+      {/* footer: full * 40 (피그마: 버튼 영역) */}
       <div className={styles.footer}>
         <Button
           variant="secondary"
